@@ -27,7 +27,7 @@ public class LoginController {
         User user = userRepository.findUserByUsername(username);
 
         if(user != null && user.getPassword().equals(password)) {
-            String pathOnServer = "/user/" + user.getUuid();
+            String pathOnServer = "/user/" + user.getId();
             return ResponseEntity.ok()
                     .header("Path", pathOnServer)
                     .body("Successful login.");
