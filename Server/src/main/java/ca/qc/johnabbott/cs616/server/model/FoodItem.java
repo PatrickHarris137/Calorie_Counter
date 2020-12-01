@@ -41,6 +41,75 @@ public class FoodItem {
     @OneToMany(mappedBy = "foodItem")
     List<UserFoodItem> userFoodItems;
 
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getServingSize() {
+        return servingSize;
+    }
+
+    public void setServingSize(int servingSize) {
+        this.servingSize = servingSize;
+    }
+
+    public int getCalories() {
+        return calories;
+    }
+
+    public void setCalories(int calories) {
+        this.calories = calories;
+    }
+
+    public MacroNutrient getMacroNutrient() {
+        return macroNutrient;
+    }
+
+    public void setMacroNutrient(MacroNutrient macroNutrient) {
+        this.macroNutrient = macroNutrient;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public List<UserDailyConsumption> getUserDailyConsumptions() {
+        return userDailyConsumptions;
+    }
+
+    public void setUserDailyConsumptions(List<UserDailyConsumption> userDailyConsumptions) {
+        this.userDailyConsumptions = userDailyConsumptions;
+    }
+
+    public List<UserFoodItem> getUserFoodItems() {
+        return userFoodItems;
+    }
+
+    public void setUserFoodItems(List<UserFoodItem> userFoodItems) {
+        this.userFoodItems = userFoodItems;
+    }
 }

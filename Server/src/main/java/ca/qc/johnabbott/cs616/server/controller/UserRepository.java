@@ -10,7 +10,6 @@ import org.springframework.data.rest.core.config.Projection;
 public interface UserRepository extends CrudRepository<User, Long> {
 
     User findUserByUsername(@Param(value = "username") String username);
-    User findUserByEmail(@Param(value = "email") String email);
 
     /**
      * Hides password from embedded views.
