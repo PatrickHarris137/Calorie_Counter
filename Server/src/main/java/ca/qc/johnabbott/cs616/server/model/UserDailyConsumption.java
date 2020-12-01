@@ -24,6 +24,14 @@ public class UserDailyConsumption {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
+    @ManyToMany
+    @JoinTable(
+            name = "userfooditem",
+            joinColumns = @JoinColumn(name = "userdailyconsumption"),
+            inverseJoinColumns = @JoinColumn(name = "fooditem")
+    )
+    private List<FoodItem> foodItems;
+
     public long getId() {
         return id;
     }

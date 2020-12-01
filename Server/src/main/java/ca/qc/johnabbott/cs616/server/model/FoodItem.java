@@ -35,7 +35,7 @@ public class FoodItem {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @ManyToMany(mappedBy = "TODO")
+    @ManyToMany(mappedBy = "foodItems")
     private List<UserDailyConsumption> userDailyConsumptions;
 
     @OneToMany(mappedBy = "foodItem")
