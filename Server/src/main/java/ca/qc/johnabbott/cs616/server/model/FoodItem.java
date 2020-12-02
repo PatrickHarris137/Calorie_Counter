@@ -18,9 +18,6 @@ public class FoodItem {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name="type")
-    private String type;
-
     @Column(name = "servingsize")
     private int servingSize;
 
@@ -55,14 +52,6 @@ public class FoodItem {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public int getServingSize() {
