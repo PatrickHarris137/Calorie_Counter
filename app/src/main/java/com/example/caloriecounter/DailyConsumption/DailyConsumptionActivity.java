@@ -1,10 +1,14 @@
 package com.example.caloriecounter.DailyConsumption;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.caloriecounter.FoodDisplay.FoodDisplayActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -21,13 +25,27 @@ public class DailyConsumptionActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton addFood_FAB = findViewById(R.id.addFood_FAB);
+        FloatingActionButton dailyFoodReturn=findViewById(R.id.dailyFoodReturn_FAB);
+        addFood_FAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Activity activity =(Activity) view.getContext();
+                Intent intent = new Intent(activity, FoodDisplayActivity.class);
+                activity.startActivityForResult(intent,1);
             }
         });
+        dailyFoodReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 }
