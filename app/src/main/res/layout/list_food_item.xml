@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/foodList_ConstraintLayout"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
@@ -20,6 +20,7 @@
         android:id="@+id/foodCategory_TextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Category"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,13 +32,13 @@
         android:id="@+id/foodServingSize_TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:text="ServingSize"
         android:textSize="8sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/foodCategory_TextView"
-        app:layout_constraintVertical_bias="0.52" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/foodCalories_TextView"

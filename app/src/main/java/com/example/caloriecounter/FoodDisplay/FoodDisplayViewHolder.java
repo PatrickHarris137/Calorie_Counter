@@ -16,7 +16,10 @@ public class FoodDisplayViewHolder  extends RecyclerView.ViewHolder{
         super(itemView);
     }
 
+    /*
     public void set(Food food){
 
     }
+
+     */
 }
