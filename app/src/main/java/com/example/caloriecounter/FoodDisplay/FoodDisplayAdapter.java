@@ -14,7 +14,7 @@ import java.util.List;
 public class FoodDisplayAdapter extends RecyclerView.Adapter<FoodDisplayViewHolder> {
 
     private Context context;
-    private List<Food> foodData;
+    //private List<Food> foodData;
 
     public FoodDisplayAdapter(){
 
@@ -33,7 +33,7 @@ public class FoodDisplayAdapter extends RecyclerView.Adapter<FoodDisplayViewHold
 
     @Override
     public void onBindViewHolder(@NonNull FoodDisplayViewHolder holder, int position) {
-        holder.set(data.get(position));
+       // holder.set(data.get(position));
     }
 
     @Override
