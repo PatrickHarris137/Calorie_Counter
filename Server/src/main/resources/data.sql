@@ -4,7 +4,7 @@ insert into user (id, username, password, uuid, islogin) values (3, 'vik','vscod
 
 insert into macronutrient (id, protein, fiber, sugar, unsaturatedfat, saturatedfat, transfat, cholesterol, sodium) values (10, 10.0, 1.0, 0.7, 4.0, 0.9, 0.0, 0.0, 0.004);
 
-insert into fooditem (id, name, category, servingsize, type, calories, macronutrient) values (100, 'tofu', 'GRAIN', 100, '?', 83, 10);
+insert into fooditem (id, name, category, servingsize, calories, macronutrient) values (100, 'tofu', 'GRAIN', 100, 83, 10);
 
 insert into userdailyconsumption (id, user, date) values (1, 1,  '2020-11-30 13:42:44');
 
