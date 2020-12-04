@@ -10,11 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CalorieCounter">
         <activity
+            android:name=".FoodDisplay.AddFoodItemActivity"
+            android:label="@string/title_activity_add_food_item"
+            android:theme="@style/Theme.CalorieCounter.NoActionBar"></activity>
+        <activity
+            android:name=".FoodDisplay.AddFoodToListActivity"
+            android:label="@string/title_activity_add_food_to_list"
+            android:theme="@style/Theme.CalorieCounter.NoActionBar" />
+        <activity
             android:name=".DailyMacroCounter.DailyMacroCounterActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.CalorieCounter.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />

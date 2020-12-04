@@ -14,8 +14,6 @@ import androidx.fragment.app.DialogFragment;
 import com.example.caloriecounter.NoteApplication;
 import com.example.caloriecounter.R;
 
-
-
 public class RegisterDialogFragment extends DialogFragment {
 
     private Button createButton;

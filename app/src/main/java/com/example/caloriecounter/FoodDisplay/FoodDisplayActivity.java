@@ -1,18 +1,27 @@
 package com.example.caloriecounter.FoodDisplay;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.caloriecounter.DailyConsumption.DailyConsumptionActivity;
+import com.example.caloriecounter.DailyMacroCounter.DailyMacroCounterActivity;
 import com.example.caloriecounter.R;
+import com.example.caloriecounter.WeeklyProgression.WeeklyProgressionActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.fragment.NavHostFragment;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 public class FoodDisplayActivity extends AppCompatActivity {
 
+    private Activity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +29,56 @@ public class FoodDisplayActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        activity=this;
 
+        FloatingActionButton addFoodListButton = findViewById(R.id.addFoodList_Button);
+        addFoodListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, AddFoodItemActivity.class);
+                activity.startActivity(intent);
+            }
+        });
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.DailyConsumptionOption) {
+            Activity activity =(Activity)this;
+            Intent intent = new Intent(activity, DailyConsumptionActivity.class);
+            activity.startActivityForResult(intent,1);
+        }
+        if (id == R.id.WeeklyProgressionOption) {
+            Activity activity =(Activity)this;
+            Intent intent = new Intent(activity, WeeklyProgressionActivity.class);
+            activity.startActivityForResult(intent,1);
+        }
+        if (id == R.id.FoodDisplayOption) {
+            Activity activity =(Activity)this;
+            Intent intent = new Intent(activity, FoodDisplayActivity.class);
+            activity.startActivityForResult(intent,1);
+        }
+        if (id == R.id.DailyMacroCounterOption) {
+            Activity activity =(Activity)this;
+            Intent intent = new Intent(activity, DailyMacroCounterActivity.class);
+            activity.startActivityForResult(intent,1);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

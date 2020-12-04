@@ -3,19 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/foodList_ConstraintLayout"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#616060">
+    android:layout_marginBottom="10dp"
+    android:background="#4E4E4E">
 
     <TextView
         android:id="@+id/foodName_TextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#EA5185"
+        android:layout_marginEnd="16dp"
+        android:background="#3A3A3A"
+        android:shadowColor="#FFFFFF"
         android:text="Name"
+        android:textColor="#F6F6F6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,10 +28,11 @@
         android:id="@+id/foodCategory_TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:background="#30D5C8"
+        android:background="#3C3C3C"
         android:text="Category"
+        android:textColor="#F6F6F6"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
@@ -37,36 +41,37 @@
         android:id="@+id/foodServingSize_TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="#7B4FC8"
+        android:background="#3C3C3C"
         android:text="ServingSize"
+        android:textColor="#F6F6F6"
+        android:textColorLink="#F6F6F6"
         android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintStart_toStartOf="@+id/foodCategory_TextView" />
+        app:layout_constraintBottom_toTopOf="@+id/foodCalories_TextView"
+        app:layout_constraintStart_toStartOf="@+id/foodCategory_TextView"
+        app:layout_constraintTop_toBottomOf="@+id/foodCategory_TextView" />
 
     <TextView
         android:id="@+id/foodCalories_TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#55D384"
+        android:layout_marginBottom="8dp"
+        android:background="#3C3C3C"
         android:text="Calories"
+        android:textColor="#F6F6F6"
         android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/foodServingSize_TextView"
-        app:layout_constraintStart_toStartOf="@+id/foodCategory_TextView"
-        app:layout_constraintTop_toBottomOf="@+id/foodCategory_TextView" />
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintStart_toStartOf="@+id/foodCategory_TextView" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="131dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:background="#FF9800"
+        android:background="#3A3A3A"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/foodName_TextView">
 
         <View
@@ -119,6 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Protein"
+            android:textColor="#F6F6F6"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -128,6 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Fiber"
+            android:textColor="#F6F6F6"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -137,6 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sugar"
+            android:textColor="#F6F6F6"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
@@ -146,6 +154,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Unsaturated Fat"
+            android:textColor="#F6F6F6"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider16" />
@@ -154,7 +163,9 @@
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:shadowColor="#FFFFFF"
             android:text="Saturated Fat"
+            android:textColor="#F6F6F6"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider17" />
@@ -164,6 +175,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Trans Fat"
+            android:textColor="#F6F6F6"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider18" />
@@ -173,6 +185,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sodium"
+            android:textColor="#F6F6F6"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -183,6 +196,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cholesterol"
+            android:textColor="#F6F6F6"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider19" />
@@ -210,6 +224,7 @@
             android:layout_height="wrap_content"
             android:text="N/A"
             android:textAlignment="textEnd"
+            android:textColor="#F6F6F6"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -220,6 +235,7 @@
             android:layout_height="wrap_content"
             android:text="N/A"
             android:textAlignment="textEnd"
+            android:textColor="#F6F6F6"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider14" />
@@ -230,6 +246,7 @@
             android:layout_height="wrap_content"
             android:text="N/A"
             android:textAlignment="textEnd"
+            android:textColor="#F6F6F6"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider15" />
@@ -240,6 +257,7 @@
             android:layout_height="wrap_content"
             android:text="N/A"
             android:textAlignment="textEnd"
+            android:textColor="#F6F6F6"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider16" />
@@ -251,6 +269,7 @@
             android:layout_marginTop="1dp"
             android:text="N/A"
             android:textAlignment="textEnd"
+            android:textColor="#F6F6F6"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider17" />
@@ -262,6 +281,7 @@
             android:layout_marginTop="1dp"
             android:text="N/A"
             android:textAlignment="textEnd"
+            android:textColor="#F6F6F6"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider18" />
@@ -272,6 +292,7 @@
             android:layout_height="wrap_content"
             android:text="N/A"
             android:textAlignment="textEnd"
+            android:textColor="#F6F6F6"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider19" />
@@ -282,6 +303,7 @@
             android:layout_height="wrap_content"
             android:text="N/A"
             android:textAlignment="textEnd"
+            android:textColor="#F6F6F6"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider20" />
