@@ -11,8 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.caloriecounter.NoteApplication;
+import com.example.caloriecounter.FoodApplication;
 import com.example.caloriecounter.R;
+
 
 public class RegisterDialogFragment extends DialogFragment {
 
@@ -51,11 +52,10 @@ public class RegisterDialogFragment extends DialogFragment {
     }
 
     private void createAccount() {
-        NoteApplication application = (NoteApplication) getActivity().getApplication();
+        FoodApplication application = (FoodApplication) getActivity().getApplication();
         LoginManager loginManager = application.getLoginManager();
-        loginManager.register(usernameEditText.getText().toString(),
-                passwordEditText.getText().toString(),
-                passwordCheckEditText.getText().toString());
+        loginManager.register(usernameEditText.getText().toString(),passwordEditText.getText().toString(),passwordCheckEditText.getText().toString());
+
         dismiss();
     }
 
