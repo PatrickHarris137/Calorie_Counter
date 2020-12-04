@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.caloriecounter.R;
+import com.example.caloriecounter.model.SampleData;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -12,10 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.navigation.fragment.NavHostFragment;
-
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class DailyConsumptionFragment extends Fragment {
@@ -31,7 +30,7 @@ public class DailyConsumptionFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_daily_consumption, container, false);
         dayOfWeek=root.findViewById(R.id.day_TextView);
         dayOfWeek.setText(getToday());
-
+        SampleData.generateFoodForDay();
         breakfast_Button=root.findViewById(R.id.breakfast_Button);
         lunch_Button=root.findViewById(R.id.lunch_Button);
         dinner_Button=root.findViewById(R.id.dinner_Button);
