@@ -11,8 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import ca.qc.johnabbott.cs616.a3_starter.NoteApplication;
-import ca.qc.johnabbott.cs616.a3_starter.R;
+import com.example.caloriecounter.NoteApplication;
+import com.example.caloriecounter.R;
 
 public class RegisterDialogFragment extends DialogFragment {
 
