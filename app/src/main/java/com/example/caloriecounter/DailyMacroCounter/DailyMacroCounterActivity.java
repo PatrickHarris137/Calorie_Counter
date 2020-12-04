@@ -18,7 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
-public class    DailyMacroCounterActivity extends AppCompatActivity {
+public class DailyMacroCounterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
