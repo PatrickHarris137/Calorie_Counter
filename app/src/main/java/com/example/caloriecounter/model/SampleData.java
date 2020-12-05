@@ -61,13 +61,18 @@ public class SampleData {
         int min=0;
         int max=9;
         int maxFoodNumber=4;
+        int minFoodNumber=1;
         List<food_Item> displayList = generateFoodDisplayList();
         ArrayList<food_Item> mealList = new ArrayList<>();
         Random r= new Random();
-        int maxFood=r.nextInt((maxFoodNumber - min) + 1) + min;
+        int maxFood=r.nextInt((maxFoodNumber - minFoodNumber) + 1) + minFoodNumber;
         for (int i = 0; i < maxFood; i++) {
+
             int randomFoodNumber=r.nextInt((max - min) + 1) + min;
-            mealList.add(displayList.get(randomFoodNumber));
+            if(mealList.contains(displayList.get(randomFoodNumber)))
+                i--;
+            else
+                mealList.add(displayList.get(randomFoodNumber));
         }
         return  mealList;
     }

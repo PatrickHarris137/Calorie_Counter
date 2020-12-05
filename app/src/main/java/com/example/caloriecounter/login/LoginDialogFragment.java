@@ -6,14 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.caloriecounter.NoteApplication;
+import com.example.caloriecounter.FoodApplication;
 import com.example.caloriecounter.R;
-
 public class LoginDialogFragment extends DialogFragment {
 
     private EditText usernameEditText;
@@ -54,16 +54,35 @@ public class LoginDialogFragment extends DialogFragment {
         registerDialogFragment.setCancelable(false);
         registerDialogFragment.show(getFragmentManager(), "register");
 
-        dismiss();
+
     }
 
     private void login() {
-        NoteApplication application = (NoteApplication) getActivity().getApplication();
-        LoginManager loginManager = application.getLoginManager();
+       // FoodApplication application = (FoodApplication) getActivity().getApplication();
+        LoginManager loginManager= new LoginManagerStub(getContext());
 
-        loginManager.login(usernameEditText.getText().toString(),
-                passwordEditText.getText().toString());
+        loginManager.setOnLoginListener(new OnLoginListener() {
+            @Override
+            public void onLogin(String uuid) {
+                dismiss();
+            }
 
+            @Override
+            public void onLogout() {
+
+            }
+
+            @Override
+            public void onRegister(String uuid) {
+
+            }
+
+            @Override
+            public void onError(String message) {
+                Toast.makeText(getContext(),"Login Error: "+message,Toast.LENGTH_LONG).show();
+            }
+        });
+        loginManager.login(usernameEditText.getText().toString(),passwordEditText.getText().toString());
     }
 
 }
