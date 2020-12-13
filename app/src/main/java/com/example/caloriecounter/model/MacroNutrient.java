@@ -3,9 +3,11 @@ package com.example.caloriecounter.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class MacroNutrient implements Parcelable {
+import com.example.caloriecounter.sqlite.Identifiable;
 
-    private int id;
+public class MacroNutrient implements Parcelable, Identifiable<Long> {
+
+    private long id;
     private double protein;
     private double fiber;
     private double sugar;
@@ -117,7 +119,7 @@ public class MacroNutrient implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
+        dest.writeLong(id);
         dest.writeDouble(protein);
         dest.writeDouble(fiber);
         dest.writeDouble(sugar);
@@ -140,4 +142,14 @@ public class MacroNutrient implements Parcelable {
             return new MacroNutrient[size];
         }
     };
+
+    @Override
+    public Long getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id=id;
+    }
 }
