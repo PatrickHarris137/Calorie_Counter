@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.example.caloriecounter.DailyConsumption.DailyConsumptionActivity;
 import com.example.caloriecounter.DailyMacroCounter.DailyMacroCounterActivity;
 import com.example.caloriecounter.WeeklyProgression.WeeklyProgressionActivity;
+import com.example.caloriecounter.model.food_Item;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -21,12 +22,26 @@ import com.example.caloriecounter.R;
 
 public class AddFoodItemActivity extends AppCompatActivity {
 
+
+    private AddFoodItemFragment addFoodItemFragment;
+    private food_Item newFood;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_food_item);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
+        addFoodItemFragment=(AddFoodItemFragment) getSupportFragmentManager().findFragmentById(R.id.fragment2);
+
+
+
+
+
     }
 
     @Override
