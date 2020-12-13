@@ -1,21 +1,26 @@
 package com.example.caloriecounter.DailyMacroCounter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.caloriecounter.DailyConsumption.DailyConsumptionActivity;
 import com.example.caloriecounter.FoodApplication;
 import com.example.caloriecounter.R;
 import com.example.caloriecounter.login.LoginDialogFragment;
 import com.example.caloriecounter.login.LoginManager;
 import com.example.caloriecounter.login.LoginManagerStub;
 import com.example.caloriecounter.login.OnLoginListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DailyMacroCounterFragment extends Fragment {
 
@@ -25,6 +30,7 @@ public class DailyMacroCounterFragment extends Fragment {
             Bundle savedInstanceState
 
     ) {
+        View root = inflater.inflate(R.layout.fragment_daily_macro_counter, container, false);
         // Inflate the layout for this fragment
         //FoodApplication application =  (FoodApplication) getActivity().getApplication();
         final LoginDialogFragment dialogFragment = new LoginDialogFragment();
@@ -69,14 +75,26 @@ public class DailyMacroCounterFragment extends Fragment {
             }
         });
 
+
+
         if(!loginManager.isLoggedIn())
             dialogFragment.show(getChildFragmentManager(),"login-fragment");
-        return inflater.inflate(R.layout.fragment_daily_macro_counter, container, false);
+
+        FloatingActionButton editDaily = root.findViewById(R.id.edit_Daily);
+        editDaily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( getContext(), DailyConsumptionActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        return root;
+
+
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
     }
 }

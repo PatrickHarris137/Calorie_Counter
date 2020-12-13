@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.caloriecounter.DailyConsumption.DailyConsumptionActivity;
+import com.example.caloriecounter.DailyConsumption.DailyConsumptionFragment;
 import com.example.caloriecounter.FoodDisplay.FoodDisplayActivity;
 import com.example.caloriecounter.R;
 import com.example.caloriecounter.WeeklyProgression.WeeklyProgressionActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,12 +22,15 @@ import android.widget.Button;
 
 public class DailyMacroCounterActivity extends AppCompatActivity {
 
+    private DailyMacroCounterFragment dailyMacroCounterFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_macro_counter);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        dailyMacroCounterFragment = (DailyMacroCounterFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
 
 
 

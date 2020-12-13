@@ -2,16 +2,16 @@ package com.example.caloriecounter.WeeklyProgression;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.caloriecounter.DailyConsumption.DailyConsumptionActivity;
-import com.example.caloriecounter.DailyConsumption.DailyConsumptionFragment;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -19,8 +19,30 @@ import com.example.caloriecounter.DailyMacroCounter.DailyMacroCounterActivity;
 import com.example.caloriecounter.FoodDisplay.FoodDisplayActivity;
 import com.example.caloriecounter.R;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+
+enum Day {
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY,
+    SUNDAY
+}
+
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class WeeklyProgressionActivity extends AppCompatActivity {
     private WeeklyProgressionFragment weeklyProgressionFragment;
+    // stores total calories for associated day
+    private int dayCalories;
+    // stores the current day
+    private Day chosenDay;
+    // stores datetime
+    private LocalDate localDate = LocalDate.now();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +60,9 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
         TextView editSaturday = findViewById(R.id.saturday_Calories);
         TextView editSunday = findViewById(R.id.sunday_Calories);
 
+        Intent intent = getIntent();
+        dayCalories = intent.getIntExtra("totalCals", 0);
+
 
         editMonday.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,9 +72,22 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
                 // create intent that redirects to dailyconsumptionactivity
                 Intent intent = new Intent(activity, DailyConsumptionActivity.class);
 
+                chosenDay = Day.MONDAY;
+                String day = "Monday";
+                intent.putExtra("day", day);
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
+                String today = simpleDateFormat.format(new Date());
+
+                if(day != today)
+                    localDate = findDate(today);
+                intent.putExtra("date", localDate);
+
                 activity.startActivityForResult(intent,1);
             }
         });
+
+
 
         editTuesday.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +160,48 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
                 activity.startActivityForResult(intent,1);
             }
         });
+    }
+
+    public LocalDate findDate(String today){
+        switch (today){
+            case "Monday":
+                int dayOfWeek = Day.MONDAY.ordinal();
+                int dayDifference = dayOfWeek - chosenDay.ordinal();
+                localDate = localDate.plusDays(dayDifference);
+                break;
+            case "Tuesday":
+                dayOfWeek = Day.TUESDAY.ordinal();
+                dayDifference = dayOfWeek - chosenDay.ordinal();
+                localDate = localDate.plusDays(dayDifference);
+                break;
+            case "Wednesday":
+                dayOfWeek = Day.WEDNESDAY.ordinal();
+                dayDifference = dayOfWeek - chosenDay.ordinal();
+                localDate = localDate.plusDays(dayDifference);
+                break;
+            case "Thursday":
+                dayOfWeek = Day.THURSDAY.ordinal();
+                dayDifference = dayOfWeek - chosenDay.ordinal();
+                localDate = localDate.plusDays(dayDifference);
+                break;
+            case "Friday":
+                dayOfWeek = Day.FRIDAY.ordinal();
+                dayDifference = dayOfWeek - chosenDay.ordinal();
+                localDate = localDate.plusDays(dayDifference);
+                break;
+            case "Saturday":
+                dayOfWeek = Day.SATURDAY.ordinal();
+                dayDifference = dayOfWeek - chosenDay.ordinal();
+                localDate = localDate.plusDays(dayDifference);
+                break;
+            case "Sunday":
+                dayOfWeek = Day.SUNDAY.ordinal();
+                dayDifference = dayOfWeek - chosenDay.ordinal();
+                localDate = localDate.plusDays(dayDifference);
+                break;
+        }
+
+        return localDate;
     }
 
 
