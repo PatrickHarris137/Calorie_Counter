@@ -3,10 +3,12 @@ package com.example.caloriecounter.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.caloriecounter.sqlite.Identifiable;
+
 import java.util.UUID;
 
-public class food_Item implements Parcelable {
-    private int id;
+public class food_Item implements Identifiable<Long>, Parcelable {
+    private long id;
     private String UUID;
     private String name;
     private Category category;
@@ -15,6 +17,10 @@ public class food_Item implements Parcelable {
     private MacroNutrient macroNutrient;
 
     //Constructor
+    public food_Item(){
+        this.UUID= java.util.UUID.randomUUID().toString();
+    }
+
     public food_Item(String name,Category category, int serving_Size, int calories,MacroNutrient macroNutrient) {
         this.UUID= java.util.UUID.randomUUID().toString();
         this.name = name;
@@ -25,13 +31,23 @@ public class food_Item implements Parcelable {
     }
 
     //Setters and Getters
-    public int getId() {return id; }
+
+    @Override
+    public Long getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id=id;
+    }
 
     public void setId(int id) {this.id = id; }
 
     public String getUUID() {return UUID; }
 
     public void setUUID(String UUID) {this.UUID = UUID; }
+
 
     public String getName() {return name;}
 
@@ -70,7 +86,7 @@ public class food_Item implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
+        dest.writeLong(id);
         dest.writeString(UUID);
         dest.writeString(name);
         dest.writeInt(category.ordinal());
