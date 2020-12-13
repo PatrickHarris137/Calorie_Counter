@@ -58,7 +58,7 @@ public class LoginDialogFragment extends DialogFragment {
     }
 
     private void login() {
-       // FoodApplication application = (FoodApplication) getActivity().getApplication();
+        FoodApplication application = (FoodApplication) getActivity().getApplication();
         LoginManager loginManager= new LoginManagerStub(getContext());
 
         loginManager.setOnLoginListener(new OnLoginListener() {
