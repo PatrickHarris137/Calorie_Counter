@@ -1,9 +1,9 @@
 package com.example.caloriecounter.model;
 
-import java.util.UUID;
+import com.example.caloriecounter.sqlite.Identifiable;
 
-public class user {
-    private int id;
+public class user implements Identifiable<Long> {
+    private long id;
     private String UUID;
     private String username;
     private String password;
@@ -15,9 +15,14 @@ public class user {
         this.UUID= java.util.UUID.randomUUID().toString();
         this.password = password;
     }
+    @Override
+    public Long getId() {
+        return this.id;
+    }
 
-    public int getId() {
-        return id;
+    @Override
+    public void setId(Long id) {
+        this.id=id;
     }
 
     public void setId(int id) {
