@@ -1,8 +1,11 @@
 package com.example.caloriecounter.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.UUID;
 
-public class food_Item {
+public class food_Item implements Parcelable {
     private int id;
     private String UUID;
     private String name;
@@ -49,4 +52,43 @@ public class food_Item {
     public MacroNutrient getMacroNutrient() {return macroNutrient;}
 
     public void setMacroNutrient(MacroNutrient macroNutrient) {this.macroNutrient = macroNutrient;}
+
+    protected food_Item(Parcel in) {
+        id = in.readInt();
+        UUID = in.readString();
+        name = in.readString();
+        category = Category.values()[in.readInt()];
+        serving_Size = in.readInt();
+        calories = in.readInt();
+        macroNutrient = (MacroNutrient) in.readValue(MacroNutrient.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(UUID);
+        dest.writeString(name);
+        dest.writeInt(category.ordinal());
+        dest.writeInt(serving_Size);
+        dest.writeInt(calories);
+        dest.writeValue(macroNutrient);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<food_Item> CREATOR = new Parcelable.Creator<food_Item>() {
+        @Override
+        public food_Item createFromParcel(Parcel in) {
+            return new food_Item(in);
+        }
+
+        @Override
+        public food_Item[] newArray(int size) {
+            return new food_Item[size];
+        }
+    };
 }

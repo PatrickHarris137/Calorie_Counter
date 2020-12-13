@@ -1,6 +1,9 @@
 package com.example.caloriecounter.model;
 
-public class MacroNutrient {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class MacroNutrient implements Parcelable {
 
     private int id;
     private double protein;
@@ -94,4 +97,47 @@ public class MacroNutrient {
 
 
 
+
+    protected MacroNutrient(Parcel in) {
+        id = in.readInt();
+        protein = in.readDouble();
+        fiber = in.readDouble();
+        sugar = in.readDouble();
+        unsaturatedFat = in.readDouble();
+        saturatedFat = in.readDouble();
+        trans_fat = in.readDouble();
+        cholesterol = in.readDouble();
+        sodium = in.readDouble();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeDouble(protein);
+        dest.writeDouble(fiber);
+        dest.writeDouble(sugar);
+        dest.writeDouble(unsaturatedFat);
+        dest.writeDouble(saturatedFat);
+        dest.writeDouble(trans_fat);
+        dest.writeDouble(cholesterol);
+        dest.writeDouble(sodium);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<MacroNutrient> CREATOR = new Parcelable.Creator<MacroNutrient>() {
+        @Override
+        public MacroNutrient createFromParcel(Parcel in) {
+            return new MacroNutrient(in);
+        }
+
+        @Override
+        public MacroNutrient[] newArray(int size) {
+            return new MacroNutrient[size];
+        }
+    };
 }
