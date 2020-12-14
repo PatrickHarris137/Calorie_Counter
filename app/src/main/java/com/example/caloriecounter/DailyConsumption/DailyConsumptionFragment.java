@@ -8,6 +8,7 @@ import com.example.caloriecounter.R;
 import com.example.caloriecounter.model.DatabaseHandler;
 import com.example.caloriecounter.model.SampleData;
 import com.example.caloriecounter.model.food_Item;
+import com.example.caloriecounter.model.meal;
 import com.example.caloriecounter.sqlite.DatabaseException;
 
 import androidx.annotation.NonNull;
@@ -36,10 +37,11 @@ public class DailyConsumptionFragment extends Fragment {
     private RecyclerView foodRecyclerView;
     private DailyConsumptionAdapter adapter;
     private DailyConsumptionFragment dailyConsumptionFragment;
+    private DailyConsumptionActivity dailyConsumptionActivity;
     private int maximumDailyCalories;
     private TextView dailyCaloriePercent;
     private ArrayList<food_Item> foodList;
-
+    public meal Meal;
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -48,12 +50,15 @@ public class DailyConsumptionFragment extends Fragment {
         dayOfWeek=root.findViewById(R.id.day_TextView);
         dayOfWeek.setText(getToday());
         dailyCaloriePercent = root.findViewById(R.id.dailyIntakePercent_TextView);
+        dailyConsumptionActivity= (DailyConsumptionActivity) getActivity();
         dailyCalorieIntake=root.findViewById(R.id.dailyCalories_TextView);
+
         breakfast_Button=root.findViewById(R.id.breakfast_Button);
         lunch_Button=root.findViewById(R.id.lunch_Button);
         dinner_Button=root.findViewById(R.id.dinner_Button);
         snacks_Button=root.findViewById(R.id.snacks_Button);
 
+        Meal=meal.breakfast;
         DatabaseHandler dbh= new DatabaseHandler(getContext());
         try {
             foodList = (ArrayList<food_Item>) dbh.get_Food_item_Table().readAll();
@@ -65,7 +70,7 @@ public class DailyConsumptionFragment extends Fragment {
         breakfast_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Meal=meal.breakfast;
                 adapter = new DailyConsumptionAdapter(mealsOfDayList.get(0),dailyConsumptionFragment);
                 foodRecyclerView.setAdapter(adapter);
                 calculateTotalCalories(mealsOfDayList.get(0));
@@ -74,7 +79,7 @@ public class DailyConsumptionFragment extends Fragment {
         lunch_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Meal=meal.lunch;
                 adapter = new DailyConsumptionAdapter(mealsOfDayList.get(1),dailyConsumptionFragment);
                 foodRecyclerView.setAdapter(adapter);
                 calculateTotalCalories(mealsOfDayList.get(1));
@@ -83,7 +88,7 @@ public class DailyConsumptionFragment extends Fragment {
         dinner_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Meal=meal.dinner;
                 adapter = new DailyConsumptionAdapter(mealsOfDayList.get(2),dailyConsumptionFragment);
                 foodRecyclerView.setAdapter(adapter);
                 calculateTotalCalories(mealsOfDayList.get(2));
@@ -92,7 +97,7 @@ public class DailyConsumptionFragment extends Fragment {
         snacks_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Meal=meal.snacks;
                 adapter = new DailyConsumptionAdapter(mealsOfDayList.get(3),dailyConsumptionFragment);
                 foodRecyclerView.setAdapter(adapter);
                 calculateTotalCalories(mealsOfDayList.get(3));
@@ -107,6 +112,12 @@ public class DailyConsumptionFragment extends Fragment {
         foodRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         calculateTotalCalories(mealsOfDayList.get(0));
         return root;
+    }
+    public meal getMeal(){
+        return this.Meal;
+    }
+    public void setDayOfWeek(String day){
+        dayOfWeek.setText(day);
     }
     public String getToday(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
