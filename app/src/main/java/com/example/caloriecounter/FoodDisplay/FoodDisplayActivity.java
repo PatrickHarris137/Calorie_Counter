@@ -101,7 +101,9 @@ public class FoodDisplayActivity extends AppCompatActivity {
         if(resultCode == this.RESULT_OK){
 
             food=data.getParcelableExtra("newFood");
-            //macro=data.getParcelableExtra("newMacro");
+            macro=data.getParcelableExtra("newMacro");
+
+            foodDisplayFragment.setFoodItem(food);
 
 
         }

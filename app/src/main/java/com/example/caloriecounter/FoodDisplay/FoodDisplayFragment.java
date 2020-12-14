@@ -61,6 +61,8 @@ public class FoodDisplayFragment extends Fragment {
     }
 
     public void setFoodItem(food_Item food){
+        adapter.setFoodItem(food,dbh);
+        adapter.notifyDataSetChanged();
 
     }
 

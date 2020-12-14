@@ -100,7 +100,7 @@ public class AddFoodItemFragment extends Fragment {
 
                Intent intent = addFoodItemActivity.getIntent();
                intent.putExtra("newFood",newFood);
-               //intent.putExtra("newMacro",newMacro);
+               intent.putExtra("newMacro",newMacro);
                addFoodItemActivity.setResult(Activity.RESULT_OK,intent);
                addFoodItemActivity.finish();
             }

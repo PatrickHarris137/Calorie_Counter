@@ -53,6 +53,6 @@ public class FoodDisplayAdapter extends RecyclerView.Adapter<FoodDisplayViewHold
 
 
     public void setFoodItem(food_Item food, DatabaseHandler dbh){
-
+        data.add(food);
     }
 }
