@@ -11,125 +11,114 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/editTextTextPersonName16"
+            android:id="@+id/transfat_EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/textView42"
             app:layout_constraintTop_toBottomOf="@+id/textView42" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName17"
+            android:id="@+id/protein_EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@+id/textView37"
             app:layout_constraintTop_toBottomOf="@+id/textView37" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName18"
+            android:id="@+id/fiber_EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@+id/textView36"
             app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName15"
+            android:id="@+id/calories_EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/textView41"
             app:layout_constraintTop_toBottomOf="@+id/textView41" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName12"
+            android:id="@+id/unsaturated_EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/textView38"
             app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName13"
+            android:id="@+id/cholesterol_EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
             android:textSize="10sp"
-            app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName12"
-            app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName17"
+            app:layout_constraintEnd_toStartOf="@+id/unsaturated_EditText"
+            app:layout_constraintStart_toEndOf="@+id/protein_EditText"
             app:layout_constraintTop_toBottomOf="@+id/textView39" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName14"
+            android:id="@+id/serving_EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@+id/textView40"
             app:layout_constraintTop_toBottomOf="@+id/textView40" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName10"
+            android:id="@+id/saturated_EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/textView35"
             app:layout_constraintTop_toBottomOf="@+id/textView35" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName11"
+            android:id="@+id/sugar_EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@+id/textView32"
             app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName9"
+            android:id="@+id/sodium_EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
             android:textSize="10sp"
-            app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName10"
-            app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName18"
+            app:layout_constraintEnd_toStartOf="@+id/saturated_EditText"
+            app:layout_constraintStart_toEndOf="@+id/fiber_EditText"
             app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName8"
+            android:id="@+id/category_EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -145,12 +134,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName2"
+            android:id="@+id/name_EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -164,7 +152,7 @@
             android:layout_marginTop="8dp"
             android:text="Sugar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName18" />
+            app:layout_constraintTop_toBottomOf="@+id/fiber_EditText" />
 
         <TextView
             android:id="@+id/textView33"
@@ -174,7 +162,7 @@
             android:text="Category"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+            app:layout_constraintTop_toBottomOf="@+id/name_EditText" />
 
         <TextView
             android:id="@+id/textView34"
@@ -182,9 +170,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Sodium"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName13"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName13"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName13" />
+            app:layout_constraintEnd_toEndOf="@+id/cholesterol_EditText"
+            app:layout_constraintStart_toStartOf="@+id/cholesterol_EditText"
+            app:layout_constraintTop_toBottomOf="@+id/cholesterol_EditText" />
 
         <TextView
             android:id="@+id/textView35"
@@ -194,7 +182,7 @@
             android:layout_marginEnd="8dp"
             android:text="Saturated Fat"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName12" />
+            app:layout_constraintTop_toBottomOf="@+id/unsaturated_EditText" />
 
         <TextView
             android:id="@+id/textView36"
@@ -204,7 +192,7 @@
             android:layout_marginTop="8dp"
             android:text="Fiber"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName17" />
+            app:layout_constraintTop_toBottomOf="@+id/protein_EditText" />
 
         <TextView
             android:id="@+id/textView37"
@@ -214,7 +202,7 @@
             android:layout_marginTop="32dp"
             android:text="Protein"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName14" />
+            app:layout_constraintTop_toBottomOf="@+id/serving_EditText" />
 
         <TextView
             android:id="@+id/textView38"
@@ -224,15 +212,15 @@
             android:layout_marginEnd="8dp"
             android:text="Unsaturated Fat"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName15" />
+            app:layout_constraintTop_toBottomOf="@+id/calories_EditText" />
 
         <TextView
             android:id="@+id/textView39"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cholesterol"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName8"
-            app:layout_constraintStart_toStartOf="@+id/editTextTextPersonName8"
+            app:layout_constraintEnd_toEndOf="@+id/category_EditText"
+            app:layout_constraintStart_toStartOf="@+id/category_EditText"
             app:layout_constraintTop_toTopOf="@+id/textView37" />
 
         <TextView
@@ -243,7 +231,7 @@
             android:layout_marginTop="24dp"
             android:text="Serving Size"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8" />
+            app:layout_constraintTop_toBottomOf="@+id/category_EditText" />
 
         <TextView
             android:id="@+id/textView41"
@@ -253,7 +241,7 @@
             android:layout_marginEnd="24dp"
             android:text="Calories"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8" />
+            app:layout_constraintTop_toBottomOf="@+id/category_EditText" />
 
         <TextView
             android:id="@+id/textView42"
@@ -263,7 +251,27 @@
             android:layout_marginEnd="8dp"
             android:text="Trans Fat"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName10" />
+            app:layout_constraintTop_toBottomOf="@+id/saturated_EditText" />
+
+        <Button
+            android:id="@+id/addFoodSubmit_Button"
+            android:layout_width="95dp"
+            android:layout_height="53dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="128dp"
+            android:text="Submit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/addFoodCancel_Button"
+            android:layout_width="95dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="64dp"
+            android:text="Cancel"
+            app:layout_constraintBottom_toBottomOf="@+id/addFoodSubmit_Button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/addFoodSubmit_Button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
