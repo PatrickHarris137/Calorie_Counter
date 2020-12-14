@@ -6,7 +6,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <fragment
-        android:id="@+id/fragment5"
+        android:id="@+id/addFoodItem_Fragment"
         android:name="com.example.caloriecounter.FoodDisplay.AddFoodItemFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"

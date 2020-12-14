@@ -73,14 +73,14 @@ public class FoodDisplayViewHolder  extends RecyclerView.ViewHolder{
         foodCaloriesTextView.setText(Integer.toString(food.getCalories())+" calories");
 
 
-        foodProteinTextView.setText(Double.toString(macroNutrientList.get((int)id-1).getProtein()));
-        foodFiberTextView.setText(Double.toString(macroNutrientList.get((int)id-1).getFiber()));
-        foodSugarTextView.setText(Double.toString(macroNutrientList.get((int)id-1).getSugar()));
-        foodUnsaturatedTextView.setText(Double.toString(macroNutrientList.get((int)id-1).getUnsaturatedFat()));
-        foodSaturatedTextView.setText(Double.toString(macroNutrientList.get((int)id-1).getSaturatedFat()));
-        foodTransTextView.setText(Double.toString(macroNutrientList.get((int)id-1).getTrans_fat()));
-        foodCholesterolTextView.setText(Double.toString(macroNutrientList.get((int)id-1).getCholesterol()));
-        foodSodiumTextView.setText(Double.toString(macroNutrientList.get((int)id-1).getSodium()));
+        foodProteinTextView.setText(Double.toString(macroNutrientList.get((int)id).getProtein()));
+        foodFiberTextView.setText(Double.toString(macroNutrientList.get((int)id).getFiber()));
+        foodSugarTextView.setText(Double.toString(macroNutrientList.get((int)id).getSugar()));
+        foodUnsaturatedTextView.setText(Double.toString(macroNutrientList.get((int)id).getUnsaturatedFat()));
+        foodSaturatedTextView.setText(Double.toString(macroNutrientList.get((int)id).getSaturatedFat()));
+        foodTransTextView.setText(Double.toString(macroNutrientList.get((int)id).getTrans_fat()));
+        foodCholesterolTextView.setText(Double.toString(macroNutrientList.get((int)id).getCholesterol()));
+        foodSodiumTextView.setText(Double.toString(macroNutrientList.get((int)id).getSodium()));
     }
 
 }
