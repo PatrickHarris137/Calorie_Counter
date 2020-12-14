@@ -1,17 +1,18 @@
 package com.example.caloriecounter.FoodDisplay;
 
-import android.graphics.Color;
-import android.icu.text.SimpleDateFormat;
-import android.text.SpannableString;
-import android.text.style.BackgroundColorSpan;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.caloriecounter.model.DatabaseHandler;
+import com.example.caloriecounter.model.MacroNutrient;
 import com.example.caloriecounter.model.food_Item;
 import com.example.caloriecounter.R;
+import com.example.caloriecounter.sqlite.DatabaseException;
+
+import java.util.List;
 
 public class FoodDisplayViewHolder  extends RecyclerView.ViewHolder{
 
@@ -32,12 +33,19 @@ public class FoodDisplayViewHolder  extends RecyclerView.ViewHolder{
 
 
     private food_Item food;
-
+    private DatabaseHandler dbh;
+    private List<MacroNutrient> macroNutrientList;
     public FoodDisplayViewHolder(@NonNull View root) {
         super(root);
 
         this.root = root;
+        dbh= new DatabaseHandler(root.getContext());
+        try{
+            macroNutrientList=dbh.get_Macro_Nutrient_Table().readAll();
+        }
+        catch (Exception e){
 
+        }
         foodNameTextView=root.findViewById(R.id.foodName_TextView);
         foodCategoryTextView=root.findViewById(R.id.foodCategory_TextView);
         foodServingSizeTextView=root.findViewById(R.id.foodServingSize_TextView);
@@ -58,21 +66,21 @@ public class FoodDisplayViewHolder  extends RecyclerView.ViewHolder{
     public void set(food_Item food){
 
         this.food=food;
-
+        long id=food.getMacroNutrient_Id();
         foodNameTextView.setText(food.getName());
         foodCategoryTextView.setText(food.getCategory().name());
         foodServingSizeTextView.setText(Integer.toString(food.getServing_Size()) + " serving size");
         foodCaloriesTextView.setText(Integer.toString(food.getCalories())+" calories");
 
 
-        foodProteinTextView.setText(Double.toString(food.getMacroNutrient().getProtein()));
-        foodFiberTextView.setText(Double.toString(food.getMacroNutrient().getFiber()));
-        foodSugarTextView.setText(Double.toString(food.getMacroNutrient().getSugar()));
-        foodUnsaturatedTextView.setText(Double.toString(food.getMacroNutrient().getUnsaturatedFat()));
-        foodSaturatedTextView.setText(Double.toString(food.getMacroNutrient().getSaturatedFat()));
-        foodTransTextView.setText(Double.toString(food.getMacroNutrient().getTrans_fat()));
-        foodCholesterolTextView.setText(Double.toString(food.getMacroNutrient().getCholesterol()));
-        foodSodiumTextView.setText(Double.toString(food.getMacroNutrient().getSodium()));
+        foodProteinTextView.setText(Double.toString(macroNutrientList.get((int)id-1).getProtein()));
+        foodFiberTextView.setText(Double.toString(macroNutrientList.get((int)id-1).getFiber()));
+        foodSugarTextView.setText(Double.toString(macroNutrientList.get((int)id-1).getSugar()));
+        foodUnsaturatedTextView.setText(Double.toString(macroNutrientList.get((int)id-1).getUnsaturatedFat()));
+        foodSaturatedTextView.setText(Double.toString(macroNutrientList.get((int)id-1).getSaturatedFat()));
+        foodTransTextView.setText(Double.toString(macroNutrientList.get((int)id-1).getTrans_fat()));
+        foodCholesterolTextView.setText(Double.toString(macroNutrientList.get((int)id-1).getCholesterol()));
+        foodSodiumTextView.setText(Double.toString(macroNutrientList.get((int)id-1).getSodium()));
     }
 
 }

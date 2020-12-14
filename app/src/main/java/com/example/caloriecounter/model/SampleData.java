@@ -1,47 +1,71 @@
 package com.example.caloriecounter.model;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 public class SampleData {
 
+    public static List<MacroNutrient> generateMacroNutrients(){
+        List<MacroNutrient> macroNutrientDisplayList = new ArrayList<>();
 
+        MacroNutrient tofuNutrient=new MacroNutrient(14, 1.9, 0, 0, 1, 0, 0, 16);
+        MacroNutrient appleNutrient=new MacroNutrient(0.3, 2.4, 10.4, 0, 0, 0, 0, 0);
+        MacroNutrient steakNutrient=new MacroNutrient(23, 0, 0, 1, 1, 0, 0, 0);
+        MacroNutrient chickenNutrient=new MacroNutrient(13, 0, 0, 1, 0, 0, 45, 270);
+        MacroNutrient broccoliNutrient=new MacroNutrient(1, 1, 0, 0, 0, 0, 0, 15);
+        MacroNutrient toastNutrient=new MacroNutrient(4, 1, 3, 1, 0, 0, 0, 135);
+        MacroNutrient baconNutrient=new MacroNutrient(5, 0, 1, 4, 1, 0, 15, 320);
+        MacroNutrient almondNutrient=new MacroNutrient(21, 12, 4, 43, 0, 0, 0, 1);
+        MacroNutrient riceNutrient=new MacroNutrient(2, 0, 0, 0, 0, 0, 0, 1);
+        MacroNutrient cheeseNutrient=new MacroNutrient(26, 0, 0, 9, 18, 0, 93, 187);
+
+        macroNutrientDisplayList.add(tofuNutrient);
+        macroNutrientDisplayList.add(appleNutrient);
+        macroNutrientDisplayList.add(steakNutrient);
+        macroNutrientDisplayList.add(chickenNutrient);
+        macroNutrientDisplayList.add(broccoliNutrient);
+        macroNutrientDisplayList.add(toastNutrient);
+        macroNutrientDisplayList.add(baconNutrient);
+        macroNutrientDisplayList.add(almondNutrient);
+        macroNutrientDisplayList.add(riceNutrient);
+        macroNutrientDisplayList.add(cheeseNutrient);
+        return macroNutrientDisplayList;
+    }
     public static List<food_Item> generateFoodDisplayList(){
 
         List<food_Item> foodDisplayList = new ArrayList<>();
 
 
-        MacroNutrient tofuNutrient=new MacroNutrient(14, 1.9, 0, 0, 1, 0, 0, 16);
-        food_Item tofu= new food_Item("Tofu", Category.Meat, 1, 320, tofuNutrient);
 
-        MacroNutrient appleNutrient=new MacroNutrient(0.3, 2.4, 10.4, 0, 0, 0, 0, 0);
-        food_Item apple= new food_Item("Apple", Category.Fruits, 1, 120, appleNutrient);
+        food_Item tofu= new food_Item("Tofu", Category.Meat, 1, 320, 1);
 
-        MacroNutrient steakNutrient=new MacroNutrient(23, 0, 0, 1, 1, 0, 0, 0);
-        food_Item steak= new food_Item("Steak", Category.Meat, 1, 510, steakNutrient);
 
-        MacroNutrient chickenNutrient=new MacroNutrient(13, 0, 0, 1, 0, 0, 45, 270);
-        food_Item chicken= new food_Item("Chicken", Category.Meat, 1, 450, chickenNutrient);
+        food_Item apple= new food_Item("Apple", Category.Fruits, 1, 120, 2);
 
-        MacroNutrient broccoliNutrient=new MacroNutrient(1, 1, 0, 0, 0, 0, 0, 15);
-        food_Item broccoli= new food_Item("Broccoli", Category.Vegetables, 1, 80, broccoliNutrient);
 
-        MacroNutrient toastNutrient=new MacroNutrient(4, 1, 3, 1, 0, 0, 0, 135);
-        food_Item toast= new food_Item("Toast", Category.Grains, 1, 132, toastNutrient);
+        food_Item steak= new food_Item("Steak", Category.Meat, 1, 510, 3);
 
-        MacroNutrient baconNutrient=new MacroNutrient(5, 0, 1, 4, 1, 0, 15, 320);
-        food_Item bacon= new food_Item("Bacon", Category.Meat, 1, 205, baconNutrient);
 
-        MacroNutrient almondNutrient=new MacroNutrient(21, 12, 4, 43, 0, 0, 0, 1);
-        food_Item almond= new food_Item("Almond", Category.Meat, 1, 90, almondNutrient);
+        food_Item chicken= new food_Item("Chicken", Category.Meat, 1, 450, 4);
 
-        MacroNutrient riceNutrient=new MacroNutrient(2, 0, 0, 0, 0, 0, 0, 1);
-        food_Item rice= new food_Item("Rice", Category.Grains, 1, 220, riceNutrient);
 
-        MacroNutrient cheeseNutrient=new MacroNutrient(26, 0, 0, 9, 18, 0, 93, 187);
-        food_Item swissCheese= new food_Item("Swiss Cheese", Category.Dairy, 1, 150, cheeseNutrient);
+        food_Item broccoli= new food_Item("Broccoli", Category.Vegetables, 1, 80, 5);
+
+
+        food_Item toast= new food_Item("Toast", Category.Grains, 1, 132, 6);
+
+
+        food_Item bacon= new food_Item("Bacon", Category.Meat, 1, 205, 7);
+
+
+        food_Item almond= new food_Item("Almond", Category.Meat, 1, 90, 8);
+
+
+        food_Item rice= new food_Item("Rice", Category.Grains, 1, 220, 9);
+
+
+        food_Item swissCheese= new food_Item("Swiss Cheese", Category.Dairy, 1, 150, 10);
 
 
         foodDisplayList.add(tofu);
