@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.caloriecounter.FoodDisplay.FoodDisplayActivity;
+import com.example.caloriecounter.model.DatabaseHandler;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -24,7 +25,6 @@ public class DailyConsumptionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_daily_consumption);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FloatingActionButton addFood_FAB = findViewById(R.id.addFood_FAB);
         FloatingActionButton dailyFoodReturn=findViewById(R.id.dailyFoodReturn_FAB);
         addFood_FAB.setOnClickListener(new View.OnClickListener() {
