@@ -101,7 +101,7 @@ public class MacroNutrient implements Parcelable, Identifiable<Long> {
 
 
     protected MacroNutrient(Parcel in) {
-        id = in.readInt();
+        id = in.readLong();
         protein = in.readDouble();
         fiber = in.readDouble();
         sugar = in.readDouble();

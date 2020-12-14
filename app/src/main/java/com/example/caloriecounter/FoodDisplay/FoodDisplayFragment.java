@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caloriecounter.R;
+import com.example.caloriecounter.model.DatabaseHandler;
 import com.example.caloriecounter.model.SampleData;
 import com.example.caloriecounter.model.food_Item;
 
@@ -22,6 +23,9 @@ import java.util.List;
 public class FoodDisplayFragment extends Fragment {
 
     private List<food_Item> foodData;
+    private DatabaseHandler dbh;
+    private FoodDisplayAdapter adapter;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,10 +35,17 @@ public class FoodDisplayFragment extends Fragment {
 
         RecyclerView foodListRecyclerView = root.findViewById(R.id.foodList_RecyclerView);
 
+        dbh= new DatabaseHandler(root.getContext());
+        try{
+           foodData=dbh.get_Food_item_Table().readAll();
+        }
+        catch (Exception e){
 
-        foodData= SampleData.generateFoodDisplayList();
+        }
 
-        FoodDisplayAdapter adapter = new FoodDisplayAdapter(foodData);
+        //foodData= SampleData.generateFoodDisplayList();
+
+        adapter = new FoodDisplayAdapter(foodData);
 
         foodListRecyclerView.setAdapter(adapter);
 
@@ -47,10 +58,13 @@ public class FoodDisplayFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+    }
 
-
-
-
+    public void setFoodItem(food_Item food){
+        adapter.setFoodItem(food,dbh);
+        adapter.notifyDataSetChanged();
 
     }
+
+
 }
