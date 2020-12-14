@@ -1,5 +1,6 @@
 package com.example.caloriecounter.FoodDisplay;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -38,12 +39,15 @@ public class AddFoodItemFragment extends Fragment {
 
     private food_Item newFood;
     private MacroNutrient newMacro;
+    private AddFoodItemActivity addFoodItemActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         View root=inflater.inflate(R.layout.fragment_add_food_item, container, false);
+
+        addFoodItemActivity=(AddFoodItemActivity) getActivity();
 
         nameEditText=root.findViewById(R.id.name_EditText);
         categoryEditText=root.findViewById(R.id.category_EditText);
@@ -71,16 +75,14 @@ public class AddFoodItemFragment extends Fragment {
         sodiumEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
 
 
-
         addFoodSubmitButton=root.findViewById(R.id.addFoodSubmit_Button);
 
         addFoodSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
+
                newFood=new food_Item();
                newMacro=new MacroNutrient();
-
 
                newFood.setName(nameEditText.getText().toString());
                newFood.setCategory(Category.valueOf(categoryEditText.getText().toString()));
@@ -96,23 +98,27 @@ public class AddFoodItemFragment extends Fragment {
                newMacro.setUnsaturatedFat(Double.parseDouble(unsaturatedEditText.getText().toString()));
                newMacro.setTrans_fat(Double.parseDouble(proteinEditText.getText().toString()));
 
-               newFood.setMacroNutrient(newMacro);
-                */
-                Intent intent = new Intent(getActivity(), FoodDisplayActivity.class);
-                intent.putExtra("newFood",newFood);
-                startActivity(intent);
+               Intent intent = addFoodItemActivity.getIntent();
+               intent.putExtra("newFood",newFood);
+               //intent.putExtra("newMacro",newMacro);
+               addFoodItemActivity.setResult(Activity.RESULT_OK,intent);
+               addFoodItemActivity.finish();
             }
         });
+
 
         return root;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 
     public food_Item getNewFood(){
         return newFood;
+    }
+
+    public MacroNutrient getMacro(){
+        return newMacro;
     }
 }
