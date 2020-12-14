@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.caloriecounter.R;
+import com.example.caloriecounter.model.DatabaseHandler;
 import com.example.caloriecounter.model.SampleData;
 import com.example.caloriecounter.model.food_Item;
+import com.example.caloriecounter.sqlite.DatabaseException;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -36,6 +38,7 @@ public class DailyConsumptionFragment extends Fragment {
     private DailyConsumptionFragment dailyConsumptionFragment;
     private int maximumDailyCalories;
     private TextView dailyCaloriePercent;
+    private ArrayList<food_Item> foodList;
 
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +54,12 @@ public class DailyConsumptionFragment extends Fragment {
         dinner_Button=root.findViewById(R.id.dinner_Button);
         snacks_Button=root.findViewById(R.id.snacks_Button);
 
+        DatabaseHandler dbh= new DatabaseHandler(getContext());
+        try {
+            foodList = (ArrayList<food_Item>) dbh.get_Food_item_Table().readAll();
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        }
         TextView calorie_Total=root.findViewById(R.id.dailyCalories_TextView);
         //OnclickListeners for Meal types
         breakfast_Button.setOnClickListener(new View.OnClickListener() {
