@@ -14,20 +14,20 @@ public class food_Item implements Identifiable<Long>, Parcelable {
     private Category category;
     private int serving_Size;
     private int calories;
-    private MacroNutrient macroNutrient;
+    private long macroNutrient_Id;
 
     //Constructor
     public food_Item(){
         this.UUID= java.util.UUID.randomUUID().toString();
     }
 
-    public food_Item(String name,Category category, int serving_Size, int calories,MacroNutrient macroNutrient) {
+    public food_Item(String name,Category category, int serving_Size, int calories,long macroNutrient_Id) {
         this.UUID= java.util.UUID.randomUUID().toString();
         this.name = name;
         this.category=category;
         this.serving_Size = serving_Size;
         this.calories = calories;
-        this.macroNutrient=macroNutrient;
+        this.macroNutrient_Id=macroNutrient_Id;
     }
 
     //Setters and Getters
@@ -65,18 +65,18 @@ public class food_Item implements Identifiable<Long>, Parcelable {
 
     public void setCalories(int calories) {this.calories = calories;}
 
-    public MacroNutrient getMacroNutrient() {return macroNutrient;}
+    public Long getMacroNutrient_Id() {return macroNutrient_Id;}
 
-    public void setMacroNutrient(MacroNutrient macroNutrient) {this.macroNutrient = macroNutrient;}
+    public void setMacroNutrient(long macroNutrient_Id) {this.macroNutrient_Id = macroNutrient_Id;}
 
     protected food_Item(Parcel in) {
-        id = in.readInt();
+        id = in.readLong();
         UUID = in.readString();
         name = in.readString();
         category = Category.values()[in.readInt()];
         serving_Size = in.readInt();
         calories = in.readInt();
-        macroNutrient = (MacroNutrient) in.readValue(MacroNutrient.class.getClassLoader());
+        macroNutrient_Id  = in.readLong();
     }
 
     @Override
@@ -92,7 +92,7 @@ public class food_Item implements Identifiable<Long>, Parcelable {
         dest.writeInt(category.ordinal());
         dest.writeInt(serving_Size);
         dest.writeInt(calories);
-        dest.writeValue(macroNutrient);
+        dest.writeLong(macroNutrient_Id);
     }
 
     @SuppressWarnings("unused")

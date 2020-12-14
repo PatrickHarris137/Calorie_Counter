@@ -34,6 +34,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 .withSeedData(SampleData.generateFoodDisplayList())
                 .build();
         macro_nutrient_table = TableFactory.makeFactory(this,MacroNutrient.class)
+                .withSeedData(SampleData.generateMacroNutrients())
                 .build();
         user_food_item_table = TableFactory.makeFactory(this,User_Food_Item.class)
                 .build();
@@ -44,12 +45,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     }
 
-    public Table<food_Item> getFood_item_Table() {
+    public Table<food_Item> get_Food_item_Table() {
         return food_item_Table;
     }
-
+    public Table<MacroNutrient> get_Macro_Nutrient_Table() {
+        return macro_nutrient_table;
+    }
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         user_table.createTable(db);
         food_item_Table.createTable(db);
         macro_nutrient_table.createTable(db);
