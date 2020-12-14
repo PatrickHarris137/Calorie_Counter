@@ -19,7 +19,6 @@ public class SampleData {
         MacroNutrient almondNutrient=new MacroNutrient(21, 12, 4, 43, 0, 0, 0, 1);
         MacroNutrient riceNutrient=new MacroNutrient(2, 0, 0, 0, 0, 0, 0, 1);
         MacroNutrient cheeseNutrient=new MacroNutrient(26, 0, 0, 9, 18, 0, 93, 187);
-
         macroNutrientDisplayList.add(tofuNutrient);
         macroNutrientDisplayList.add(appleNutrient);
         macroNutrientDisplayList.add(steakNutrient);
