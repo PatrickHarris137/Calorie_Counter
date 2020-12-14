@@ -60,17 +60,11 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
         TextView editSaturday = findViewById(R.id.saturday_Calories);
         TextView editSunday = findViewById(R.id.sunday_Calories);
 
-        Intent intent = getIntent();
-        dayCalories = intent.getIntExtra("totalCals", 0);
-
-
         editMonday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // get the current activity
-                Activity activity =(Activity) weeklyProgressionFragment.getActivity();
-                // create intent that redirects to dailyconsumptionactivity
-                Intent intent = new Intent(activity, DailyConsumptionActivity.class);
+                // get intent from dailyconsumptionactivity
+                Intent intent = getIntent();
 
                 chosenDay = Day.MONDAY;
                 String day = "Monday";
@@ -83,7 +77,7 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
                     localDate = findDate(today);
                 intent.putExtra("date", localDate);
 
-                activity.startActivityForResult(intent,1);
+                finish();
             }
         });
 
@@ -92,72 +86,126 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
         editTuesday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // get the current activity
-                Activity activity =(Activity) weeklyProgressionFragment.getActivity();
-                // create intent that redirects to dailyconsumptionactivity
-                Intent intent = new Intent(activity, DailyConsumptionActivity.class);
+                // get intent from dailyconsumptionactivity
+                Intent intent = getIntent();
 
-                activity.startActivityForResult(intent,1);
+                chosenDay = Day.TUESDAY;
+                String day = "Tuesday";
+                intent.putExtra("day", day);
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
+                String today = simpleDateFormat.format(new Date());
+
+                if(day != today)
+                    localDate = findDate(today);
+                intent.putExtra("date", localDate);
+
+                finish();
             }
         });
 
         editWednesday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // get the current activity
-                Activity activity =(Activity) weeklyProgressionFragment.getActivity();
-                // create intent that redirects to dailyconsumptionactivity
-                Intent intent = new Intent(activity, DailyConsumptionActivity.class);
+                // get intent from dailyconsumptionactivity
+                Intent intent = getIntent();
 
-                activity.startActivityForResult(intent,1);
+                chosenDay = Day.WEDNESDAY;
+                String day = "Wednesday";
+                intent.putExtra("day", day);
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
+                String today = simpleDateFormat.format(new Date());
+
+                if(day != today)
+                    localDate = findDate(today);
+                intent.putExtra("date", localDate);
+
+                finish();
             }
         });
 
         editThursday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // get the current activity
-                Activity activity =(Activity) weeklyProgressionFragment.getActivity();
-                // create intent that redirects to dailyconsumptionactivity
-                Intent intent = new Intent(activity, DailyConsumptionActivity.class);
+                // get intent from dailyconsumptionactivity
+                Intent intent = getIntent();
 
-                activity.startActivityForResult(intent,1);
+                chosenDay = Day.THURSDAY;
+                String day = "Thursday";
+                intent.putExtra("day", day);
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
+                String today = simpleDateFormat.format(new Date());
+
+                if(day != today)
+                    localDate = findDate(today);
+                intent.putExtra("date", localDate);
+
+                finish();
             }
         });
 
         editFriday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // get the current activity
-                Activity activity =(Activity) weeklyProgressionFragment.getActivity();
-                // create intent that redirects to dailyconsumptionactivity
-                Intent intent = new Intent(activity, DailyConsumptionActivity.class);
+                // get intent from dailyconsumptionactivity
+                Intent intent = getIntent();
 
-                activity.startActivityForResult(intent,1);
+                chosenDay = Day.FRIDAY;
+                String day = "Friday";
+                intent.putExtra("day", day);
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
+                String today = simpleDateFormat.format(new Date());
+
+                if(day != today)
+                    localDate = findDate(today);
+                intent.putExtra("date", localDate);
+
+                finish();
             }
         });
 
         editSaturday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // get the current activity
-                Activity activity =(Activity) weeklyProgressionFragment.getActivity();
-                // create intent that redirects to dailyconsumptionactivity
-                Intent intent = new Intent(activity, DailyConsumptionActivity.class);
+                // get intent from dailyconsumptionactivity
+                Intent intent = getIntent();
 
-                activity.startActivityForResult(intent,1);
+                chosenDay = Day.SATURDAY;
+                String day = "Saturday";
+                intent.putExtra("day", day);
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
+                String today = simpleDateFormat.format(new Date());
+
+                if(day != today)
+                    localDate = findDate(today);
+                intent.putExtra("date", localDate);
+
+                finish();
             }
         });
 
         editSunday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // get the current activity
-                Activity activity =(Activity) weeklyProgressionFragment.getActivity();
-                // create intent that redirects to dailyconsumptionactivity
-                Intent intent = new Intent(activity, DailyConsumptionActivity.class);
+                // get intent from dailyconsumptionactivity
+                Intent intent = getIntent();
 
-                activity.startActivityForResult(intent,1);
+                chosenDay = Day.SUNDAY;
+                String day = "Sunday";
+                intent.putExtra("day", day);
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
+                String today = simpleDateFormat.format(new Date());
+
+                if(day != today)
+                    localDate = findDate(today);
+                intent.putExtra("date", localDate);
+
+                finish();
             }
         });
     }
