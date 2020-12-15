@@ -33,6 +33,15 @@ public class DailyMacroCounterActivity extends AppCompatActivity {
         dailyMacroCounterFragment = (DailyMacroCounterFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
 
 
+        FloatingActionButton editDaily = findViewById(R.id.edit_Daily);
+        editDaily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( dailyMacroCounterFragment.getContext(), DailyConsumptionActivity.class);
+                startActivityForResult(intent,1);
+
+            }
+        });
 
     }
 
