@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caloriecounter.R;
+import com.example.caloriecounter.model.DatabaseHandler;
 import com.example.caloriecounter.model.food_Item;
 
 import java.util.List;
@@ -24,7 +25,10 @@ public class DailyConsumptionAdapter extends RecyclerView.Adapter<DailyConsumpti
     public List<food_Item> getMealsOfDayList() {
         return mealsOfDayList;
     }
-
+    public void addFoodItem(food_Item food){
+        mealsOfDayList.add(food);
+        notifyDataSetChanged();
+    }
     public DailyConsumptionAdapter(List<food_Item> mealsOfDayList,DailyConsumptionFragment dailyConsumptionFragment) {
         this.mealsOfDayList=mealsOfDayList;
         this.dailyConsumptionFragment=dailyConsumptionFragment;
@@ -58,10 +62,14 @@ public class DailyConsumptionAdapter extends RecyclerView.Adapter<DailyConsumpti
         private food_Item food;
        // private Food food;
         private final View root;
+        private final DatabaseHandler dbh;
+
 
         public FoodViewHolder(@NonNull final View root,final DailyConsumptionAdapter dailyConsumptionAdapter) {
             super(root);
             this.root=root;
+
+            dbh = new DatabaseHandler(root.getContext());
 
 
             foodName_TextView = root.findViewById(R.id.foodName_TextView);
@@ -93,6 +101,7 @@ public class DailyConsumptionAdapter extends RecyclerView.Adapter<DailyConsumpti
             });
 
         }
+
         public void set(food_Item food, int position) {
             this.food = food;
             this.position = position;
