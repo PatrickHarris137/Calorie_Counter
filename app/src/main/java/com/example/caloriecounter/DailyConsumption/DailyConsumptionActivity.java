@@ -51,6 +51,7 @@ public class DailyConsumptionActivity extends AppCompatActivity {
                 Intent intent = getIntent();
                 if(date!=null)
                     intent.putExtra("date",date.toString());
+                setResult(RESULT_OK, intent);
                 finish();
 
             }
