@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text="0"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/textView42"
             app:layout_constraintTop_toBottomOf="@+id/textView42" />
@@ -26,6 +27,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text="0"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@+id/textView37"
             app:layout_constraintTop_toBottomOf="@+id/textView37" />
@@ -36,6 +38,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text="0"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@+id/textView36"
             app:layout_constraintTop_toBottomOf="@+id/textView36" />
@@ -46,6 +49,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text="0"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/textView41"
             app:layout_constraintTop_toBottomOf="@+id/textView41" />
@@ -56,6 +60,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text="0"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/textView38"
             app:layout_constraintTop_toBottomOf="@+id/textView38" />
@@ -66,6 +71,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text="0"
             android:textSize="10sp"
             app:layout_constraintEnd_toStartOf="@+id/unsaturated_EditText"
             app:layout_constraintStart_toEndOf="@+id/protein_EditText"
@@ -77,6 +83,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text="0"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@+id/textView40"
             app:layout_constraintTop_toBottomOf="@+id/textView40" />
@@ -87,6 +94,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text="0"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="@+id/textView35"
             app:layout_constraintTop_toBottomOf="@+id/textView35" />
@@ -97,6 +105,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text="0"
             android:textSize="10sp"
             app:layout_constraintStart_toStartOf="@+id/textView32"
             app:layout_constraintTop_toBottomOf="@+id/textView32" />
@@ -108,6 +117,7 @@
             android:layout_marginTop="1dp"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text="0"
             android:textSize="10sp"
             app:layout_constraintEnd_toStartOf="@+id/saturated_EditText"
             app:layout_constraintStart_toEndOf="@+id/fiber_EditText"
