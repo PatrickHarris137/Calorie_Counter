@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import com.example.caloriecounter.R;
 import com.example.caloriecounter.model.DatabaseHandler;
 import com.example.caloriecounter.model.SampleData;
+import com.example.caloriecounter.model.User_Daily_Consumption;
 import com.example.caloriecounter.model.food_Item;
 import com.example.caloriecounter.model.meal;
 import com.example.caloriecounter.sqlite.DatabaseException;
@@ -111,6 +112,10 @@ public class DailyConsumptionFragment extends Fragment {
         foodRecyclerView.setAdapter(adapter);
         foodRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         calculateTotalCalories(mealsOfDayList.get(0));
+
+
+
+
         return root;
     }
     public meal getMeal(){

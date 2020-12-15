@@ -5,8 +5,6 @@ import android.os.Parcelable;
 
 import com.example.caloriecounter.sqlite.Identifiable;
 
-import java.util.UUID;
-
 public class food_Item implements Identifiable<Long>, Parcelable {
     private long id;
     private String UUID;
@@ -14,20 +12,29 @@ public class food_Item implements Identifiable<Long>, Parcelable {
     private Category category;
     private int serving_Size;
     private int calories;
-    private long macroNutrient_Id;
+
+    public long getMacro_Id() {
+        return macro_Id;
+    }
+
+    public void setMacro_Id(long macro_Id) {
+        this.macro_Id = macro_Id;
+    }
+
+    private long macro_Id;
 
     //Constructor
     public food_Item(){
         this.UUID= java.util.UUID.randomUUID().toString();
     }
 
-    public food_Item(String name,Category category, int serving_Size, int calories,long macroNutrient_Id) {
+    public food_Item(String name,Category category, int serving_Size, int calories, long macro_Id) {
         this.UUID= java.util.UUID.randomUUID().toString();
         this.name = name;
         this.category=category;
         this.serving_Size = serving_Size;
         this.calories = calories;
-        this.macroNutrient_Id=macroNutrient_Id;
+        this.macro_Id = macro_Id;
     }
 
     //Setters and Getters
@@ -65,9 +72,6 @@ public class food_Item implements Identifiable<Long>, Parcelable {
 
     public void setCalories(int calories) {this.calories = calories;}
 
-    public Long getMacroNutrient_Id() {return macroNutrient_Id;}
-
-    public void setMacroNutrient(long macroNutrient_Id) {this.macroNutrient_Id = macroNutrient_Id;}
 
     protected food_Item(Parcel in) {
         id = in.readLong();
@@ -76,7 +80,7 @@ public class food_Item implements Identifiable<Long>, Parcelable {
         category = Category.values()[in.readInt()];
         serving_Size = in.readInt();
         calories = in.readInt();
-        macroNutrient_Id  = in.readLong();
+        macro_Id = in.readLong();
     }
 
     @Override
@@ -92,7 +96,7 @@ public class food_Item implements Identifiable<Long>, Parcelable {
         dest.writeInt(category.ordinal());
         dest.writeInt(serving_Size);
         dest.writeInt(calories);
-        dest.writeLong(macroNutrient_Id);
+        dest.writeLong(macro_Id);
     }
 
     @SuppressWarnings("unused")

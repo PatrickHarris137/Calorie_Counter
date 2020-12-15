@@ -21,7 +21,15 @@ public class User_Daily_Consumption implements Identifiable<Long> {
     }
 
     private long user_id;
+
+    public String getDate() {
+        return date.toString();
+    }
+
     private Date date;
+
+    public User_Daily_Consumption() {
+    }
 
     @Override
     public Long getId() {
