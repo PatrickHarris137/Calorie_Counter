@@ -21,13 +21,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Table<food_Item> food_item_Table;
     private final Table<MacroNutrient> macro_nutrient_table;
     private final Table<User_Food_Item> user_food_item_table;
+
+    public Table<User_Daily_Consumption> getUser_daily_consumption_table() {
+        return user_daily_consumption_table;
+    }
+
     private final Table<User_Daily_Consumption> user_daily_consumption_table;
     private final Table<user> user_table;
 
 
     public DatabaseHandler(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
 
         food_item_Table = TableFactory.makeFactory(this,food_Item.class)
                 .withSeedData(SampleData.generateFoodDisplayList())
@@ -36,13 +40,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 .withSeedData(SampleData.generateMacroNutrients())
                 .build();
         user_food_item_table = TableFactory.makeFactory(this,User_Food_Item.class)
+                .withSeedData(SampleData.generateUserFoodItems())
                 .build();
         user_daily_consumption_table = TableFactory.makeFactory(this,User_Daily_Consumption.class)
+                .withSeedData(SampleData.generate_UserDailyConsumptions())
                 .build();
         user_table = TableFactory.makeFactory(this,user.class)
                 .withSeedData(SampleData.generateUsersList())
                 .build();
-
     }
 
     public Table<user> get_User_table(){return user_table;}
@@ -53,8 +58,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return macro_nutrient_table;
     }
 
+    public List<food_Item> get_FoodItem_By_UserFoodItem(long daily_id,long food_id){
+            List<food_Item> food_item_List = new ArrayList<>();
 
-    public List<User_Food_Item> get_User_Food_Item_By_Date_And_User(long daily_Id,long user_Id){
+            try{
+
+            }catch (Exception e){
+
+            }
+            return food_item_List;
+    }
+    public List<User_Food_Item> get_UserFoodItem_By_Date_And_User(long daily_Id, long user_Id){
         List<User_Food_Item> full_Item_List;
         List<User_Food_Item> temp_Item_List = new ArrayList<>();
         try{

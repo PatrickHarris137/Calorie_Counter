@@ -1,7 +1,7 @@
 package com.example.caloriecounter.model;
 
 import com.example.caloriecounter.sqlite.Identifiable;
-
+import com.example.caloriecounter.model.meal;
 public class User_Food_Item implements Identifiable<Long> {
     public long getDaily_Id() {
         return daily_Id;
@@ -27,11 +27,11 @@ public class User_Food_Item implements Identifiable<Long> {
         this.num_Of_Serving = num_Of_Serving;
     }
 
-    public com.example.caloriecounter.model.meal getMeal() {
+    public meal getMeal() {
         return meal;
     }
 
-    public void setMeal(com.example.caloriecounter.model.meal meal) {
+    public void setMeal(meal meal) {
         this.meal = meal;
     }
 
@@ -43,7 +43,7 @@ public class User_Food_Item implements Identifiable<Long> {
         this.total_Calories = total_Calories;
     }
 
-    public User_Food_Item(long daily_Id, long food_Id, int num_Of_Serving, com.example.caloriecounter.model.meal meal, int total_Calories) {
+    public User_Food_Item(long daily_Id, long food_Id, int num_Of_Serving, meal meal, int total_Calories) {
         this.daily_Id = daily_Id;
         this.food_Id = food_Id;
         this.num_Of_Serving = num_Of_Serving;

@@ -9,7 +9,7 @@ import com.example.caloriecounter.model.DatabaseHandler;
 import com.example.caloriecounter.WeeklyProgression.WeeklyProgressionActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-
+import com.example.caloriecounter.model.food_Item;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -68,11 +68,18 @@ public class DailyConsumptionActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        food_Item food;
         String returnType=data.getStringExtra("returnType");
         if(returnType!=null){
+            if(returnType.equals("FoodDisplay")){
+                int test=0;
+                food = data.getParcelableExtra("foodToAdd");
+                dailyConsumptionFragment.addFoodToMeal(food);
+            }
+            else if(returnType.equals("WeeklyProgression")){
                 dailyConsumptionFragment.setDayOfWeek(data.getStringExtra("day"));
                 date =data.getStringExtra("date");
-
+            }
         }
     }
 }
