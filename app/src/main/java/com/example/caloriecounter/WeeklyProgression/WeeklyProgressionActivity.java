@@ -41,7 +41,7 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
     // stores the current day
     private Day chosenDay;
     // stores datetime
-    private LocalDate localDate = LocalDate.now();
+    private String localDate = LocalDate.now().toString();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,14 +69,16 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
                 chosenDay = Day.MONDAY;
                 String day = "Monday";
                 intent.putExtra("day", day);
+                intent.putExtra("returnType", "WeeklyProgression");
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
                 String today = simpleDateFormat.format(new Date());
 
                 if(day != today)
-                    localDate = findDate(today);
+                    localDate = findDate(today).toString();
                 intent.putExtra("date", localDate);
 
+                setResult(Activity.RESULT_OK, intent);
                 finish();
             }
         });
@@ -92,14 +94,16 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
                 chosenDay = Day.TUESDAY;
                 String day = "Tuesday";
                 intent.putExtra("day", day);
+                intent.putExtra("returnType", "WeeklyProgression");
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
                 String today = simpleDateFormat.format(new Date());
 
                 if(day != today)
-                    localDate = findDate(today);
+                    localDate = findDate(today).toString();
                 intent.putExtra("date", localDate);
 
+                setResult(Activity.RESULT_OK, intent);
                 finish();
             }
         });
@@ -113,14 +117,16 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
                 chosenDay = Day.WEDNESDAY;
                 String day = "Wednesday";
                 intent.putExtra("day", day);
+                intent.putExtra("returnType", "WeeklyProgression");
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
                 String today = simpleDateFormat.format(new Date());
 
                 if(day != today)
-                    localDate = findDate(today);
+                    localDate = findDate(today).toString();
                 intent.putExtra("date", localDate);
 
+                setResult(Activity.RESULT_OK, intent);
                 finish();
             }
         });
@@ -134,14 +140,16 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
                 chosenDay = Day.THURSDAY;
                 String day = "Thursday";
                 intent.putExtra("day", day);
+                intent.putExtra("returnType", "WeeklyProgression");
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
                 String today = simpleDateFormat.format(new Date());
 
                 if(day != today)
-                    localDate = findDate(today);
+                    localDate = findDate(today).toString();
                 intent.putExtra("date", localDate);
 
+                setResult(Activity.RESULT_OK, intent);
                 finish();
             }
         });
@@ -155,14 +163,16 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
                 chosenDay = Day.FRIDAY;
                 String day = "Friday";
                 intent.putExtra("day", day);
+                intent.putExtra("returnType", "WeeklyProgression");
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
                 String today = simpleDateFormat.format(new Date());
 
                 if(day != today)
-                    localDate = findDate(today);
+                    localDate = findDate(today).toString();
                 intent.putExtra("date", localDate);
 
+                setResult(Activity.RESULT_OK, intent);
                 finish();
             }
         });
@@ -176,14 +186,16 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
                 chosenDay = Day.SATURDAY;
                 String day = "Saturday";
                 intent.putExtra("day", day);
+                intent.putExtra("returnType", "WeeklyProgression");
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
                 String today = simpleDateFormat.format(new Date());
 
                 if(day != today)
-                    localDate = findDate(today);
+                    localDate = findDate(today).toString();
                 intent.putExtra("date", localDate);
 
+                setResult(Activity.RESULT_OK, intent);
                 finish();
             }
         });
@@ -197,55 +209,59 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
                 chosenDay = Day.SUNDAY;
                 String day = "Sunday";
                 intent.putExtra("day", day);
+                intent.putExtra("returnType", "WeeklyProgression");
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
                 String today = simpleDateFormat.format(new Date());
 
                 if(day != today)
-                    localDate = findDate(today);
+                    localDate = findDate(today).toString();
                 intent.putExtra("date", localDate);
 
+                setResult(Activity.RESULT_OK, intent);
                 finish();
             }
         });
     }
 
-    public LocalDate findDate(String today){
+
+    public String findDate(String today){
+        LocalDate tmpLocalDate = LocalDate.now();
         switch (today){
             case "Monday":
                 int dayOfWeek = Day.MONDAY.ordinal();
                 int dayDifference = dayOfWeek - chosenDay.ordinal();
-                localDate = localDate.plusDays(dayDifference);
+                localDate = tmpLocalDate.plusDays(dayDifference).toString();;
                 break;
             case "Tuesday":
                 dayOfWeek = Day.TUESDAY.ordinal();
                 dayDifference = dayOfWeek - chosenDay.ordinal();
-                localDate = localDate.plusDays(dayDifference);
+                localDate = tmpLocalDate.plusDays(1).toString();
                 break;
             case "Wednesday":
                 dayOfWeek = Day.WEDNESDAY.ordinal();
                 dayDifference = dayOfWeek - chosenDay.ordinal();
-                localDate = localDate.plusDays(dayDifference);
+                localDate = tmpLocalDate.plusDays(dayDifference).toString();
                 break;
             case "Thursday":
                 dayOfWeek = Day.THURSDAY.ordinal();
                 dayDifference = dayOfWeek - chosenDay.ordinal();
-                localDate = localDate.plusDays(dayDifference);
+                localDate = tmpLocalDate.plusDays(dayDifference).toString();
                 break;
             case "Friday":
                 dayOfWeek = Day.FRIDAY.ordinal();
                 dayDifference = dayOfWeek - chosenDay.ordinal();
-                localDate = localDate.plusDays(dayDifference);
+                localDate = tmpLocalDate.plusDays(dayDifference).toString();
                 break;
             case "Saturday":
                 dayOfWeek = Day.SATURDAY.ordinal();
                 dayDifference = dayOfWeek - chosenDay.ordinal();
-                localDate = localDate.plusDays(dayDifference);
+                localDate = tmpLocalDate.plusDays(dayDifference).toString();
                 break;
             case "Sunday":
                 dayOfWeek = Day.SUNDAY.ordinal();
                 dayDifference = dayOfWeek - chosenDay.ordinal();
-                localDate = localDate.plusDays(dayDifference);
+                localDate = tmpLocalDate.plusDays(dayDifference).toString();
                 break;
         }
 

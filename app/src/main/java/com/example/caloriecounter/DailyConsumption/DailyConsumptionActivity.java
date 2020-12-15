@@ -22,7 +22,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class DailyConsumptionActivity extends AppCompatActivity {
-    public LocalDate date;
+    public String date;
     public String day;
     private DailyConsumptionFragment dailyConsumptionFragment;
 
@@ -70,14 +70,9 @@ public class DailyConsumptionActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         String returnType=data.getStringExtra("returnType");
         if(returnType!=null){
-            if(returnType=="WeeklyProgression"){
                 dailyConsumptionFragment.setDayOfWeek(data.getStringExtra("day"));
-                date =data.getParcelableExtra("date");
+                date =data.getStringExtra("date");
 
-            }
-            else if(returnType=="FoodDisplay"){
-
-            }
         }
     }
 }

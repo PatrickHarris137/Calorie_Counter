@@ -1,11 +1,40 @@
 package com.example.caloriecounter.model;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 public class SampleData {
 
+    public static List<user> generateUsersList(){
+        List<user> userList = new ArrayList<>();
+        userList.add(new user("pat","pass"));
+        userList.add(new user("jan","pass"));
+        userList.add(new user("alex","pass"));
+        userList.add(new user("kendrick","pass"));
+        return userList;
+    }
+    public static List<User_Daily_Consumption> generate_UserDailyConsumptions(){
+        List<User_Daily_Consumption> userDailyConsumptionList = new ArrayList<>();
+        try{
+            Date today = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Calendar c = Calendar.getInstance();
+            c.setTime(sdf.parse(today.toString()));
+
+        }
+        catch (Exception e){
+
+        }
+        userDailyConsumptionList.add(new User_Daily_Consumption(1, new Date()));
+        userDailyConsumptionList.add(new User_Daily_Consumption(1, new Date()));
+        userDailyConsumptionList.add(new User_Daily_Consumption(1, new Date()));
+        return userDailyConsumptionList;
+    }
     public static List<MacroNutrient> generateMacroNutrients(){
         List<MacroNutrient> macroNutrientDisplayList = new ArrayList<>();
 
@@ -19,6 +48,7 @@ public class SampleData {
         MacroNutrient almondNutrient=new MacroNutrient(21, 12, 4, 43, 0, 0, 0, 1);
         MacroNutrient riceNutrient=new MacroNutrient(2, 0, 0, 0, 0, 0, 0, 1);
         MacroNutrient cheeseNutrient=new MacroNutrient(26, 0, 0, 9, 18, 0, 93, 187);
+
         macroNutrientDisplayList.add(tofuNutrient);
         macroNutrientDisplayList.add(appleNutrient);
         macroNutrientDisplayList.add(steakNutrient);
@@ -29,43 +59,23 @@ public class SampleData {
         macroNutrientDisplayList.add(almondNutrient);
         macroNutrientDisplayList.add(riceNutrient);
         macroNutrientDisplayList.add(cheeseNutrient);
+
         return macroNutrientDisplayList;
     }
-    public static List<food_Item> generateFoodDisplayList(){
 
+    public static List<food_Item> generateFoodDisplayList(){
         List<food_Item> foodDisplayList = new ArrayList<>();
 
-
-
         food_Item tofu= new food_Item("Tofu", Category.Meat, 1, 320, 1);
-
-
         food_Item apple= new food_Item("Apple", Category.Fruits, 1, 120, 2);
-
-
         food_Item steak= new food_Item("Steak", Category.Meat, 1, 510, 3);
-
-
         food_Item chicken= new food_Item("Chicken", Category.Meat, 1, 450, 4);
-
-
         food_Item broccoli= new food_Item("Broccoli", Category.Vegetables, 1, 80, 5);
-
-
         food_Item toast= new food_Item("Toast", Category.Grains, 1, 132, 6);
-
-
         food_Item bacon= new food_Item("Bacon", Category.Meat, 1, 205, 7);
-
-
         food_Item almond= new food_Item("Almond", Category.Meat, 1, 90, 8);
-
-
         food_Item rice= new food_Item("Rice", Category.Grains, 1, 220, 9);
-
-
         food_Item swissCheese= new food_Item("Swiss Cheese", Category.Dairy, 1, 150, 10);
-
 
         foodDisplayList.add(tofu);
         foodDisplayList.add(apple);
@@ -109,5 +119,6 @@ public class SampleData {
         }
         return  mealsOfDayList;
     }
+
 
 }

@@ -50,7 +50,7 @@ public class User_Food_Item implements Identifiable<Long> {
         this.meal = meal;
         this.total_Calories = total_Calories;
     }
-
+    private long id;
     private long daily_Id;
     private long food_Id;
     private int num_Of_Serving;
@@ -60,11 +60,11 @@ public class User_Food_Item implements Identifiable<Long> {
 
     @Override
     public Long getId() {
-        return null;
+        return this.id;
     }
 
     @Override
     public void setId(Long id) {
-
+        this.id=id;
     }
 }
