@@ -103,7 +103,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
             food=data.getParcelableExtra("newFood");
             macro=data.getParcelableExtra("newMacro");
 
-            foodDisplayFragment.setFoodItem(food);
+            foodDisplayFragment.setFoodItem(food,macro);
 
 
         }

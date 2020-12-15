@@ -35,6 +35,8 @@ public class FoodDisplayViewHolder  extends RecyclerView.ViewHolder{
     private food_Item food;
     private DatabaseHandler dbh;
     private List<MacroNutrient> macroNutrientList;
+    private boolean firstTime;
+
     public FoodDisplayViewHolder(@NonNull View root) {
         super(root);
 
@@ -65,12 +67,25 @@ public class FoodDisplayViewHolder  extends RecyclerView.ViewHolder{
 
     public void set(food_Item food){
 
+        try{
+            macroNutrientList=dbh.get_Macro_Nutrient_Table().readAll();
+        }
+        catch (Exception e){
+
+        }
+
         this.food=food;
-        long id=food.getMacroNutrient_Id();
+        long id=food.getId()-1;
+
+        if(id==0){
+            firstTime=true;
+        }
+
         foodNameTextView.setText(food.getName());
         foodCategoryTextView.setText(food.getCategory().name());
         foodServingSizeTextView.setText(Integer.toString(food.getServing_Size()) + " serving size");
         foodCaloriesTextView.setText(Integer.toString(food.getCalories())+" calories");
+
 
 
         foodProteinTextView.setText(Double.toString(macroNutrientList.get((int)id).getProtein()));

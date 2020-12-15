@@ -96,7 +96,7 @@ public class AddFoodItemFragment extends Fragment {
                newMacro.setSodium(Double.parseDouble(sodiumEditText.getText().toString()));
                newMacro.setSaturatedFat(Double.parseDouble(saturatedEditText.getText().toString()));
                newMacro.setUnsaturatedFat(Double.parseDouble(unsaturatedEditText.getText().toString()));
-               newMacro.setTrans_fat(Double.parseDouble(proteinEditText.getText().toString()));
+               newMacro.setTrans_fat(Double.parseDouble(transEditText.getText().toString()));
 
                Intent intent = addFoodItemActivity.getIntent();
                intent.putExtra("newFood",newFood);

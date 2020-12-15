@@ -11,9 +11,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.caloriecounter.R;
 import com.example.caloriecounter.model.DatabaseHandler;
+import com.example.caloriecounter.model.MacroNutrient;
 import com.example.caloriecounter.model.food_Item;
+import com.example.caloriecounter.sqlite.DatabaseException;
 
 import java.util.List;
+
+import javax.crypto.Mac;
 
 public class FoodDisplayAdapter extends RecyclerView.Adapter<FoodDisplayViewHolder> {
 
@@ -21,12 +25,13 @@ public class FoodDisplayAdapter extends RecyclerView.Adapter<FoodDisplayViewHold
 
     private FragmentManager fragManager;
 
-    private List<food_Item> data;
+    private List<food_Item> foodData;
+    private List<MacroNutrient> macroData;
 
-    public FoodDisplayAdapter(List<food_Item> foodData){
+    public FoodDisplayAdapter(List<food_Item> foodData, List<MacroNutrient> macroData){
 
-        this.data=foodData;
-
+        this.foodData=foodData;
+        this.macroData=macroData;
     }
 
     @NonNull
@@ -41,18 +46,31 @@ public class FoodDisplayAdapter extends RecyclerView.Adapter<FoodDisplayViewHold
 
     @Override
     public void onBindViewHolder(@NonNull FoodDisplayViewHolder holder, int position) {
-       holder.set(data.get(position));
-
-
+       holder.set(foodData.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return foodData.size();
     }
 
 
-    public void setFoodItem(food_Item food, DatabaseHandler dbh){
-        data.add(food);
+    public void setFoodItem(food_Item food, MacroNutrient macro, DatabaseHandler dbh){
+
+
+        try {
+
+
+            dbh.get_Macro_Nutrient_Table().create(macro);
+            macroData=dbh.get_Macro_Nutrient_Table().readAll();
+
+            food.setMacroNutrient((long)macroData.size());
+            foodData.add(food);
+            dbh.get_Food_item_Table().create(food);
+        } catch (DatabaseException e) {
+
+        }
+
+
     }
 }

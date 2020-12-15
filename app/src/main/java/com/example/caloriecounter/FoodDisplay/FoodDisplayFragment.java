@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caloriecounter.R;
 import com.example.caloriecounter.model.DatabaseHandler;
+import com.example.caloriecounter.model.MacroNutrient;
 import com.example.caloriecounter.model.SampleData;
 import com.example.caloriecounter.model.food_Item;
 
@@ -23,6 +24,7 @@ import java.util.List;
 public class FoodDisplayFragment extends Fragment {
 
     private List<food_Item> foodData;
+    private List<MacroNutrient>macroData;
     private DatabaseHandler dbh;
     private FoodDisplayAdapter adapter;
 
@@ -38,6 +40,7 @@ public class FoodDisplayFragment extends Fragment {
         dbh= new DatabaseHandler(root.getContext());
         try{
            foodData=dbh.get_Food_item_Table().readAll();
+           macroData=dbh.get_Macro_Nutrient_Table().readAll();
         }
         catch (Exception e){
 
@@ -45,7 +48,7 @@ public class FoodDisplayFragment extends Fragment {
 
         //foodData= SampleData.generateFoodDisplayList();
 
-        adapter = new FoodDisplayAdapter(foodData);
+        adapter = new FoodDisplayAdapter(foodData,macroData);
 
         foodListRecyclerView.setAdapter(adapter);
 
@@ -60,10 +63,9 @@ public class FoodDisplayFragment extends Fragment {
 
     }
 
-    public void setFoodItem(food_Item food){
-        adapter.setFoodItem(food,dbh);
+    public void setFoodItem(food_Item food, MacroNutrient macro){
+        adapter.setFoodItem(food,macro,dbh);
         adapter.notifyDataSetChanged();
-
     }
 
 
