@@ -1,8 +1,16 @@
 package com.example.caloriecounter.FoodDisplay;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Rect;
 import android.provider.ContactsContract;
+import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -47,6 +55,80 @@ public class FoodDisplayAdapter extends RecyclerView.Adapter<FoodDisplayViewHold
     @Override
     public void onBindViewHolder(@NonNull FoodDisplayViewHolder holder, int position) {
        holder.set(foodData.get(position));
+
+
+       holder.itemView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+
+               //grab the location of the itemview on the screen
+               int [] location = new int[2];
+               view.getLocationOnScreen(location);
+
+               //item view's x and y coordinate
+               int xPos = location[0];
+               int yPos = location[1];
+
+               //itemview's height and width
+               int itemViewHeight = view.getHeight();
+               int itemViewWidth = view.getWidth();
+
+
+               //pop up the action mode
+               Activity activity = (Activity) view.getContext();
+               activity.startActionMode(new ActionMode.Callback2() {
+
+                   //Set where the action mode is going to show up
+                   @Override
+                   public void onGetContentRect(ActionMode mode, View view, Rect outRect) {
+                       outRect.set(xPos,yPos+itemViewHeight/2,xPos+itemViewWidth,yPos+itemViewHeight);
+                   }
+
+                   //Create the action mode
+                   @Override
+                   public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+                       MenuInflater inflater = actionMode.getMenuInflater();
+                       inflater.inflate(R.menu.menu_action_mode,menu);
+                       return true;
+                   }
+
+                   @Override
+                   public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+                       return false;
+                   }
+
+                   //Choose a selection on the actionMode
+                   @Override
+                   public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+
+                       switch (menuItem.getItemId()){
+
+                           //Reminder
+                           case R.id.action_add:
+                               Activity intentActivity= (Activity)view.getContext();
+                               Intent intent=intentActivity.getIntent();
+                               intent.putExtra("foodToAdd", foodData.get(position));
+                               intent.putExtra("returnType","FoodDisplay");
+                               intentActivity.setResult(intentActivity.RESULT_OK, intent);
+                               intentActivity.finish();
+                               break;
+
+                           //Close
+                           case R.id.action_close:
+                               break;
+                       }
+                       actionMode.finish();
+                       return true;
+                   }
+
+                   @Override
+                   public void onDestroyActionMode(ActionMode actionMode) {
+
+                   }
+               }, ActionMode.TYPE_FLOATING);
+
+           }
+       });
     }
 
     @Override
@@ -59,18 +141,14 @@ public class FoodDisplayAdapter extends RecyclerView.Adapter<FoodDisplayViewHold
 
 
         try {
-
-
             dbh.get_Macro_Nutrient_Table().create(macro);
             macroData=dbh.get_Macro_Nutrient_Table().readAll();
 
-            food.setMacroNutrient((long)macroData.size());
+            food.setMacro_Id((long)macroData.size());
             foodData.add(food);
             dbh.get_Food_item_Table().create(food);
         } catch (DatabaseException e) {
 
         }
-
-
     }
 }
