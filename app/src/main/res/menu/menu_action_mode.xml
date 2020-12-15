@@ -5,6 +5,9 @@
         android:id="@+id/action_add"
         android:title="Add Food" />
     <item
+        android:id="@+id/action_edit"
+        android:title="Edit" />
+    <item
         android:id="@+id/action_close"
         android:title="Close" />
 </menu>

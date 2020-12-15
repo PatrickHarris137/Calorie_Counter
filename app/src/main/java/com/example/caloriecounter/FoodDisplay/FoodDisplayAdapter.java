@@ -101,16 +101,32 @@ public class FoodDisplayAdapter extends RecyclerView.Adapter<FoodDisplayViewHold
                    @Override
                    public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
 
+                       Activity intentActivity= (Activity)view.getContext();
                        switch (menuItem.getItemId()){
 
                            //Reminder
                            case R.id.action_add:
-                               Activity intentActivity= (Activity)view.getContext();
                                Intent intent=intentActivity.getIntent();
                                intent.putExtra("foodToAdd", foodData.get(position));
                                intent.putExtra("returnType","FoodDisplay");
                                intentActivity.setResult(intentActivity.RESULT_OK, intent);
                                intentActivity.finish();
+                               break;
+
+
+                           case R.id.action_edit:
+                               food_Item food=foodData.get(position);
+                               MacroNutrient macro=macroData.get(position);
+
+
+
+                               Intent editIntent = new Intent(activity, AddFoodItemActivity.class);
+                               editIntent.putExtra("newFood", food);
+                               editIntent.putExtra("newMacro",macro);
+                               editIntent.putExtra("method", "edit");
+                               activity.startActivityForResult(editIntent,1);
+
+
                                break;
 
                            //Close
@@ -137,18 +153,46 @@ public class FoodDisplayAdapter extends RecyclerView.Adapter<FoodDisplayViewHold
     }
 
 
-    public void setFoodItem(food_Item food, MacroNutrient macro, DatabaseHandler dbh){
+    public void setFoodItem(food_Item food, MacroNutrient macro, DatabaseHandler dbh, String method){
 
 
-        try {
-            dbh.get_Macro_Nutrient_Table().create(macro);
-            macroData=dbh.get_Macro_Nutrient_Table().readAll();
+        if(method.equals("add")){
+            try {
+                dbh.get_Macro_Nutrient_Table().create(macro);
+                macroData=dbh.get_Macro_Nutrient_Table().readAll();
 
-            food.setMacro_Id((long)macroData.size());
-            foodData.add(food);
-            dbh.get_Food_item_Table().create(food);
-        } catch (DatabaseException e) {
+                food.setMacro_Id((long)macroData.size());
+                foodData.add(food);
+                dbh.get_Food_item_Table().create(food);
+            } catch (DatabaseException e) {
 
+            }
         }
+        else if(method.equals("edit")){
+            try {
+
+                for(int i=0; i<macroData.size(); i++){
+                    if(macroData.get(i).getId()==macro.getId()){
+                        macroData.set(i,macro);
+                        break;
+                    }
+                }
+                dbh.get_Macro_Nutrient_Table().update(macro);
+                
+                food.setMacro_Id(macro.getId());
+
+                for(int i=0; i<foodData.size(); i++){
+                   if(foodData.get(i).getId()==food.getId()){
+                       foodData.set(i,food);
+                       break;
+                   }
+                }
+                dbh.get_Food_item_Table().update(food);
+
+            } catch (DatabaseException e) {
+
+            }
+        }
+
     }
 }

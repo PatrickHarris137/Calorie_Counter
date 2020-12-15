@@ -63,8 +63,8 @@ public class FoodDisplayFragment extends Fragment {
 
     }
 
-    public void setFoodItem(food_Item food, MacroNutrient macro){
-        adapter.setFoodItem(food,macro,dbh);
+    public void setFoodItem(food_Item food, MacroNutrient macro,String method){
+        adapter.setFoodItem(food,macro,dbh,method);
         adapter.notifyDataSetChanged();
     }
 
