@@ -9,13 +9,12 @@ import androidx.annotation.Nullable;
 import com.example.caloriecounter.sqlite.Table;
 import com.example.caloriecounter.sqlite.TableFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "CalorieCounter.db";
-    public static final String TABLE1 = "CalorieCounter.db";
-    public static final String TABLE2 = "CalorieCounter.db";
-    public static final String TABLE3 = "CalorieCounter.db";
-    public static final String TABLE4 = "CalorieCounter.db";
     public static final int DATABASE_VERSION = 1;
 
     //Tables
@@ -41,15 +40,57 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         user_daily_consumption_table = TableFactory.makeFactory(this,User_Daily_Consumption.class)
                 .build();
         user_table = TableFactory.makeFactory(this,user.class)
+                .withSeedData(SampleData.generateUsersList())
                 .build();
 
     }
 
+    public Table<user> get_User_table(){return user_table;}
     public Table<food_Item> get_Food_item_Table() {
         return food_item_Table;
     }
     public Table<MacroNutrient> get_Macro_Nutrient_Table() {
         return macro_nutrient_table;
+    }
+
+
+    public List<User_Food_Item> get_User_Food_Item_By_Date_And_User(long daily_Id,long user_Id){
+        List<User_Food_Item> full_Item_List;
+        List<User_Food_Item> temp_Item_List = new ArrayList<>();
+        try{
+
+            full_Item_List = user_food_item_table.readAll();
+
+            for (int i = 0; i < full_Item_List.size(); i++) {
+                User_Food_Item temp = full_Item_List.get(i);
+                if(temp.getDaily_Id()==daily_Id && temp.getDaily_Id()==user_Id)
+                    temp_Item_List.add(temp);
+            }
+        }
+        catch (Exception e){
+
+        }
+        return  temp_Item_List;
+    }
+    public User_Daily_Consumption get_User_Daily_Consumption(String date, long user_id){
+        List<User_Daily_Consumption> user_Daily_Consumptions_List;
+        User_Daily_Consumption user_Daily_Consumption = new User_Daily_Consumption();
+        try{
+            user_Daily_Consumptions_List=user_daily_consumption_table.readAll();
+
+            for (int i = 0; i <user_Daily_Consumptions_List.size() ; i++) {
+                User_Daily_Consumption temp_Daily_Consumption=user_Daily_Consumptions_List.get(i);
+                if(temp_Daily_Consumption.getDate()==date && temp_Daily_Consumption.getUser_id()==user_id)
+                {
+                    user_Daily_Consumption=temp_Daily_Consumption;
+                    break;
+                }
+            }
+        }
+        catch (Exception e){
+
+        }
+        return user_Daily_Consumption;
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
