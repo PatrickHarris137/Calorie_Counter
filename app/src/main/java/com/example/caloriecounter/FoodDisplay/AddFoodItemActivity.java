@@ -45,6 +45,14 @@ public class AddFoodItemActivity extends AppCompatActivity {
 
         addFoodItemFragment=(AddFoodItemFragment)getSupportFragmentManager().findFragmentById(R.id.addFoodItem_Fragment);
 
+        Intent intent=getIntent();
+        newFood=intent.getParcelableExtra("newFood");
+        newMacro=intent.getParcelableExtra("newMacro");
+        String method=intent.getStringExtra("method");
+
+        addFoodItemFragment.setNewFood(newFood, method);
+        addFoodItemFragment.setNewMacro(newMacro,method);
+
     }
 
     @Override
