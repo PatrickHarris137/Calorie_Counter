@@ -63,7 +63,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return macro_Nutrient_Table;
     }
 
+    public User_Food_Item getSpecificUserFoodItem(long dailyId, long foodId, meal meal){
+        User_Food_Item userFoodItem = new User_Food_Item();
+        try{
+            List<User_Food_Item> userFoodItems_List = user_Food_Item_Table.readAll();
+            for (int i = 0; i <userFoodItems_List.size(); i++) {
+                User_Food_Item tempUserFoodItem = userFoodItems_List.get(i);
+                if(tempUserFoodItem.getFood_Id()==foodId && tempUserFoodItem.getMeal()==meal && tempUserFoodItem.getDaily_Id()==dailyId)
+                   return tempUserFoodItem;
+            }
 
+
+        }catch (Exception e){
+
+        }
+        return userFoodItem;
+    }
 
     public List<food_Item> get_FoodItem_By_UserFoodItem(long daily_Id, meal meal){
             List<food_Item> food_item_List = new ArrayList<>();
