@@ -115,7 +115,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         catch (Exception e){
 
         }
-        return  temp_Item_List;
+        return  temp_Item_List; 
     }
     public User_Daily_Consumption get_User_Daily_Consumption(String date, long user_id){
         List<User_Daily_Consumption> user_Daily_Consumptions_List;
@@ -137,6 +137,61 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return user_Daily_Consumption;
     }
+
+    public List<User_Food_Item> get_User_Food_Items_By_DailyId(long dailyId){
+        List<User_Food_Item> user_food_items = new ArrayList<>();
+        List<User_Food_Item> tmp_User_food_items;
+        try{
+            tmp_User_food_items = user_Food_Item_Table.readAll();
+            for (User_Food_Item user_food_item : tmp_User_food_items) {
+                if(user_food_item.getDaily_Id() == dailyId){
+                    user_food_items.add(user_food_item);
+                }
+            }
+        }catch (Exception e){
+
+        }
+
+        return user_food_items;
+    }
+
+    public food_Item get_FoodItem_By_FoodItemId(long foodItemId){
+        List<food_Item> food_itemLists;
+
+        food_Item food_item = new food_Item();
+
+        try{
+            food_itemLists = food_Item_Table.readAll();
+            for ( food_Item food : food_itemLists ) {
+                if(food.getId() == foodItemId)
+                    food_item = food;
+            }
+        }catch (Exception e){
+
+        }
+
+        return food_item;
+    }
+
+    public MacroNutrient get_MacroNutrient_By_MacroNutrientId(long macroId){
+        List<MacroNutrient> macroNutrientList;
+
+        MacroNutrient macroNutrient = new MacroNutrient();
+
+        try{
+            macroNutrientList = macro_Nutrient_Table.readAll();
+            for ( MacroNutrient macro : macroNutrientList ) {
+                if(macro.getId() == macroId)
+                    macroNutrient = macro;
+            }
+        }catch (Exception e){
+
+        }
+
+        return macroNutrient;
+    }
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
 
