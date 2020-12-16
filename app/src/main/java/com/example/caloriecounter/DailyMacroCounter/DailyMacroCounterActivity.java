@@ -79,7 +79,7 @@ public class DailyMacroCounterActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         localDate = data.getStringExtra("date");
         dailyMacroCounterFragment.getDailyMacroNutrients();
-        dailyMacroCounterFragment.setProteinText();
+        dailyMacroCounterFragment.setMacroNutrientText();
     }
 
 
