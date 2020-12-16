@@ -155,16 +155,16 @@ public class DailyMacroCounterFragment extends Fragment {
         if (userFoodItems != null) {
             for (User_Food_Item userFoodItem : userFoodItems) {
                 food_Item foodItem = dbh.get_FoodItem_By_FoodItemId(userFoodItem.getFood_Id());
-                totalCalories += foodItem.getCalories();
+                totalCalories += foodItem.getCalories() * userFoodItem.getNum_Of_Serving();
                 MacroNutrient macroNutrient = dbh.get_MacroNutrient_By_MacroNutrientId(foodItem.getMacro_Id());
-                totalProtein += macroNutrient.getProtein();
-                totalFiber += macroNutrient.getFiber();
-                totalSugar += macroNutrient.getSugar();
-                totalUnsaturatedFat += macroNutrient.getUnsaturatedFat();
-                totalSaturatedFat += macroNutrient.getSaturatedFat();
-                totalTransFat += macroNutrient.getTrans_fat();
-                totalCholesterol += macroNutrient.getCholesterol();
-                totalSodium += macroNutrient.getSodium();
+                totalProtein += macroNutrient.getProtein()  * userFoodItem.getNum_Of_Serving();
+                totalFiber += macroNutrient.getFiber()  * userFoodItem.getNum_Of_Serving();
+                totalSugar += macroNutrient.getSugar()  * userFoodItem.getNum_Of_Serving();
+                totalUnsaturatedFat += macroNutrient.getUnsaturatedFat()  * userFoodItem.getNum_Of_Serving();
+                totalSaturatedFat += macroNutrient.getSaturatedFat()  * userFoodItem.getNum_Of_Serving();
+                totalTransFat += macroNutrient.getTrans_fat()  * userFoodItem.getNum_Of_Serving();
+                totalCholesterol += macroNutrient.getCholesterol()  * userFoodItem.getNum_Of_Serving();
+                totalSodium += macroNutrient.getSodium()  * userFoodItem.getNum_Of_Serving();
             }
         }
     }
@@ -181,8 +181,8 @@ public class DailyMacroCounterFragment extends Fragment {
         unsaturatedFatText.setText("Unsaturated Fat: " + Double.toString(totalUnsaturatedFat) + "g");
         saturatedFatText.setText("Saturated Fat: " + Double.toString(totalSaturatedFat) + "g");
         transFatText.setText("Trans Fat: " + Double.toString(totalTransFat) + "g");
-        cholesterolText.setText( "Cholesterol: " + Double.toString(totalCholesterol) + "g");
-        sodiumText.setText("Sodium: " + Double.toString(totalSodium) + "g");
+        cholesterolText.setText( "Cholesterol: " + Double.toString(totalCholesterol) + "mg");
+        sodiumText.setText("Sodium: " + Double.toString(totalSodium) + "mg");
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
