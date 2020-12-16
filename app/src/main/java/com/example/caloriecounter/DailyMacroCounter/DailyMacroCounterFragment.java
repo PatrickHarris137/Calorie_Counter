@@ -80,15 +80,6 @@ public class DailyMacroCounterFragment extends Fragment {
         if(!loginManager.isLoggedIn())
             dialogFragment.show(getChildFragmentManager(),"login-fragment");
 
-        FloatingActionButton editDaily = root.findViewById(R.id.edit_Daily);
-        editDaily.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent( getContext(), DailyConsumptionActivity.class);
-                startActivity(intent);
-
-            }
-        });
         return root;
 
 
