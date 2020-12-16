@@ -111,7 +111,6 @@ public class DailyConsumptionFragment extends Fragment {
         TextView calorie_Total=root.findViewById(R.id.dailyCalories_TextView);
 
         maximumDailyCalories=2200;
-        mealsOfDayList = SampleData.generateFoodForDay();
 
         //Gets food for breakfast of current day
         food_items_list = dbh.get_FoodItem_By_UserFoodItem(daily_consumption.getId(),Meal);
@@ -120,7 +119,7 @@ public class DailyConsumptionFragment extends Fragment {
         foodRecyclerView = root.findViewById(R.id.dailyConsumption_RecyclerView);
         foodRecyclerView.setAdapter(adapter);
         foodRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        calculateTotalCalories(mealsOfDayList.get(0));
+        calculateTotalCalories(food_items_list);
 
         //OnclickListeners for Meal types
         breakfast_Button.setOnClickListener(new View.OnClickListener() {
@@ -191,6 +190,7 @@ public class DailyConsumptionFragment extends Fragment {
     public void addFoodToMeal(food_Item food){
         adapter.addFoodItem(food);
 
+
     }
     public meal getMeal(){
         return this.Meal;
@@ -225,8 +225,12 @@ public class DailyConsumptionFragment extends Fragment {
     public void calculateTotalCalories(List<food_Item> mealsOfDayList){
         int total_Calories=0;
         double caloriePercentage;
-        for (food_Item food : mealsOfDayList)
-          total_Calories=food.getCalories()*food.getServing_Size()+total_Calories;
+        long daily_Id=daily_consumption.getId();
+        for (food_Item food : mealsOfDayList){
+            User_Food_Item userFoodItem=dbh.getSpecificUserFoodItem(daily_Id,food.getId(),Meal);
+            total_Calories=food.getCalories()*userFoodItem.getNum_Of_Serving()+total_Calories;
+        }
+
         dailyCalorieIntake.setText(Integer.toString(total_Calories));
         dailyCaloriePercent.setText(Double.toString(Math.round(((double) total_Calories/(double)maximumDailyCalories)*100))+"%");
     }
