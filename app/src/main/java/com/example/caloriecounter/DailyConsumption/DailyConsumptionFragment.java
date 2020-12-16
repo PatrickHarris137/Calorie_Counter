@@ -43,6 +43,8 @@ public class DailyConsumptionFragment extends Fragment {
     private TextView dailyCaloriePercent;
     private ArrayList<food_Item> foodList;
     public meal Meal;
+    private List<User_Daily_Consumption> daily_consumptions_list;
+
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -63,6 +65,7 @@ public class DailyConsumptionFragment extends Fragment {
         DatabaseHandler dbh= new DatabaseHandler(getContext());
         try {
             foodList = (ArrayList<food_Item>) dbh.get_Food_item_Table().readAll();
+            daily_consumptions_list = dbh.getUser_daily_consumption_table().readAll();
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
@@ -113,10 +116,11 @@ public class DailyConsumptionFragment extends Fragment {
         foodRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         calculateTotalCalories(mealsOfDayList.get(0));
 
-
-
-
         return root;
+    }
+
+    public void addFoodToMeal(food_Item food){
+        adapter.addFoodItem(food);
     }
     public meal getMeal(){
         return this.Meal;
