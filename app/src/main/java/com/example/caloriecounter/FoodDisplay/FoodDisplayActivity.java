@@ -8,6 +8,7 @@ import com.example.caloriecounter.DailyConsumption.DailyConsumptionActivity;
 import com.example.caloriecounter.DailyMacroCounter.DailyMacroCounterActivity;
 import com.example.caloriecounter.R;
 import com.example.caloriecounter.WeeklyProgression.WeeklyProgressionActivity;
+import com.example.caloriecounter.model.Category;
 import com.example.caloriecounter.model.MacroNutrient;
 import com.example.caloriecounter.model.food_Item;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,8 +47,16 @@ public class FoodDisplayActivity extends AppCompatActivity {
         addFoodListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                food_Item foodIntent=new food_Item();
+                foodIntent.setCategory(Category.None);
+
                 Intent intent = new Intent(activity, AddFoodItemActivity.class);
+                intent.putExtra("newFood", foodIntent);
+                intent.putExtra("newMacro",new MacroNutrient());
+                intent.putExtra("method", "add");
                 activity.startActivityForResult(intent,1);
+
             }
         });
     }
@@ -102,10 +111,8 @@ public class FoodDisplayActivity extends AppCompatActivity {
 
             food=data.getParcelableExtra("newFood");
             macro=data.getParcelableExtra("newMacro");
-
-            foodDisplayFragment.setFoodItem(food);
-
-
+            String method=data.getStringExtra("method");
+            foodDisplayFragment.setFoodItem(food,macro,method);
         }
 
     }

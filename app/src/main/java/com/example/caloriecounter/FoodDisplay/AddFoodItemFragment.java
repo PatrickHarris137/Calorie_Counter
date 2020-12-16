@@ -81,8 +81,8 @@ public class AddFoodItemFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-               newFood=new food_Item();
-               newMacro=new MacroNutrient();
+               //newFood=new food_Item();
+               //newMacro=new MacroNutrient();
 
                newFood.setName(nameEditText.getText().toString());
                newFood.setCategory(Category.valueOf(categoryEditText.getText().toString()));
@@ -96,7 +96,7 @@ public class AddFoodItemFragment extends Fragment {
                newMacro.setSodium(Double.parseDouble(sodiumEditText.getText().toString()));
                newMacro.setSaturatedFat(Double.parseDouble(saturatedEditText.getText().toString()));
                newMacro.setUnsaturatedFat(Double.parseDouble(unsaturatedEditText.getText().toString()));
-               newMacro.setTrans_fat(Double.parseDouble(proteinEditText.getText().toString()));
+               newMacro.setTrans_fat(Double.parseDouble(transEditText.getText().toString()));
 
                Intent intent = addFoodItemActivity.getIntent();
                intent.putExtra("newFood",newFood);
@@ -114,11 +114,47 @@ public class AddFoodItemFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
+
     public food_Item getNewFood(){
         return newFood;
     }
 
+
     public MacroNutrient getMacro(){
         return newMacro;
     }
+
+
+    public void setNewFood(food_Item newFood,String method) {
+        this.newFood = newFood;
+
+        if(method.equals("edit")){
+            nameEditText.setText(newFood.getName());
+            categoryEditText.setText(newFood.getCategory().toString());
+            servingEditText.setText(String.valueOf(newFood.getServing_Size()));
+            caloriesEditText.setText(String.valueOf(newFood.getCalories()));
+
+        }
+
+
+    }
+
+    public void setNewMacro(MacroNutrient newMacro,String method) {
+        this.newMacro = newMacro;
+
+
+        if(method.equals("edit")){
+            proteinEditText.setText(String.valueOf(newMacro.getProtein()));
+            cholesterolEditText.setText(String.valueOf(newMacro.getCholesterol()));
+            unsaturatedEditText.setText(String.valueOf(newMacro.getUnsaturatedFat()));
+            saturatedEditText.setText(String.valueOf(newMacro.getSaturatedFat()));
+            transEditText.setText(String.valueOf(newMacro.getTrans_fat()));
+            fiberEditText.setText(String.valueOf(newMacro.getFiber()));
+            sugarEditText.setText(String.valueOf(newMacro.getSugar()));
+            sodiumEditText.setText(String.valueOf(newMacro.getSodium()));
+        }
+
+
+    }
+
 }

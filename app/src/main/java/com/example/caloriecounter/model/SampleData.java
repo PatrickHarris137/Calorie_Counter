@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
+import com.example.caloriecounter.model.meal;
 public class SampleData {
 
     public static List<user> generateUsersList(){
@@ -21,19 +21,41 @@ public class SampleData {
     public static List<User_Daily_Consumption> generate_UserDailyConsumptions(){
         List<User_Daily_Consumption> userDailyConsumptionList = new ArrayList<>();
         try{
-            Date today = new Date();
+
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String today = sdf.format(new Date());
             Calendar c = Calendar.getInstance();
-            c.setTime(sdf.parse(today.toString()));
+            c.setTime(sdf.parse(today));
+            c.add(Calendar.DATE,1);
+            String nextDay = sdf.format(c.getTime());
+            c.add(Calendar.DATE,1);
+            String thirdDay=sdf.format(c.getTime());
+
+            userDailyConsumptionList.add(new User_Daily_Consumption(1, today));
+            userDailyConsumptionList.add(new User_Daily_Consumption(1, nextDay));
+            userDailyConsumptionList.add(new User_Daily_Consumption(1, thirdDay));
+
 
         }
         catch (Exception e){
 
         }
-        userDailyConsumptionList.add(new User_Daily_Consumption(1, new Date()));
-        userDailyConsumptionList.add(new User_Daily_Consumption(1, new Date()));
-        userDailyConsumptionList.add(new User_Daily_Consumption(1, new Date()));
+
         return userDailyConsumptionList;
+    }
+    public static List<User_Food_Item>generateUserFoodItems(){
+        List<User_Food_Item> userFoodItemList = new ArrayList<>();
+
+        userFoodItemList.add(new User_Food_Item(1,1,1,meal.breakfast,200));
+        userFoodItemList.add(new User_Food_Item(1,2,1,meal.breakfast,200));
+        userFoodItemList.add(new User_Food_Item(1,3,1,meal.breakfast,200));
+        userFoodItemList.add(new User_Food_Item(1,4,1,meal.breakfast,200));
+        userFoodItemList.add(new User_Food_Item(1,5,1,meal.lunch,200));
+        userFoodItemList.add(new User_Food_Item(1,6,1,meal.lunch,200));
+        userFoodItemList.add(new User_Food_Item(1,7,1,meal.lunch,200));
+        userFoodItemList.add(new User_Food_Item(1,8,1,meal.dinner,200));
+        userFoodItemList.add(new User_Food_Item(1,9,1,meal.dinner,200));
+        return  userFoodItemList;
     }
     public static List<MacroNutrient> generateMacroNutrients(){
         List<MacroNutrient> macroNutrientDisplayList = new ArrayList<>();
