@@ -31,7 +31,9 @@ import java.util.Date;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class DailyMacroCounterActivity extends AppCompatActivity {
 
-    private String localDate = LocalDate.now().toString();
+    private String localDate;
+
+    private long userId;
 
     private DailyMacroCounterFragment dailyMacroCounterFragment;
     @Override
@@ -43,7 +45,8 @@ public class DailyMacroCounterActivity extends AppCompatActivity {
 
         dailyMacroCounterFragment = (DailyMacroCounterFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
 
-
+        userId = dailyMacroCounterFragment.getUserId();
+        localDate = LocalDate.now().toString();
 
         FloatingActionButton editDaily = findViewById(R.id.edit_Daily);
 
@@ -56,6 +59,8 @@ public class DailyMacroCounterActivity extends AppCompatActivity {
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
                 String today = simpleDateFormat.format(new Date());
+
+                intent.putExtra("userId", userId);
 
                 intent.putExtra("today", today);
                 intent.putExtra("returntype", "DailyMacroCounter");
@@ -114,4 +119,9 @@ public class DailyMacroCounterActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public String getLocalDate(){
+        return localDate;
+    }
+
 }

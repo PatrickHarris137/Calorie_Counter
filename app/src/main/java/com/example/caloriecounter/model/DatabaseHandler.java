@@ -84,7 +84,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         catch (Exception e){
 
         }
-        return  temp_Item_List;
+        return  temp_Item_List; 
     }
     public User_Daily_Consumption get_User_Daily_Consumption(String date, long user_id){
         List<User_Daily_Consumption> user_Daily_Consumptions_List;
@@ -105,6 +105,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         }
         return user_Daily_Consumption;
+    }
+
+    public user getUserById(String username, String password){
+        List<user> user_List;
+        user validUser = null;
+
+        try{
+            user_List = user_table.readAll();
+            for ( user currentUser : user_List ) {
+                if(username == currentUser.getUsername() && password == currentUser.getPassword()){
+                     validUser = currentUser;
+                }
+            }
+        }catch (Exception e){
+
+        }
+        return validUser;
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
