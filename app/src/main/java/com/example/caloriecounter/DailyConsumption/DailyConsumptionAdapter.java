@@ -26,7 +26,20 @@ public class DailyConsumptionAdapter extends RecyclerView.Adapter<DailyConsumpti
         return mealsOfDayList;
     }
     public void addFoodItem(food_Item food){
-        mealsOfDayList.add(food);
+
+        boolean isInList=false;
+
+            for(int i=0; i<mealsOfDayList.size(); i++){
+                if(mealsOfDayList.get(i).getName().equals(food.getName())){
+                    mealsOfDayList.get(i).setServing_Size(mealsOfDayList.get(i).getServing_Size()+1);
+                    isInList=true;
+                    break;
+                }
+            }
+
+            if(!isInList)
+                mealsOfDayList.add(food);
+
         notifyDataSetChanged();
     }
     public DailyConsumptionAdapter(List<food_Item> mealsOfDayList,DailyConsumptionFragment dailyConsumptionFragment) {
