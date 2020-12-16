@@ -92,7 +92,7 @@ public class DailyConsumptionFragment extends Fragment {
         lunch_Button=root.findViewById(R.id.lunch_Button);
         dinner_Button=root.findViewById(R.id.dinner_Button);
         snacks_Button=root.findViewById(R.id.snacks_Button);
-        breakfast_Button.setBackgroundColor(getResources().getColor(R.color.purple_500));
+        breakfast_Button.setBackgroundColor(getResources().getColor(R.color.green));
         lunch_Button.setBackgroundColor(getResources().getColor(R.color.purple_500));
         dinner_Button.setBackgroundColor(getResources().getColor(R.color.purple_500));
         snacks_Button.setBackgroundColor(getResources().getColor(R.color.purple_500));
@@ -211,6 +211,10 @@ public class DailyConsumptionFragment extends Fragment {
     public void updateDay(String date){
         try{
             daily_consumption = dbh.get_User_Daily_Consumption(date,userId);
+            if(daily_consumption.getDate()==null){
+                daily_consumption = new User_Daily_Consumption(userId,date);
+                dbh.getUser_Daily_Consumption_Table().create(daily_consumption);
+            }
             food_items_list = dbh.get_FoodItem_By_UserFoodItem(daily_consumption.getId(),Meal);
             adapter = new DailyConsumptionAdapter(food_items_list,dailyConsumptionFragment);
             foodRecyclerView.setAdapter(adapter);
