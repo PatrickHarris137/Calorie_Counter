@@ -13,6 +13,7 @@ import com.example.caloriecounter.R;
 import com.example.caloriecounter.model.DatabaseHandler;
 import com.example.caloriecounter.model.User_Food_Item;
 import com.example.caloriecounter.model.food_Item;
+import com.example.caloriecounter.model.meal;
 
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class DailyConsumptionAdapter extends RecyclerView.Adapter<DailyConsumpti
                     isInList=true;
                     User_Food_Item tempUserFoodItem =dbh.getSpecificUserFoodItem(dailyConsumptionFragment.getDaily_consumption().getId(),food.getId(),dailyConsumptionFragment.getMeal());
                     tempUserFoodItem.setNum_Of_Serving(tempUserFoodItem.getNum_Of_Serving()+1);
+
                     try{
                         dbh.getUser_Food_Item_Table().update(tempUserFoodItem);
                     }catch (Exception e){
@@ -56,7 +58,7 @@ public class DailyConsumptionAdapter extends RecyclerView.Adapter<DailyConsumpti
                 }
             }
 
-
+        dailyConsumptionFragment.calculateTotalCalories(mealsOfDayList);
         notifyDataSetChanged();
     }
     public DailyConsumptionAdapter(List<food_Item> mealsOfDayList,DailyConsumptionFragment dailyConsumptionFragment) {
@@ -87,22 +89,23 @@ public class DailyConsumptionAdapter extends RecyclerView.Adapter<DailyConsumpti
         private TextView foodName_TextView;
         private TextView foodQuantity_TextView;
         private TextView foodCalorie_TextView;
+
         private int position;
         private int servingSize;
         private int calories;
         private food_Item food;
        // private Food food;
         private final View root;
+        private meal Meal;
         private final DatabaseHandler dbh;
-
+        private User_Food_Item userFoodItem;
 
         public FoodViewHolder(@NonNull final View root,final DailyConsumptionAdapter dailyConsumptionAdapter) {
             super(root);
             this.root=root;
 
             dbh = new DatabaseHandler(root.getContext());
-
-
+            Meal=dailyConsumptionFragment.getMeal();
             foodName_TextView = root.findViewById(R.id.foodName_TextView);
             foodQuantity_TextView = root.findViewById(R.id.foodQuantity_TextView);
             foodCalorie_TextView = root.findViewById(R.id.foodCalorie_TextView);
@@ -114,9 +117,9 @@ public class DailyConsumptionAdapter extends RecyclerView.Adapter<DailyConsumpti
                     try {
                         food_Item food = mealsOfDayList.get(position);
                         mealsOfDayList.get(position).setServing_Size(servingSize+1);
-                        User_Food_Item tempUserFoodItem =dbh.getSpecificUserFoodItem(dailyConsumptionFragment.getDaily_consumption().getId(),food.getId(),dailyConsumptionFragment.getMeal());
-                        tempUserFoodItem.setNum_Of_Serving(tempUserFoodItem.getNum_Of_Serving()+1);
-                        dbh.getUser_Food_Item_Table().update(tempUserFoodItem);
+                        userFoodItem =dbh.getSpecificUserFoodItem(dailyConsumptionFragment.getDaily_consumption().getId(),food.getId(), Meal);
+                        userFoodItem.setNum_Of_Serving(userFoodItem.getNum_Of_Serving()+1);
+                        dbh.getUser_Food_Item_Table().update(userFoodItem);
                         dailyConsumptionAdapter.notifyDataSetChanged();
                         dailyConsumptionFragment.calculateTotalCalories(mealsOfDayList);
                     }catch (Exception e){
@@ -128,18 +131,18 @@ public class DailyConsumptionAdapter extends RecyclerView.Adapter<DailyConsumpti
                 @Override
                 public void onClick(View v) {
                     food_Item food = mealsOfDayList.get(position);
-                    User_Food_Item tempUserFoodItem =dbh.getSpecificUserFoodItem(dailyConsumptionFragment.getDaily_consumption().getId(),food.getId(),dailyConsumptionFragment.getMeal());
+                    userFoodItem =dbh.getSpecificUserFoodItem(dailyConsumptionFragment.getDaily_consumption().getId(),food.getId(),dailyConsumptionFragment.getMeal());
                    try {
-                       if(food.getServing_Size()==0)
+                       if(userFoodItem.getNum_Of_Serving()==0)
                        {
-                           dbh.getUser_Food_Item_Table().delete(tempUserFoodItem);
+                           dbh.getUser_Food_Item_Table().delete(userFoodItem);
                            mealsOfDayList.remove(position);
                        }
                        else
                        {
                            mealsOfDayList.get(position).setServing_Size(servingSize-1);
-                           tempUserFoodItem.setNum_Of_Serving(tempUserFoodItem.getNum_Of_Serving()-1);
-                           dbh.getUser_Food_Item_Table().update(tempUserFoodItem);
+                           userFoodItem.setNum_Of_Serving(userFoodItem.getNum_Of_Serving()-1);
+                           dbh.getUser_Food_Item_Table().update(userFoodItem);
                        }
                    }catch (Exception e){
 
@@ -158,8 +161,10 @@ public class DailyConsumptionAdapter extends RecyclerView.Adapter<DailyConsumpti
             this.servingSize=food.getServing_Size();
             this.calories=food.getCalories();
             foodName_TextView.setText(food.getName());
-            foodQuantity_TextView.setText(Integer.toString(food.getServing_Size()));
-            foodCalorie_TextView.setText(Integer.toString(food.getCalories()*food.getServing_Size()));
+
+            User_Food_Item userFoodItem = dbh.getSpecificUserFoodItem(dailyConsumptionFragment.getDaily_consumption().getId(),food.getId(),Meal);
+            foodQuantity_TextView.setText(Integer.toString(userFoodItem.getNum_Of_Serving()));
+            foodCalorie_TextView.setText(Integer.toString(food.getCalories()*userFoodItem.getNum_Of_Serving()));
 
         }
 
