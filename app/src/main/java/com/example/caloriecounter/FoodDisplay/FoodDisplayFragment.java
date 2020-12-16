@@ -39,7 +39,7 @@ public class FoodDisplayFragment extends Fragment {
 
         dbh= new DatabaseHandler(root.getContext());
         try{
-           foodData=dbh.get_Food_item_Table().readAll();
+           foodData=dbh.get_Food_Item_Table().readAll();
            macroData=dbh.get_Macro_Nutrient_Table().readAll();
         }
         catch (Exception e){
