@@ -18,66 +18,97 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
 
     //Tables
-    private final Table<food_Item> food_item_Table;
-    private final Table<MacroNutrient> macro_nutrient_table;
-    private final Table<User_Food_Item> user_food_item_table;
+    private final Table<food_Item> food_Item_Table;
+    private final Table<MacroNutrient> macro_Nutrient_Table;
 
-    public Table<User_Daily_Consumption> getUser_daily_consumption_table() {
-        return user_daily_consumption_table;
+    public Table<User_Food_Item> getUser_Food_Item_Table() {
+        return user_Food_Item_Table;
     }
 
-    private final Table<User_Daily_Consumption> user_daily_consumption_table;
-    private final Table<user> user_table;
+    private final Table<User_Food_Item> user_Food_Item_Table;
+
+    public Table<User_Daily_Consumption> getUser_Daily_Consumption_Table() {
+        return user_Daily_Consumption_Table;
+    }
+
+    private final Table<User_Daily_Consumption> user_Daily_Consumption_Table;
+    private final Table<user> user_Table;
 
 
     public DatabaseHandler(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
-        food_item_Table = TableFactory.makeFactory(this,food_Item.class)
+        food_Item_Table = TableFactory.makeFactory(this,food_Item.class)
                 .withSeedData(SampleData.generateFoodDisplayList())
                 .build();
-        macro_nutrient_table = TableFactory.makeFactory(this,MacroNutrient.class)
+        macro_Nutrient_Table = TableFactory.makeFactory(this,MacroNutrient.class)
                 .withSeedData(SampleData.generateMacroNutrients())
                 .build();
-        user_food_item_table = TableFactory.makeFactory(this,User_Food_Item.class)
+        user_Food_Item_Table = TableFactory.makeFactory(this,User_Food_Item.class)
                 .withSeedData(SampleData.generateUserFoodItems())
                 .build();
-        user_daily_consumption_table = TableFactory.makeFactory(this,User_Daily_Consumption.class)
+        user_Daily_Consumption_Table = TableFactory.makeFactory(this,User_Daily_Consumption.class)
                 .withSeedData(SampleData.generate_UserDailyConsumptions())
                 .build();
-        user_table = TableFactory.makeFactory(this,user.class)
+        user_Table = TableFactory.makeFactory(this,user.class)
                 .withSeedData(SampleData.generateUsersList())
                 .build();
     }
 
-    public Table<user> get_User_table(){return user_table;}
-    public Table<food_Item> get_Food_item_Table() {
-        return food_item_Table;
+    public Table<user> get_User_table(){return user_Table;}
+    public Table<food_Item> get_Food_Item_Table() {
+        return food_Item_Table;
     }
     public Table<MacroNutrient> get_Macro_Nutrient_Table() {
-        return macro_nutrient_table;
+        return macro_Nutrient_Table;
     }
 
-    public List<food_Item> get_FoodItem_By_UserFoodItem(long daily_id,long food_id){
+    public User_Food_Item getSpecificUserFoodItem(long dailyId, long foodId, meal meal){
+        User_Food_Item userFoodItem = new User_Food_Item();
+        try{
+            List<User_Food_Item> userFoodItems_List = user_Food_Item_Table.readAll();
+            for (int i = 0; i <userFoodItems_List.size(); i++) {
+                User_Food_Item tempUserFoodItem = userFoodItems_List.get(i);
+                if(tempUserFoodItem.getFood_Id()==foodId && tempUserFoodItem.getMeal()==meal && tempUserFoodItem.getDaily_Id()==dailyId)
+                   return tempUserFoodItem;
+            }
+
+
+        }catch (Exception e){
+
+        }
+        return userFoodItem;
+    }
+
+    public List<food_Item> get_FoodItem_By_UserFoodItem(long daily_Id, meal meal){
             List<food_Item> food_item_List = new ArrayList<>();
 
             try{
+                //List of all food items
+                List<food_Item> all_Food_Items = get_Food_Item_Table().readAll();
+                //List of all food items for one meal
+                List<User_Food_Item> user_Food_Item_List= get_UserFoodItem_By_Meal_And_DailyId(daily_Id,meal);
+                //Food id -1 is the index of the fooditem in all food items
+                for (int i = 0; i < user_Food_Item_List.size(); i++) {
+                    int foodId= (int) (user_Food_Item_List.get(i).getFood_Id()-1);
+                    food_item_List.add(all_Food_Items.get(foodId));
+                }
 
             }catch (Exception e){
 
             }
             return food_item_List;
     }
-    public List<User_Food_Item> get_UserFoodItem_By_Date_And_User(long daily_Id, long user_Id){
+    public List<User_Food_Item> get_UserFoodItem_By_Meal_And_DailyId(long daily_Id, meal meal){
         List<User_Food_Item> full_Item_List;
         List<User_Food_Item> temp_Item_List = new ArrayList<>();
         try{
 
-            full_Item_List = user_food_item_table.readAll();
+            full_Item_List = user_Food_Item_Table.readAll();
 
             for (int i = 0; i < full_Item_List.size(); i++) {
                 User_Food_Item temp = full_Item_List.get(i);
-                if(temp.getDaily_Id()==daily_Id && temp.getDaily_Id()==user_Id)
+                if(temp.getDaily_Id()==daily_Id && temp.getMeal()==meal)
                     temp_Item_List.add(temp);
             }
         }
@@ -90,11 +121,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         List<User_Daily_Consumption> user_Daily_Consumptions_List;
         User_Daily_Consumption user_Daily_Consumption = new User_Daily_Consumption();
         try{
-            user_Daily_Consumptions_List=user_daily_consumption_table.readAll();
+            user_Daily_Consumptions_List= user_Daily_Consumption_Table.readAll();
 
             for (int i = 0; i <user_Daily_Consumptions_List.size() ; i++) {
                 User_Daily_Consumption temp_Daily_Consumption=user_Daily_Consumptions_List.get(i);
-                if(temp_Daily_Consumption.getDate()==date && temp_Daily_Consumption.getUser_id()==user_id)
+                if(temp_Daily_Consumption.getDate().equals(date) && temp_Daily_Consumption.getUser_id()==user_id)
                 {
                     user_Daily_Consumption=temp_Daily_Consumption;
                     break;
@@ -126,22 +157,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        user_table.createTable(db);
-        food_item_Table.createTable(db);
-        macro_nutrient_table.createTable(db);
+        user_Table.createTable(db);
+        food_Item_Table.createTable(db);
+        macro_Nutrient_Table.createTable(db);
 
-        user_food_item_table.createTable(db);
-        user_daily_consumption_table.createTable(db);
+        user_Food_Item_Table.createTable(db);
+        user_Daily_Consumption_Table.createTable(db);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        food_item_Table.dropTable(db);
-        user_table.dropTable(db);
-        macro_nutrient_table.dropTable(db);
-        user_food_item_table.dropTable(db);
-        user_daily_consumption_table.dropTable(db);
+        food_Item_Table.dropTable(db);
+        user_Table.dropTable(db);
+        macro_Nutrient_Table.dropTable(db);
+        user_Food_Item_Table.dropTable(db);
+        user_Daily_Consumption_Table.dropTable(db);
         this.onCreate(db);
     }
 }

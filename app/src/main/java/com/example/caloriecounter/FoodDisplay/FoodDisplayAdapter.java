@@ -163,7 +163,7 @@ public class FoodDisplayAdapter extends RecyclerView.Adapter<FoodDisplayViewHold
 
                 food.setMacro_Id((long)macroData.size());
                 foodData.add(food);
-                dbh.get_Food_item_Table().create(food);
+                dbh.get_Food_Item_Table().create(food);
             } catch (DatabaseException e) {
 
             }
@@ -187,7 +187,7 @@ public class FoodDisplayAdapter extends RecyclerView.Adapter<FoodDisplayViewHold
                        break;
                    }
                 }
-                dbh.get_Food_item_Table().update(food);
+                dbh.get_Food_Item_Table().update(food);
 
             } catch (DatabaseException e) {
 
