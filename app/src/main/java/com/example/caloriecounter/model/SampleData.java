@@ -45,16 +45,28 @@ public class SampleData {
     }
     public static List<User_Food_Item>generateUserFoodItems(){
         List<User_Food_Item> userFoodItemList = new ArrayList<>();
+        //Day 1
+        userFoodItemList.add(new User_Food_Item(1,1,1,meal.breakfast));
+        userFoodItemList.add(new User_Food_Item(1,2,1,meal.breakfast));
+        userFoodItemList.add(new User_Food_Item(1,3,1,meal.breakfast));
+        userFoodItemList.add(new User_Food_Item(1,4,1,meal.breakfast));
+        userFoodItemList.add(new User_Food_Item(1,5,1,meal.lunch));
+        userFoodItemList.add(new User_Food_Item(1,6,1,meal.lunch));
+        userFoodItemList.add(new User_Food_Item(1,7,1,meal.lunch));
+        userFoodItemList.add(new User_Food_Item(1,8,1,meal.dinner));
+        userFoodItemList.add(new User_Food_Item(1,9,1,meal.dinner));
 
-        userFoodItemList.add(new User_Food_Item(1,1,1,meal.breakfast,200));
-        userFoodItemList.add(new User_Food_Item(1,2,1,meal.breakfast,200));
-        userFoodItemList.add(new User_Food_Item(1,3,1,meal.breakfast,200));
-        userFoodItemList.add(new User_Food_Item(1,4,1,meal.breakfast,200));
-        userFoodItemList.add(new User_Food_Item(1,5,1,meal.lunch,200));
-        userFoodItemList.add(new User_Food_Item(1,6,1,meal.lunch,200));
-        userFoodItemList.add(new User_Food_Item(1,7,1,meal.lunch,200));
-        userFoodItemList.add(new User_Food_Item(1,8,1,meal.dinner,200));
-        userFoodItemList.add(new User_Food_Item(1,9,1,meal.dinner,200));
+        //Day 2
+
+        userFoodItemList.add(new User_Food_Item(2,6,1,meal.dinner));
+        userFoodItemList.add(new User_Food_Item(2,7,1,meal.dinner));
+        userFoodItemList.add(new User_Food_Item(2,8,1,meal.lunch));
+        userFoodItemList.add(new User_Food_Item(2,9,1,meal.dinner));
+        userFoodItemList.add(new User_Food_Item(2,1,1,meal.snacks));
+        userFoodItemList.add(new User_Food_Item(2,2,1,meal.snacks));
+        userFoodItemList.add(new User_Food_Item(2,3,1,meal.breakfast));
+        userFoodItemList.add(new User_Food_Item(2,4,1,meal.breakfast));
+        userFoodItemList.add(new User_Food_Item(2,5,1,meal.lunch));
         return  userFoodItemList;
     }
     public static List<MacroNutrient> generateMacroNutrients(){

@@ -70,16 +70,17 @@ public class DailyConsumptionActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         food_Item food;
-        String returnType=data.getStringExtra("returnType");
-        if(returnType!=null){
-            if(returnType.equals("FoodDisplay")){
-                int test=0;
-                food = data.getParcelableExtra("foodToAdd");
-                dailyConsumptionFragment.addFoodToMeal(food);
-            }
-            else if(returnType.equals("WeeklyProgression")){
-                dailyConsumptionFragment.setDayOfWeek(data.getStringExtra("day"));
-                date =data.getStringExtra("date");
+        if(resultCode==Activity.RESULT_OK) {
+            String returnType = data.getStringExtra("returnType");
+            if (returnType != null) {
+                if (returnType.equals("FoodDisplay")) {
+                    int test = 0;
+                    food = data.getParcelableExtra("foodToAdd");
+                    dailyConsumptionFragment.addFoodToMeal(food);
+                } else if (returnType.equals("WeeklyProgression")) {
+                    dailyConsumptionFragment.setDayOfWeek(data.getStringExtra("day"));
+                    dailyConsumptionFragment.updateDay(data.getStringExtra("date"));
+                }
             }
         }
     }

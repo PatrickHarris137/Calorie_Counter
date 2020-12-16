@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.caloriecounter.R;
 import com.example.caloriecounter.model.DatabaseHandler;
+import com.example.caloriecounter.model.User_Food_Item;
 import com.example.caloriecounter.model.food_Item;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class DailyConsumptionAdapter extends RecyclerView.Adapter<DailyConsumpti
     private  List<food_Item> mealsOfDayList;
     private DailyConsumptionAdapter adapter=this;
     private DailyConsumptionFragment dailyConsumptionFragment;
+    private final DatabaseHandler dbh;
 
     public List<food_Item> getMealsOfDayList() {
         return mealsOfDayList;
@@ -33,16 +35,26 @@ public class DailyConsumptionAdapter extends RecyclerView.Adapter<DailyConsumpti
                 if(mealsOfDayList.get(i).getName().equals(food.getName())){
                     mealsOfDayList.get(i).setServing_Size(mealsOfDayList.get(i).getServing_Size()+1);
                     isInList=true;
+                   // dbh.getUser_Food_Item_Table().update()
                     break;
                 }
             }
 
-            if(!isInList)
-                mealsOfDayList.add(food);
+            if(!isInList){
+                try{
+                    dbh.getUser_Food_Item_Table().create(new User_Food_Item(dailyConsumptionFragment.getDaily_consumption().getId(),food.getId(),1,dailyConsumptionFragment.getMeal()));
+                    mealsOfDayList.add(food);
+                }
+                catch (Exception e){
+
+                }
+            }
+
 
         notifyDataSetChanged();
     }
     public DailyConsumptionAdapter(List<food_Item> mealsOfDayList,DailyConsumptionFragment dailyConsumptionFragment) {
+        dbh = new DatabaseHandler(dailyConsumptionFragment.getContext());
         this.mealsOfDayList=mealsOfDayList;
         this.dailyConsumptionFragment=dailyConsumptionFragment;
     }
