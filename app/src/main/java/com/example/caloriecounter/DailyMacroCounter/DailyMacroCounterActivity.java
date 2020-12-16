@@ -2,6 +2,7 @@ package com.example.caloriecounter.DailyMacroCounter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.example.caloriecounter.DailyConsumption.DailyConsumptionActivity;
@@ -9,8 +10,11 @@ import com.example.caloriecounter.DailyConsumption.DailyConsumptionFragment;
 import com.example.caloriecounter.FoodDisplay.FoodDisplayActivity;
 import com.example.caloriecounter.R;
 import com.example.caloriecounter.WeeklyProgression.WeeklyProgressionActivity;
+import com.example.caloriecounter.model.user;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -20,7 +24,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class DailyMacroCounterActivity extends AppCompatActivity {
+
+    private String localDate = LocalDate.now().toString();
 
     private DailyMacroCounterFragment dailyMacroCounterFragment;
     @Override
@@ -34,6 +45,34 @@ public class DailyMacroCounterActivity extends AppCompatActivity {
 
 
 
+        FloatingActionButton editDaily = findViewById(R.id.edit_Daily);
+
+
+        editDaily.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( dailyMacroCounterFragment.getContext(), DailyConsumptionActivity.class);
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
+                String today = simpleDateFormat.format(new Date());
+
+                intent.putExtra("today", today);
+                intent.putExtra("returntype", "DailyMacroCounter");
+                intent.putExtra("date",localDate);
+
+
+                startActivityForResult(intent, 1);
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        localDate = data.getStringExtra("date");
     }
 
 
