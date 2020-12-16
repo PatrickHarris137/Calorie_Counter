@@ -152,4 +152,53 @@ public class MacroNutrient implements Parcelable, Identifiable<Long> {
     public void setId(Long id) {
         this.id=id;
     }
+
+    public boolean sufficientProtein(double protein){
+        if(protein >= 40 && protein <= 60)
+            return true;
+        else
+            return false;
+    }
+    public boolean sufficientFiber(double fiber){
+        if(fiber >= 25 && fiber <= 30)
+            return true;
+        else
+            return false;
+    }
+    public boolean sufficientSugar(double sugar){
+        if(sugar >= 25 && sugar <= 36)
+            return true;
+        else
+            return false;
+    }
+    public boolean sufficientUnsaturatedFat(double unsaturatedFat){
+        if(unsaturatedFat >= 16 && unsaturatedFat <= 22)
+            return true;
+        else
+            return false;
+    }
+    public boolean sufficientSaturatedFat(double saturatedFat){
+        if(saturatedFat >= 16 && saturatedFat <= 22)
+            return true;
+        else
+            return false;
+    }
+    public boolean sufficientTrans_fat(double trans_fat){
+        if(trans_fat >= 2 && trans_fat <= 4)
+            return true;
+        else
+            return false;
+    }
+    public boolean sufficientCholesterol(double cholesterol){
+        if(cholesterol >= 0.3 && cholesterol <= 0.5)
+            return true;
+        else
+            return false;
+    }
+    public boolean sufficientSodium(double sodium){
+        if(sodium >= 2 && sodium <= 2.3)
+            return true;
+        else
+            return false;
+    }
 }
