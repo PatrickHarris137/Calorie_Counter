@@ -45,6 +45,11 @@ public class DailyConsumptionFragment extends Fragment {
     public meal Meal;
     private List<food_Item> food_items_list;
 
+    public String getDate() {
+        return date;
+    }
+
+    private String date;
     public DatabaseHandler getDbh() {
         return dbh;
     }
@@ -104,14 +109,14 @@ public class DailyConsumptionFragment extends Fragment {
 
         try {
             foodList = (ArrayList<food_Item>) dbh.get_Food_Item_Table().readAll();
-            daily_consumption = dbh.get_User_Daily_Consumption(getCurrentDay(),userId);
+            daily_consumption = dbh.get_User_Daily_Consumption(date,userId);
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
         TextView calorie_Total=root.findViewById(R.id.dailyCalories_TextView);
 
         maximumDailyCalories=2200;
-
+         date =dailyConsumptionActivity.getDate();
         //Gets food for breakfast of current day
         food_items_list = dbh.get_FoodItem_By_UserFoodItem(daily_consumption.getId(),Meal);
 
@@ -182,11 +187,7 @@ public class DailyConsumptionFragment extends Fragment {
         return root;
     }
 
-    public String getCurrentDay(){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String today = sdf.format(new Date());
-        return today;
-    }
+
     public void addFoodToMeal(food_Item food){
         adapter.addFoodItem(food);
 
@@ -196,7 +197,7 @@ public class DailyConsumptionFragment extends Fragment {
         return this.Meal;
     }
     public void setDayOfWeek(String day){
-
+        date=day;
         dayOfWeek.setText(day);
 
     }
