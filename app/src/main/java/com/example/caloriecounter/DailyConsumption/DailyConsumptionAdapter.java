@@ -35,7 +35,13 @@ public class DailyConsumptionAdapter extends RecyclerView.Adapter<DailyConsumpti
                 if(mealsOfDayList.get(i).getName().equals(food.getName())){
                     mealsOfDayList.get(i).setServing_Size(mealsOfDayList.get(i).getServing_Size()+1);
                     isInList=true;
-                   // dbh.getUser_Food_Item_Table().update()
+                    User_Food_Item tempUserFoodItem =dbh.getSpecificUserFoodItem(dailyConsumptionFragment.getDaily_consumption().getId(),food.getId(),dailyConsumptionFragment.getMeal());
+                    tempUserFoodItem.setNum_Of_Serving(tempUserFoodItem.getNum_Of_Serving()+1);
+                    try{
+                        dbh.getUser_Food_Item_Table().update(tempUserFoodItem);
+                    }catch (Exception e){
+
+                    }
                     break;
                 }
             }
@@ -105,20 +111,39 @@ public class DailyConsumptionAdapter extends RecyclerView.Adapter<DailyConsumpti
             increaseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mealsOfDayList.get(position).setServing_Size(servingSize+1);
-                    dailyConsumptionAdapter.notifyDataSetChanged();
-                    dailyConsumptionFragment.calculateTotalCalories(mealsOfDayList);
+                    try {
+                        food_Item food = mealsOfDayList.get(position);
+                        mealsOfDayList.get(position).setServing_Size(servingSize+1);
+                        User_Food_Item tempUserFoodItem =dbh.getSpecificUserFoodItem(dailyConsumptionFragment.getDaily_consumption().getId(),food.getId(),dailyConsumptionFragment.getMeal());
+                        tempUserFoodItem.setNum_Of_Serving(tempUserFoodItem.getNum_Of_Serving()+1);
+                        dbh.getUser_Food_Item_Table().update(tempUserFoodItem);
+                        dailyConsumptionAdapter.notifyDataSetChanged();
+                        dailyConsumptionFragment.calculateTotalCalories(mealsOfDayList);
+                    }catch (Exception e){
+
+                    }
                 }
             });
             decreaseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(mealsOfDayList.get(position).getServing_Size()==0)
-                    {
-                        mealsOfDayList.remove(position);
-                    }
-                    else
-                        mealsOfDayList.get(position).setServing_Size(servingSize-1);
+                    food_Item food = mealsOfDayList.get(position);
+                    User_Food_Item tempUserFoodItem =dbh.getSpecificUserFoodItem(dailyConsumptionFragment.getDaily_consumption().getId(),food.getId(),dailyConsumptionFragment.getMeal());
+                   try {
+                       if(food.getServing_Size()==0)
+                       {
+                           dbh.getUser_Food_Item_Table().delete(tempUserFoodItem);
+                           mealsOfDayList.remove(position);
+                       }
+                       else
+                       {
+                           mealsOfDayList.get(position).setServing_Size(servingSize-1);
+                           tempUserFoodItem.setNum_Of_Serving(tempUserFoodItem.getNum_Of_Serving()-1);
+                           dbh.getUser_Food_Item_Table().update(tempUserFoodItem);
+                       }
+                   }catch (Exception e){
+
+                   }
                     dailyConsumptionAdapter.notifyDataSetChanged();
                     dailyConsumptionFragment.calculateTotalCalories(mealsOfDayList);
 

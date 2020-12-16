@@ -1,9 +1,10 @@
-package com.example.caloriecounter.DailyMacroCounter;
+ package com.example.caloriecounter.DailyMacroCounter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.caloriecounter.DailyConsumption.DailyConsumptionActivity;
@@ -20,10 +22,44 @@ import com.example.caloriecounter.login.LoginDialogFragment;
 import com.example.caloriecounter.login.LoginManager;
 import com.example.caloriecounter.login.LoginManagerStub;
 import com.example.caloriecounter.login.OnLoginListener;
+import com.example.caloriecounter.model.DatabaseHandler;
+import com.example.caloriecounter.model.MacroNutrient;
+import com.example.caloriecounter.model.User_Daily_Consumption;
+import com.example.caloriecounter.model.User_Food_Item;
+import com.example.caloriecounter.model.food_Item;
+import com.example.caloriecounter.model.user;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class DailyMacroCounterFragment extends Fragment {
 
+    private DatabaseHandler dbh;
+    private DailyMacroCounterActivity dailyMacroCounterActivity;
+    private String date;
+    private User_Food_Item userFoodItem;
+    private MacroNutrient macroNutrient;
+    private TextView caloriesText;
+    private TextView proteinText;
+    private TextView fiberText;
+    private TextView sugarText;
+    private TextView unsaturatedFatText;
+    private TextView saturatedFatText;
+    private TextView transFatText;
+    private TextView cholesterolText;
+    private TextView sodiumText;
+
+    private int totalCalories;
+    private double totalProtein;
+    private double totalFiber;
+    private double totalSugar;
+    private double totalUnsaturatedFat;
+    private double totalSaturatedFat;
+    private double totalTransFat;
+    private double totalCholesterol;
+    private double totalSodium;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -80,9 +116,73 @@ public class DailyMacroCounterFragment extends Fragment {
         if(!loginManager.isLoggedIn())
             dialogFragment.show(getChildFragmentManager(),"login-fragment");
 
+        dbh = new DatabaseHandler(getContext());
+
+        dailyMacroCounterActivity = (DailyMacroCounterActivity) getActivity();
+
+        caloriesText = root.findViewById(R.id.calories_text);
+        proteinText = root.findViewById(R.id.protein_text);
+        fiberText = root.findViewById(R.id.fiber_text);
+        sugarText = root.findViewById(R.id.sugar_text);
+        unsaturatedFatText = root.findViewById(R.id.unsaturated_fat_text);
+        saturatedFatText = root.findViewById(R.id.saturated_fat_text);
+        transFatText = root.findViewById(R.id.trans_fat_text);
+        cholesterolText = root.findViewById(R.id.cholesterol_text);
+        sodiumText = root.findViewById(R.id.sodium_text);
+
         return root;
 
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void getDailyMacroNutrients(){
+
+        date = dailyMacroCounterActivity.getLocalDate();
+
+        long userId = getUserId();
+        User_Daily_Consumption userDailyConsumption = dbh.get_User_Daily_Consumption(date, userId);
+        List<User_Food_Item> userFoodItems = dbh.get_User_Food_Items_By_DailyId(userDailyConsumption.getId());
+        totalCalories = 0;
+        totalProtein = 0;
+        totalFiber = 0;
+        totalSugar = 0;
+        totalUnsaturatedFat = 0;
+        totalSaturatedFat = 0;
+        totalTransFat = 0;
+        totalCholesterol = 0;
+        totalSodium = 0;
+        if (userFoodItems != null) {
+            for (User_Food_Item userFoodItem : userFoodItems) {
+                food_Item foodItem = dbh.get_FoodItem_By_FoodItemId(userFoodItem.getFood_Id());
+                totalCalories += foodItem.getCalories();
+                MacroNutrient macroNutrient = dbh.get_MacroNutrient_By_MacroNutrientId(foodItem.getMacro_Id());
+                totalProtein += macroNutrient.getProtein();
+                totalFiber += macroNutrient.getFiber();
+                totalSugar += macroNutrient.getSugar();
+                totalUnsaturatedFat += macroNutrient.getUnsaturatedFat();
+                totalSaturatedFat += macroNutrient.getSaturatedFat();
+                totalTransFat += macroNutrient.getTrans_fat();
+                totalCholesterol += macroNutrient.getCholesterol();
+                totalSodium += macroNutrient.getSodium();
+            }
+        }
+    }
+
+    public long getUserId(){
+        return 1;
+    }
+
+    public void setMacroNutrientText(){
+        caloriesText.setText("Calories: " + Integer.toString(totalCalories));
+        proteinText.setText("Protein: " + Double.toString(totalProtein) + "g");
+        fiberText.setText("Fiber: " + Double.toString(totalFiber) + "g");
+        sugarText.setText("Sugar: " + Double.toString(totalSugar) + "g");
+        unsaturatedFatText.setText("Unsaturated Fat: " + Double.toString(totalUnsaturatedFat) + "g");
+        saturatedFatText.setText("Saturated Fat: " + Double.toString(totalSaturatedFat) + "g");
+        transFatText.setText("Trans Fat: " + Double.toString(totalTransFat) + "g");
+        cholesterolText.setText( "Cholesterol: " + Double.toString(totalCholesterol) + "g");
+        sodiumText.setText("Sodium: " + Double.toString(totalSodium) + "g");
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
