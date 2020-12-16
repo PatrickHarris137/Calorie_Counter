@@ -43,7 +43,10 @@ public class User_Food_Item implements Identifiable<Long> {
         this.total_Calories = total_Calories;
     }
 
-    public User_Food_Item(long daily_Id, long food_Id, int num_Of_Serving, meal meal, int total_Calories) {
+    public User_Food_Item() {
+    }
+
+    public User_Food_Item(long daily_Id, long food_Id, int num_Of_Serving, meal meal) {
         this.daily_Id = daily_Id;
         this.food_Id = food_Id;
         this.num_Of_Serving = num_Of_Serving;
