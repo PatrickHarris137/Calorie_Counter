@@ -31,11 +31,17 @@ import com.example.caloriecounter.model.food_Item;
 import com.example.caloriecounter.model.user;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class DailyMacroCounterFragment extends Fragment {
 
     private DatabaseHandler dbh;
+
+    public DailyMacroCounterActivity getDailyMacroCounterActivity() {
+        return dailyMacroCounterActivity;
+    }
+
     private DailyMacroCounterActivity dailyMacroCounterActivity;
     private String date;
     private User_Food_Item userFoodItem;
@@ -60,6 +66,8 @@ public class DailyMacroCounterFragment extends Fragment {
     private double totalCholesterol;
     private double totalSodium;
     private LoginManager loginManager;
+    private LoginDialogFragment dialogFragment;
+
 
     public LoginManager getLoginManager() {
         return loginManager;
@@ -75,7 +83,8 @@ public class DailyMacroCounterFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_daily_macro_counter, container, false);
         // Inflate the layout for this fragment
         //FoodApplication application =  (FoodApplication) getActivity().getApplication();
-        final LoginDialogFragment dialogFragment = new LoginDialogFragment();
+        dialogFragment = new LoginDialogFragment();
+        dialogFragment.setDailyMacroCounterFragment(this);
         loginManager = new LoginManagerStub(getContext());
         loginManager.setOnLoginListener(new OnLoginListener() {
             @Override
@@ -125,7 +134,8 @@ public class DailyMacroCounterFragment extends Fragment {
         dbh = new DatabaseHandler(getContext());
 
         dailyMacroCounterActivity = (DailyMacroCounterActivity) getActivity();
-
+        if(loginManager.getUserId()!=0)
+            dailyMacroCounterActivity.setUserId(loginManager.getUserId());
         caloriesText = root.findViewById(R.id.calories_text);
         proteinText = root.findViewById(R.id.protein_text);
         fiberText = root.findViewById(R.id.fiber_text);
@@ -135,17 +145,23 @@ public class DailyMacroCounterFragment extends Fragment {
         transFatText = root.findViewById(R.id.trans_fat_text);
         cholesterolText = root.findViewById(R.id.cholesterol_text);
         sodiumText = root.findViewById(R.id.sodium_text);
-
+        getDailyMacroNutrients();
+        setMacroNutrientText();
         return root;
 
 
     }
+    public void logout(){
+        loginManager.logout();
 
+        dialogFragment.show(getChildFragmentManager(),"login-fragment");
+    }
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void getDailyMacroNutrients(){
 
         date = dailyMacroCounterActivity.getLocalDate();
-
+        if(date==null)
+            date= LocalDate.now().toString();
         long userId = getUserId();
         User_Daily_Consumption userDailyConsumption = dbh.get_User_Daily_Consumption(date, userId);
         List<User_Food_Item> userFoodItems = dbh.get_User_Food_Items_By_DailyId(userDailyConsumption.getId());
@@ -175,8 +191,9 @@ public class DailyMacroCounterFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public long getUserId(){
-        return 1;
+        return dailyMacroCounterActivity.getUserId();
     }
 
     public void setMacroNutrientText(){

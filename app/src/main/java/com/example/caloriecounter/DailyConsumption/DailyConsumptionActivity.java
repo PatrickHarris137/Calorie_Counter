@@ -28,7 +28,7 @@ public class DailyConsumptionActivity extends AppCompatActivity {
     public String date;
     //User id thats needed to query local db
     public long userId;
-
+    public String day;
     private DailyConsumptionFragment dailyConsumptionFragment;
 
     //Getters
@@ -43,6 +43,11 @@ public class DailyConsumptionActivity extends AppCompatActivity {
         Intent intent = getIntent();
         date=intent.getStringExtra("date");
         return date;
+    }
+    public String getToday(){
+        Intent intent = getIntent();
+        day=intent.getStringExtra("day");
+        return day;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +73,7 @@ public class DailyConsumptionActivity extends AppCompatActivity {
                 Intent intent = getIntent();
                 if(date!=null)
                     intent.putExtra("date",date);
+                intent.putExtra("day",day);
                 setResult(RESULT_OK, intent);
                 finish();
 
@@ -79,6 +85,7 @@ public class DailyConsumptionActivity extends AppCompatActivity {
                 Activity activity =(Activity) view.getContext();
                 Intent intent = new Intent(activity, WeeklyProgressionActivity.class);
                 intent.putExtra("userId",dailyConsumptionFragment.getUserId());
+                intent.putExtra("day",day);
                 activity.startActivityForResult(intent,1);
             }
         });
@@ -94,7 +101,10 @@ public class DailyConsumptionActivity extends AppCompatActivity {
                 if (returnType.equals("FoodDisplay")) {
                     food = data.getParcelableExtra("foodToAdd");
                     dailyConsumptionFragment.addFoodToMeal(food);
-                } else if (returnType.equals("WeeklyProgression")) {
+
+                }
+                else if (returnType.equals("WeeklyProgression")) {
+                    day=data.getStringExtra("day");
                     dailyConsumptionFragment.setDayOfWeek(data.getStringExtra("day"));
                     date=data.getStringExtra("date");
                     dailyConsumptionFragment.updateDay(data.getStringExtra("date"));
