@@ -114,6 +114,8 @@ public class DailyMacroCounterActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.Logout) {
+            localDate = LocalDate.now().toString();
+            day = null;
             dailyMacroCounterFragment.logout();
         }
 
