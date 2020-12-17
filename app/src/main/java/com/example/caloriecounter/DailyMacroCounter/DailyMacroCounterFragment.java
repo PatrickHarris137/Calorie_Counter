@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -174,15 +175,63 @@ public class DailyMacroCounterFragment extends Fragment {
     }
 
     public void setMacroNutrientText(){
+        MacroNutrient macroNutrient = new MacroNutrient();
+
+
         caloriesText.setText("Calories: " + Integer.toString(totalCalories));
-        proteinText.setText("Protein: " + Double.toString(totalProtein) + "g");
-        fiberText.setText("Fiber: " + Double.toString(totalFiber) + "g");
-        sugarText.setText("Sugar: " + Double.toString(totalSugar) + "g");
-        unsaturatedFatText.setText("Unsaturated Fat: " + Double.toString(totalUnsaturatedFat) + "g");
-        saturatedFatText.setText("Saturated Fat: " + Double.toString(totalSaturatedFat) + "g");
-        transFatText.setText("Trans Fat: " + Double.toString(totalTransFat) + "g");
-        cholesterolText.setText( "Cholesterol: " + Double.toString(totalCholesterol) + "mg");
-        sodiumText.setText("Sodium: " + Double.toString(totalSodium) + "mg");
+        proteinText.setText("Protein: " + String.format("%.1f",totalProtein) + "g");
+        fiberText.setText("Fiber: " + String.format("%.1f" ,totalFiber) + "g");
+        sugarText.setText("Sugar: " + String.format("%.1f" ,totalSugar) + "g");
+        unsaturatedFatText.setText("Unsaturated Fat: " + String.format("%.1f" ,totalUnsaturatedFat) + "g");
+        saturatedFatText.setText("Saturated Fat: " + String.format("%.1f" ,totalSaturatedFat) + "g");
+        transFatText.setText("Trans Fat: " + String.format("%.1f" ,totalTransFat) + "g");
+        cholesterolText.setText( "Cholesterol: " + String.format("%.1f" ,totalCholesterol) + "mg");
+        sodiumText.setText("Sodium: " + String.format("%.1f" , totalSodium) + "mg");
+
+        if(totalCalories >= 2000 && totalCalories <= 2500)
+            caloriesText.setTextColor(Color.parseColor("#00FF0A"));
+        else
+            caloriesText.setTextColor(Color.parseColor("#FF0000"));
+
+        if(macroNutrient.sufficientProtein(totalProtein))
+            proteinText.setTextColor(Color.parseColor("#00FF0A"));
+        else
+            proteinText.setTextColor(Color.parseColor("#FF0000"));
+
+        if(macroNutrient.sufficientFiber(totalFiber))
+            fiberText.setTextColor(Color.parseColor("#00FF0A"));
+        else
+            fiberText.setTextColor(Color.parseColor("#FF0000"));
+
+        if(macroNutrient.sufficientSugar(totalSugar))
+            sugarText.setTextColor(Color.parseColor("#00FF0A"));
+        else
+            sugarText.setTextColor(Color.parseColor("#FF0000"));
+
+        if(macroNutrient.sufficientUnsaturatedFat(totalUnsaturatedFat))
+            unsaturatedFatText.setTextColor(Color.parseColor("#00FF0A"));
+        else
+            unsaturatedFatText.setTextColor(Color.parseColor("#FF0000"));
+
+        if(macroNutrient.sufficientSaturatedFat(totalSaturatedFat))
+            saturatedFatText.setTextColor(Color.parseColor("#00FF0A"));
+        else
+            saturatedFatText.setTextColor(Color.parseColor("#FF0000"));
+
+        if(macroNutrient.sufficientTrans_fat(totalTransFat))
+            transFatText.setTextColor(Color.parseColor("#00FF0A"));
+        else
+            transFatText.setTextColor(Color.parseColor("#FF0000"));
+
+        if(macroNutrient.sufficientCholesterol(totalCholesterol))
+            cholesterolText.setTextColor(Color.parseColor("#00FF0A"));
+        else
+            cholesterolText.setTextColor(Color.parseColor("#FF0000"));
+
+        if(macroNutrient.sufficientSodium(totalSodium))
+            sodiumText.setTextColor(Color.parseColor("#00FF0A"));
+        else
+            sodiumText.setTextColor(Color.parseColor("#FF0000"));
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
