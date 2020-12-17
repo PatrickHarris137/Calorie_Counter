@@ -42,6 +42,7 @@ public class FoodDisplayActivity extends AppCompatActivity {
         foodDisplayFragment=(FoodDisplayFragment)getSupportFragmentManager().findFragmentById(R.id.foodDisplay_Fragment);
 
 
+
         FloatingActionButton addFoodListButton = findViewById(R.id.addFoodList_Button);
         addFoodListButton.setOnClickListener(new View.OnClickListener() {
             @Override

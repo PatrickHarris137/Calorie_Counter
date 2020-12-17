@@ -1,5 +1,7 @@
 package com.example.caloriecounter.login;
 
+import com.example.caloriecounter.DailyMacroCounter.DailyMacroCounterFragment;
+
 /**
  * Defines the structure of the login manager.
  */
@@ -15,8 +17,8 @@ public interface LoginManager {
      * @param username  The login username
      * @param password  The login paossword
      */
-    void login(String username, String password);
-
+    void login(String username, String password, DailyMacroCounterFragment dailyMacroCounterFragment);
+    long getUserId();
     /**
      * Logout of the application.
      */
