@@ -6,11 +6,8 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.example.caloriecounter.DailyConsumption.DailyConsumptionActivity;
-import com.example.caloriecounter.DailyConsumption.DailyConsumptionFragment;
-import com.example.caloriecounter.FoodDisplay.FoodDisplayActivity;
 import com.example.caloriecounter.R;
 import com.example.caloriecounter.WeeklyProgression.WeeklyProgressionActivity;
-import com.example.caloriecounter.model.user;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.Nullable;
@@ -22,7 +19,6 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -98,24 +94,9 @@ public class DailyMacroCounterActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.DailyConsumptionOption) {
+        if (id == R.id.Logout) {
             Activity activity =(Activity)this;
             Intent intent = new Intent(activity, DailyConsumptionActivity.class);
-            activity.startActivityForResult(intent,1);
-        }
-        if (id == R.id.WeeklyProgressionOption) {
-            Activity activity =(Activity)this;
-            Intent intent = new Intent(activity, WeeklyProgressionActivity.class);
-            activity.startActivityForResult(intent,1);
-        }
-        if (id == R.id.FoodDisplayOption) {
-            Activity activity =(Activity)this;
-            Intent intent = new Intent(activity, FoodDisplayActivity.class);
-            activity.startActivityForResult(intent,1);
-        }
-        if (id == R.id.DailyMacroCounterOption) {
-            Activity activity =(Activity)this;
-            Intent intent = new Intent(activity, DailyMacroCounterActivity.class);
             activity.startActivityForResult(intent,1);
         }
 
