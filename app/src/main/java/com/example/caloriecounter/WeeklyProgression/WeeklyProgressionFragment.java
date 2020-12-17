@@ -22,6 +22,11 @@ public class WeeklyProgressionFragment extends Fragment {
     private DatabaseHandler dbh;
     private WeeklyProgressionActivity weeklyProgressionActivity;
 
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    private long userId;
     private int totalDayCalories;
     private int getTotalWeekCalories;
 
@@ -32,7 +37,6 @@ public class WeeklyProgressionFragment extends Fragment {
             Bundle savedInstanceState
     ) {
         View root = inflater.inflate(R.layout.fragment_weekly_progression, container, false);
-
         dbh = new DatabaseHandler(getContext());
         weeklyProgressionActivity = (WeeklyProgressionActivity) getActivity();
         // Inflate the layout for this fragment
@@ -42,7 +46,7 @@ public class WeeklyProgressionFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public int getWeeklyCalories(String chosenDate){
         totalDayCalories = 0;
-        User_Daily_Consumption userDailyConsumption = dbh.get_User_Daily_Consumption(chosenDate, 1);
+        User_Daily_Consumption userDailyConsumption = dbh.get_User_Daily_Consumption(chosenDate, userId);
         if(userDailyConsumption.getDate() == null)
             return 0;
         List<User_Food_Item> userFoodItems_List = dbh.get_User_Food_Items_By_DailyId(userDailyConsumption.getId());

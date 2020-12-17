@@ -23,9 +23,22 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class DailyConsumptionActivity extends AppCompatActivity {
+    //Fields
+    //Date to be used for a user daily consumption
     public String date;
-    public String day;
+    //User id thats needed to query local db
+    public long userId;
+
     private DailyConsumptionFragment dailyConsumptionFragment;
+
+    //Getters
+    //Gets user id from daily macronutrient
+    public long getUserId() {
+        Intent intent = getIntent();
+        userId=intent.getLongExtra("userId",1);
+        return userId;
+    }
+    //Gets date from daily macronutrient
     public String getDate(){
         Intent intent = getIntent();
         date=intent.getStringExtra("date");
@@ -67,6 +80,7 @@ public class DailyConsumptionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Activity activity =(Activity) view.getContext();
                 Intent intent = new Intent(activity, WeeklyProgressionActivity.class);
+                intent.putExtra("userId",dailyConsumptionFragment.getUserId());
                 activity.startActivityForResult(intent,1);
             }
         });
