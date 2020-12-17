@@ -59,6 +59,11 @@ public class DailyMacroCounterFragment extends Fragment {
     private double totalTransFat;
     private double totalCholesterol;
     private double totalSodium;
+    private LoginManager loginManager;
+
+    public LoginManager getLoginManager() {
+        return loginManager;
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -71,7 +76,7 @@ public class DailyMacroCounterFragment extends Fragment {
         // Inflate the layout for this fragment
         //FoodApplication application =  (FoodApplication) getActivity().getApplication();
         final LoginDialogFragment dialogFragment = new LoginDialogFragment();
-        LoginManager loginManager=new LoginManagerStub(getContext());
+        loginManager = new LoginManagerStub(getContext());
         loginManager.setOnLoginListener(new OnLoginListener() {
             @Override
             public void onLogin(String uuid) {
