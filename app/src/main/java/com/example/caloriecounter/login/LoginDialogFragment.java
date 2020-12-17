@@ -14,6 +14,8 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.caloriecounter.FoodApplication;
 import com.example.caloriecounter.R;
+import com.example.caloriecounter.model.DatabaseHandler;
+
 public class LoginDialogFragment extends DialogFragment {
 
     private EditText usernameEditText;
@@ -21,12 +23,15 @@ public class LoginDialogFragment extends DialogFragment {
     private Button loginButton;
     private Button registerButton;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_login, container, false);
 
         loginButton = root.findViewById(R.id.login_Button);
+
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

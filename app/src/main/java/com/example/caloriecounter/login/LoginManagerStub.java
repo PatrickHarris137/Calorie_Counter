@@ -3,6 +3,9 @@ package com.example.caloriecounter.login;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.caloriecounter.model.DatabaseHandler;
+import com.example.caloriecounter.model.user;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -12,7 +15,11 @@ public class LoginManagerStub implements LoginManager {
     public static final String PREFERENCES_NAME = "login-manager";
     public static final String PREFERENCE_USERNAME = "username";
     public static final String PREFERENCE_UUID = "uuid";
+    private final DatabaseHandler dbh;
 
+
+
+    private long userId;
     private static class Account{
         public String uuid;
         public String password;
@@ -22,7 +29,9 @@ public class LoginManagerStub implements LoginManager {
             this.password = password;
         }
     }
-
+    public long getUserId() {
+        return userId;
+    }
     private static Map<String,Account> accounts;
 
     static {
@@ -41,6 +50,7 @@ public class LoginManagerStub implements LoginManager {
 
     public LoginManagerStub(Context context) {
         this.context = context;
+        dbh = new DatabaseHandler(context);
         SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_NAME,Context.MODE_PRIVATE);
         if(preferences.contains(PREFERENCE_USERNAME)){
             loggedIn=true;
@@ -58,31 +68,23 @@ public class LoginManagerStub implements LoginManager {
 
     @Override
     public void login(String username, String password) {
-        if(accounts.containsKey(username)){
-            Account account = accounts.get(username);
-            if(account.password.equals(password)){
+        user tempUser= dbh.get_UserForLogin(username,password);
+        if(tempUser!=null){
 
-                uuid=account.uuid;
-                loggedIn=true;
-                this.username=username;
-                SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_NAME,Context.MODE_PRIVATE);
-                preferences.edit()
-                        .putString(PREFERENCE_USERNAME,username)
-                        .putString(PREFERENCE_UUID,uuid)
-                        .apply();
-                if(onLoginListener!=null)
-                    onLoginListener.onLogin(uuid);
-            }
-            else{
-                if(onLoginListener!=null)
-                    onLoginListener.onError("Incorrect password");
-                loggedIn=false;
-            }
-
+            loggedIn=true;
+            userId=tempUser.getId();
+            this.username=username;
+            SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_NAME,Context.MODE_PRIVATE);
+            preferences.edit()
+                    .putString(PREFERENCE_USERNAME,username)
+                    .putString(PREFERENCE_UUID,tempUser.getUUID())
+                    .apply();
+            if(onLoginListener!=null)
+                onLoginListener.onLogin(tempUser.getUUID());
         }
         else{
             if(onLoginListener!=null)
-                onLoginListener.onError("Invalid username.");
+                onLoginListener.onError("Invalid username or password");
             loggedIn=false;
         }
 
@@ -93,7 +95,7 @@ public class LoginManagerStub implements LoginManager {
         loggedIn=false;
         username="";
         uuid="";
-
+        userId=0;
         SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_NAME,Context.MODE_PRIVATE);
         preferences.edit()
                 .remove(PREFERENCE_USERNAME)
@@ -108,24 +110,25 @@ public class LoginManagerStub implements LoginManager {
     public void register(String username, String password, String passwordCheck) {
 
         LoginDialogFragment dialogFragment = new LoginDialogFragment();
-
-
         if(!password.equals(passwordCheck)){
             if(onLoginListener!=null)
                 onLoginListener.onError("Passwords do not match");
 
         }
-        if(accounts.containsKey(username)){
+        if(dbh.userNameExists(username)){
             if(onLoginListener!=null)
                 onLoginListener.onError("Username in use");
-
-
         }
 
         uuid=UUID.randomUUID().toString();
         loggedIn=true;
         this.username=username;
-        accounts.put(username,new Account(uuid,password));
+        try {
+            dbh.get_User_table().create(new user(username,password));
+        }
+        catch (Exception e){
+
+        }
         if(onLoginListener!=null)
             onLoginListener.onRegister(uuid);
         return;
