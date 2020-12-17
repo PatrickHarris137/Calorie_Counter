@@ -9,6 +9,8 @@ public class user implements Identifiable<Long> {
     private String password;
     private boolean is_login;
 
+    public user() {
+    }
 
     public user(String username, String password) {
         this.username = username;
