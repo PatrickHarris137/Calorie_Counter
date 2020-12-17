@@ -190,8 +190,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return macroNutrient;
     }
+    public boolean userNameExists(String username){
+        try {
+            List<user> userList = user_Table.readAll();
+            for (int i = 0; i < userList.size(); i++) {
+                user tempUser=userList.get(i);
+                if(tempUser.getUsername().equals(username));
+                    return true;
+            }
+        }catch (Exception e){
 
+        }
+        return false;
+    }
+    public user get_UserForLogin(String username, String password){
+        try {
+            List<user> userList = user_Table.readAll();
 
+            for (int i = 0; i < userList.size(); i++) {
+                user tempUser=userList.get(i);
+                if(tempUser.getUsername().equals(username)&&tempUser.getPassword().equals(password))
+                    return tempUser;
+            }
+
+        }catch (Exception e){
+
+        }
+        return null;
+    }
     @Override
     public void onCreate(SQLiteDatabase db) {
 
