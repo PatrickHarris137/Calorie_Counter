@@ -62,8 +62,6 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weekly_progression);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         weeklyProgressionFragment = (WeeklyProgressionFragment) getSupportFragmentManager().findFragmentById(R.id.fragment4);
 
@@ -321,27 +319,6 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.DailyConsumptionOption) {
-            Activity activity =(Activity)this;
-            Intent intent = new Intent(activity, DailyConsumptionActivity.class);
-            activity.startActivityForResult(intent,1);
-        }
-        if (id == R.id.WeeklyProgressionOption) {
-            Activity activity =(Activity)this;
-            Intent intent = new Intent(activity, WeeklyProgressionActivity.class);
-            activity.startActivityForResult(intent,1);
-        }
-        if (id == R.id.FoodDisplayOption) {
-            Activity activity =(Activity)this;
-            Intent intent = new Intent(activity, FoodDisplayActivity.class);
-            activity.startActivityForResult(intent,1);
-        }
-        if (id == R.id.DailyMacroCounterOption) {
-            Activity activity =(Activity)this;
-            Intent intent = new Intent(activity, DailyMacroCounterActivity.class);
-            activity.startActivityForResult(intent,1);
-        }
 
         return super.onOptionsItemSelected(item);
     }
