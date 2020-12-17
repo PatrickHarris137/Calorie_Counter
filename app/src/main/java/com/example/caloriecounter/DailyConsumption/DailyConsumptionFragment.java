@@ -27,99 +27,99 @@ import java.util.Date;
 import java.util.List;
 
 public class DailyConsumptionFragment extends Fragment {
-    public TextView dayOfWeek;
-    public TextView dailyCalorieIntake;
+    //Views
     private View root;
+
+    //Buttons
     private Button breakfast_Button;
     private Button lunch_Button;
     private Button dinner_Button;
     private Button snacks_Button;
-    private List<ArrayList<food_Item>> mealsOfDayList;
+
+    //Textviews
+    public TextView dayOfWeek;
+    public TextView dailyCalorieIntake;
+
+
+    //Misc
     private RecyclerView foodRecyclerView;
     private DailyConsumptionAdapter adapter;
     private DailyConsumptionFragment dailyConsumptionFragment;
     private DailyConsumptionActivity dailyConsumptionActivity;
     private int maximumDailyCalories;
     private TextView dailyCaloriePercent;
-    private ArrayList<food_Item> foodList;
     public meal Meal;
     private List<food_Item> food_items_list;
-
-    public DatabaseHandler getDbh() {
-        return dbh;
-    }
+    private String date;
+    private long userId;
 
     private DatabaseHandler dbh;
-
-    public long getUserId() {
-        return userId;
-    }
-
-    private long userId;
-    public User_Daily_Consumption getDaily_consumption() {
-        return daily_consumption;
-    }
-
-    public void setDaily_consumption(User_Daily_Consumption daily_consumption) {
-        this.daily_consumption = daily_consumption;
-    }
-
-    public TextView getDailyCalorieIntake() {
-        return dailyCalorieIntake;
-    }
-
     private User_Daily_Consumption daily_consumption;
 
-    public TextView getDayOfWeek() {
-        return dayOfWeek;
-    }
+    //Getters
+    public long getUserId() {return userId;}
+    public meal getMeal(){ return this.Meal; }
+    public User_Daily_Consumption getDaily_consumption() {  return daily_consumption;}
+
+    //Setters
+    public void setDaily_consumption(User_Daily_Consumption daily_consumption) {this.daily_consumption = daily_consumption; }
 
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        /*   CHANGE LATER     */
-        userId=1;
         root = inflater.inflate(R.layout.fragment_daily_consumption, container, false);
+
+        //Get current fragment and activity
         dailyConsumptionFragment=this;
+        dailyConsumptionActivity= (DailyConsumptionActivity) getActivity();
+
+        //Set Text views
         dayOfWeek=root.findViewById(R.id.day_TextView);
         dayOfWeek.setText(getToday());
         dailyCaloriePercent = root.findViewById(R.id.dailyIntakePercent_TextView);
-        dailyConsumptionActivity= (DailyConsumptionActivity) getActivity();
         dailyCalorieIntake=root.findViewById(R.id.dailyCalories_TextView);
 
-        breakfast_Button=root.findViewById(R.id.breakfast_Button);
-        lunch_Button=root.findViewById(R.id.lunch_Button);
-        dinner_Button=root.findViewById(R.id.dinner_Button);
-        snacks_Button=root.findViewById(R.id.snacks_Button);
-        breakfast_Button.setBackgroundColor(getResources().getColor(R.color.green));
-        lunch_Button.setBackgroundColor(getResources().getColor(R.color.purple_500));
-        dinner_Button.setBackgroundColor(getResources().getColor(R.color.purple_500));
-        snacks_Button.setBackgroundColor(getResources().getColor(R.color.purple_500));
 
+        //Get users id to be used for queries
+        userId=dailyConsumptionActivity.getUserId();
+        //On initialization, set the current option to breakfast
         Meal=meal.breakfast;
+
+        //Create a new db handler
         dbh = new DatabaseHandler(getContext());
+        //Get the date being sent to the activity
+        date=dailyConsumptionActivity.getDate();
+        //Find the daily consumption associated with that date
+        daily_consumption = dbh.get_User_Daily_Consumption(date,userId);
 
-        List<User_Food_Item> ufi;
+        //If a daily consumption doesnt exist yet, create one for the current day
+        if(daily_consumption.getDate()==null){
+            try{
+                dbh.getUser_Daily_Consumption_Table().create(new User_Daily_Consumption(userId,date));
+            }catch (Exception e){
 
-        try {
-            foodList = (ArrayList<food_Item>) dbh.get_Food_Item_Table().readAll();
-            daily_consumption = dbh.get_User_Daily_Consumption(getCurrentDay(),userId);
-        } catch (DatabaseException e) {
-            e.printStackTrace();
+            }
         }
-        TextView calorie_Total=root.findViewById(R.id.dailyCalories_TextView);
 
-        maximumDailyCalories=2200;
 
         //Gets food for breakfast of current day
         food_items_list = dbh.get_FoodItem_By_UserFoodItem(daily_consumption.getId(),Meal);
 
+        //Set adapter and recycler view
         adapter = new DailyConsumptionAdapter(food_items_list,dailyConsumptionFragment);
         foodRecyclerView = root.findViewById(R.id.dailyConsumption_RecyclerView);
         foodRecyclerView.setAdapter(adapter);
         foodRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        //Used to calculate how much of your daily calories you've had
+        maximumDailyCalories=2200;
         calculateTotalCalories(food_items_list);
+
+        //Sets buttons
+        breakfast_Button=root.findViewById(R.id.breakfast_Button);
+        lunch_Button=root.findViewById(R.id.lunch_Button);
+        dinner_Button=root.findViewById(R.id.dinner_Button);
+        snacks_Button=root.findViewById(R.id.snacks_Button);
 
         //OnclickListeners for Meal types
         breakfast_Button.setOnClickListener(new View.OnClickListener() {
@@ -182,24 +182,16 @@ public class DailyConsumptionFragment extends Fragment {
         return root;
     }
 
-    public String getCurrentDay(){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String today = sdf.format(new Date());
-        return today;
-    }
+    //Adds food item to adapters list
     public void addFoodToMeal(food_Item food){
         adapter.addFoodItem(food);
-
-
     }
-    public meal getMeal(){
-        return this.Meal;
-    }
+    //Updates the day displayed, and sets the date
     public void setDayOfWeek(String day){
-
+        date=day;
         dayOfWeek.setText(day);
-
     }
+    //Gets the current day
     public String getToday(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
         String today = simpleDateFormat.format(new Date());
@@ -208,6 +200,7 @@ public class DailyConsumptionFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+    //Updates the dailyconsumption, if it doesnt exist for that date, it makes a new one
     public void updateDay(String date){
         try{
             daily_consumption = dbh.get_User_Daily_Consumption(date,userId);
@@ -222,6 +215,7 @@ public class DailyConsumptionFragment extends Fragment {
 
         }
     }
+    //Calculates the amount of your daily calories youve eaten compared to your max
     public void calculateTotalCalories(List<food_Item> mealsOfDayList){
         int total_Calories=0;
         double caloriePercentage;
