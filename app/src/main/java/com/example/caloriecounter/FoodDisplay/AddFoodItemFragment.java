@@ -23,7 +23,6 @@ import com.example.caloriecounter.model.food_Item;
 public class AddFoodItemFragment extends Fragment {
 
     private EditText nameEditText;
-    private EditText categoryEditText;
     private EditText servingEditText;
     private EditText caloriesEditText;
     private EditText proteinEditText;
@@ -36,10 +35,13 @@ public class AddFoodItemFragment extends Fragment {
     private EditText sodiumEditText;
 
     private Button addFoodSubmitButton;
+    private Button addFoodCancelButton;
 
     private food_Item newFood;
     private MacroNutrient newMacro;
     private AddFoodItemActivity addFoodItemActivity;
+
+    private Spinner categorySpinner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,7 +52,6 @@ public class AddFoodItemFragment extends Fragment {
         addFoodItemActivity=(AddFoodItemActivity) getActivity();
 
         nameEditText=root.findViewById(R.id.name_EditText);
-        categoryEditText=root.findViewById(R.id.category_EditText);
         servingEditText=root.findViewById(R.id.serving_EditText);
         caloriesEditText=root.findViewById(R.id.calories_EditText);
         proteinEditText=root.findViewById(R.id.protein_EditText);
@@ -75,6 +76,12 @@ public class AddFoodItemFragment extends Fragment {
         sodiumEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
 
 
+
+
+        categorySpinner=root.findViewById(R.id.category_Spinner);
+        categorySpinner.setAdapter(new ArrayAdapter<Category>(getContext(), android.R.layout.simple_spinner_item,Category.values()));
+
+
         addFoodSubmitButton=root.findViewById(R.id.addFoodSubmit_Button);
 
         addFoodSubmitButton.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +92,7 @@ public class AddFoodItemFragment extends Fragment {
                //newMacro=new MacroNutrient();
 
                newFood.setName(nameEditText.getText().toString());
-               newFood.setCategory(Category.valueOf(categoryEditText.getText().toString()));
+               newFood.setCategory(Category.valueOf(categorySpinner.getSelectedItem().toString()));
                newFood.setServing_Size(Integer.parseInt(servingEditText.getText().toString()));
                newFood.setCalories(Integer.parseInt(caloriesEditText.getText().toString()));
 
@@ -103,6 +110,15 @@ public class AddFoodItemFragment extends Fragment {
                intent.putExtra("newMacro",newMacro);
                addFoodItemActivity.setResult(Activity.RESULT_OK,intent);
                addFoodItemActivity.finish();
+            }
+        });
+
+        addFoodCancelButton=root.findViewById(R.id.addFoodCancel_Button);
+        addFoodCancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addFoodItemActivity.setResult(Activity.RESULT_CANCELED);
+                addFoodItemActivity.finish();
             }
         });
 
@@ -130,7 +146,7 @@ public class AddFoodItemFragment extends Fragment {
 
         if(method.equals("edit")){
             nameEditText.setText(newFood.getName());
-            categoryEditText.setText(newFood.getCategory().toString());
+            categorySpinner.setSelection(newFood.getCategory().ordinal());
             servingEditText.setText(String.valueOf(newFood.getServing_Size()));
             caloriesEditText.setText(String.valueOf(newFood.getCalories()));
 
