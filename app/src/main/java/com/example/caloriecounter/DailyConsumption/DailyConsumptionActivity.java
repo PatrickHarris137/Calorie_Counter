@@ -48,9 +48,7 @@ public class DailyConsumptionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_consumption);
-        Toolbar toolbar = findViewById(R.id.toolbar);
         dailyConsumptionFragment = (DailyConsumptionFragment) getSupportFragmentManager().findFragmentById(R.id.fragment2);
-        setSupportActionBar(toolbar);
         FloatingActionButton addFood_FAB = findViewById(R.id.addFood_FAB);
         FloatingActionButton dailyFoodReturn=findViewById(R.id.dailyFoodReturn_FAB);
         FloatingActionButton weekly_FAB=findViewById(R.id.WeeklyFAB);

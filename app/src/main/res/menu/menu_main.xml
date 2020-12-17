@@ -3,28 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.caloriecounter.DailyMacroCounter.DailyMacroCounterActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/Logout"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/DailyMacroCounterOption"
-        android:orderInCategory="100"
-        android:title="@string/title_Daily_Macro_Counter"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/FoodDisplayOption"
-        android:orderInCategory="100"
-        android:title="@string/title_activity_food_display"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/WeeklyProgressionOption"
-        android:orderInCategory="100"
-        android:title="@string/title_activity_weekly_progression"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/DailyConsumptionOption"
-        android:orderInCategory="100"
-        android:title="@string/title_activity_daily_consumption"
+        android:title="Logout"
         app:showAsAction="never" />
 </menu>
