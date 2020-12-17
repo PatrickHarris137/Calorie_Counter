@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.example.caloriecounter.FoodDisplay.FoodDisplayActivity;
 import com.example.caloriecounter.model.DatabaseHandler;
 import com.example.caloriecounter.WeeklyProgression.WeeklyProgressionActivity;
+import com.example.caloriecounter.model.SampleData;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.example.caloriecounter.model.food_Item;
@@ -22,10 +23,27 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class DailyConsumptionActivity extends AppCompatActivity {
+    //Fields
+    //Date to be used for a user daily consumption
     public String date;
-    public String day;
+    //User id thats needed to query local db
+    public long userId;
+
     private DailyConsumptionFragment dailyConsumptionFragment;
 
+    //Getters
+    //Gets user id from daily macronutrient
+    public long getUserId() {
+        Intent intent = getIntent();
+        userId=intent.getLongExtra("userId",1);
+        return userId;
+    }
+    //Gets date from daily macronutrient
+    public String getDate(){
+        Intent intent = getIntent();
+        date=intent.getStringExtra("date");
+        return date;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +54,7 @@ public class DailyConsumptionActivity extends AppCompatActivity {
         FloatingActionButton addFood_FAB = findViewById(R.id.addFood_FAB);
         FloatingActionButton dailyFoodReturn=findViewById(R.id.dailyFoodReturn_FAB);
         FloatingActionButton weekly_FAB=findViewById(R.id.WeeklyFAB);
+
         addFood_FAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +69,7 @@ public class DailyConsumptionActivity extends AppCompatActivity {
 
                 Intent intent = getIntent();
                 if(date!=null)
-                    intent.putExtra("date",date.toString());
+                    intent.putExtra("date",date);
                 setResult(RESULT_OK, intent);
                 finish();
 
@@ -61,6 +80,7 @@ public class DailyConsumptionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Activity activity =(Activity) view.getContext();
                 Intent intent = new Intent(activity, WeeklyProgressionActivity.class);
+                intent.putExtra("userId",dailyConsumptionFragment.getUserId());
                 activity.startActivityForResult(intent,1);
             }
         });
@@ -74,11 +94,11 @@ public class DailyConsumptionActivity extends AppCompatActivity {
             String returnType = data.getStringExtra("returnType");
             if (returnType != null) {
                 if (returnType.equals("FoodDisplay")) {
-                    int test = 0;
                     food = data.getParcelableExtra("foodToAdd");
                     dailyConsumptionFragment.addFoodToMeal(food);
                 } else if (returnType.equals("WeeklyProgression")) {
                     dailyConsumptionFragment.setDayOfWeek(data.getStringExtra("day"));
+                    date=data.getStringExtra("date");
                     dailyConsumptionFragment.updateDay(data.getStringExtra("date"));
                 }
             }

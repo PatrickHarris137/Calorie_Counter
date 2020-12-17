@@ -46,6 +46,8 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
     // stores datetime
     private String localDate;
     private String today;
+    //Users id
+    private long userId;
 
     private String mondayDate;
     private String tuesdayDate;
@@ -65,6 +67,9 @@ public class WeeklyProgressionActivity extends AppCompatActivity {
 
         weeklyProgressionFragment = (WeeklyProgressionFragment) getSupportFragmentManager().findFragmentById(R.id.fragment4);
 
+        Intent intent = getIntent();
+        userId=intent.getLongExtra("userId",5);
+        weeklyProgressionFragment.setUserId(userId);
         TextView editMonday = findViewById(R.id.monday_Calories);
         TextView editTuesday = findViewById(R.id.tuesday_Calories);
         TextView editWednesday = findViewById(R.id.wednesday_Calories);
