@@ -36,6 +36,7 @@ public class AddFoodItemFragment extends Fragment {
     private EditText sodiumEditText;
 
     private Button addFoodSubmitButton;
+    private Button addFoodCancelButton;
 
     private food_Item newFood;
     private MacroNutrient newMacro;
@@ -103,6 +104,15 @@ public class AddFoodItemFragment extends Fragment {
                intent.putExtra("newMacro",newMacro);
                addFoodItemActivity.setResult(Activity.RESULT_OK,intent);
                addFoodItemActivity.finish();
+            }
+        });
+
+        addFoodCancelButton=root.findViewById(R.id.addFoodCancel_Button);
+        addFoodCancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addFoodItemActivity.setResult(Activity.RESULT_CANCELED);
+                addFoodItemActivity.finish();
             }
         });
 
