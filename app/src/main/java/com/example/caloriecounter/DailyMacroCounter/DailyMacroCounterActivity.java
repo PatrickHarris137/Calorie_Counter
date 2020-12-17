@@ -46,6 +46,8 @@ public class DailyMacroCounterActivity extends AppCompatActivity {
 
         FloatingActionButton editDaily = findViewById(R.id.edit_Daily);
 
+        dailyMacroCounterFragment.getDailyMacroNutrients();
+        dailyMacroCounterFragment.setMacroNutrientText();
 
         editDaily.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -73,9 +75,11 @@ public class DailyMacroCounterActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        localDate = data.getStringExtra("date");
-        dailyMacroCounterFragment.getDailyMacroNutrients();
-        dailyMacroCounterFragment.setMacroNutrientText();
+        if(resultCode == Activity.RESULT_OK){
+            localDate = data.getStringExtra("date");
+            dailyMacroCounterFragment.getDailyMacroNutrients();
+            dailyMacroCounterFragment.setMacroNutrientText();
+        }
     }
 
 
