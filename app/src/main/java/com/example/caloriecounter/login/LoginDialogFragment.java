@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.caloriecounter.DailyMacroCounter.DailyMacroCounterFragment;
 import com.example.caloriecounter.FoodApplication;
 import com.example.caloriecounter.R;
 import com.example.caloriecounter.model.DatabaseHandler;
@@ -23,6 +24,11 @@ public class LoginDialogFragment extends DialogFragment {
     private Button loginButton;
     private Button registerButton;
 
+    public void setDailyMacroCounterFragment(DailyMacroCounterFragment dailyMacroCounterFragment) {
+        this.dailyMacroCounterFragment = dailyMacroCounterFragment;
+    }
+
+    private DailyMacroCounterFragment dailyMacroCounterFragment;
 
     @Nullable
     @Override
@@ -87,7 +93,9 @@ public class LoginDialogFragment extends DialogFragment {
                 Toast.makeText(getContext(),"Login Error: "+message,Toast.LENGTH_LONG).show();
             }
         });
-        loginManager.login(usernameEditText.getText().toString(),passwordEditText.getText().toString());
+        loginManager.login(usernameEditText.getText().toString(),passwordEditText.getText().toString(),dailyMacroCounterFragment);
+        usernameEditText.setText("");
+        passwordEditText.setText("");
     }
 
 }

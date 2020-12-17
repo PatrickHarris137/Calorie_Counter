@@ -75,7 +75,7 @@ public class DailyConsumptionFragment extends Fragment {
 
         //Set Text views
         dayOfWeek=root.findViewById(R.id.day_TextView);
-        dayOfWeek.setText(getToday());
+        dayOfWeek.setText(dailyConsumptionActivity.getToday());
         dailyCaloriePercent = root.findViewById(R.id.dailyIntakePercent_TextView);
         dailyCalorieIntake=root.findViewById(R.id.dailyCalories_TextView);
 
@@ -95,7 +95,8 @@ public class DailyConsumptionFragment extends Fragment {
         //If a daily consumption doesnt exist yet, create one for the current day
         if(daily_consumption.getDate()==null){
             try{
-                dbh.getUser_Daily_Consumption_Table().create(new User_Daily_Consumption(userId,date));
+                daily_consumption=new User_Daily_Consumption(userId,date);
+                dbh.getUser_Daily_Consumption_Table().create(daily_consumption);
             }catch (Exception e){
 
             }
@@ -184,6 +185,7 @@ public class DailyConsumptionFragment extends Fragment {
 
     //Adds food item to adapters list
     public void addFoodToMeal(food_Item food){
+
         adapter.addFoodItem(food);
     }
     //Updates the day displayed, and sets the date

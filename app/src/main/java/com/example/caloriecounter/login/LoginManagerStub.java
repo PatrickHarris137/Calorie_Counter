@@ -2,7 +2,11 @@ package com.example.caloriecounter.login;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 
+import androidx.annotation.RequiresApi;
+
+import com.example.caloriecounter.DailyMacroCounter.DailyMacroCounterFragment;
 import com.example.caloriecounter.model.DatabaseHandler;
 import com.example.caloriecounter.model.user;
 
@@ -15,6 +19,7 @@ public class LoginManagerStub implements LoginManager {
     public static final String PREFERENCES_NAME = "login-manager";
     public static final String PREFERENCE_USERNAME = "username";
     public static final String PREFERENCE_UUID = "uuid";
+    public static final String PREFERENCE_USERID = "userId";
     private final DatabaseHandler dbh;
 
 
@@ -29,6 +34,7 @@ public class LoginManagerStub implements LoginManager {
             this.password = password;
         }
     }
+
     public long getUserId() {
         return userId;
     }
@@ -43,7 +49,7 @@ public class LoginManagerStub implements LoginManager {
     private boolean loggedIn;
     private String username;
     private String uuid;
-
+    private DailyMacroCounterFragment dailyMacroCounterFragment;
     private OnLoginListener onLoginListener;
 
     private Context context;
@@ -56,6 +62,7 @@ public class LoginManagerStub implements LoginManager {
             loggedIn=true;
             username=preferences.getString(PREFERENCES_NAME,"");
             uuid=preferences.getString(PREFERENCE_UUID,"");
+            userId=preferences.getLong(PREFERENCE_USERID,0);
         }
         else
             loggedIn=false;
@@ -66,18 +73,21 @@ public class LoginManagerStub implements LoginManager {
         this.onLoginListener = onLoginListener;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
-    public void login(String username, String password) {
+    public void login(String username, String password,DailyMacroCounterFragment dailyMacroCounterFragment) {
         user tempUser= dbh.get_UserForLogin(username,password);
         if(tempUser!=null){
 
             loggedIn=true;
             userId=tempUser.getId();
+            dailyMacroCounterFragment.getDailyMacroCounterActivity().setIdAndStarterData(userId);
             this.username=username;
             SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_NAME,Context.MODE_PRIVATE);
             preferences.edit()
                     .putString(PREFERENCE_USERNAME,username)
                     .putString(PREFERENCE_UUID,tempUser.getUUID())
+                    .putLong(PREFERENCE_USERID,tempUser.getId())
                     .apply();
             if(onLoginListener!=null)
                 onLoginListener.onLogin(tempUser.getUUID());

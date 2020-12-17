@@ -8,6 +8,8 @@ import android.os.Bundle;
 import com.example.caloriecounter.DailyConsumption.DailyConsumptionActivity;
 import com.example.caloriecounter.R;
 import com.example.caloriecounter.WeeklyProgression.WeeklyProgressionActivity;
+import com.example.caloriecounter.login.LoginManager;
+import com.example.caloriecounter.login.LoginManagerStub;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.Nullable;
@@ -29,6 +31,14 @@ public class DailyMacroCounterActivity extends AppCompatActivity {
 
     private String localDate;
 
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+    private String day;
     private long userId;
 
     private DailyMacroCounterFragment dailyMacroCounterFragment;
@@ -40,27 +50,27 @@ public class DailyMacroCounterActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         dailyMacroCounterFragment = (DailyMacroCounterFragment) getSupportFragmentManager().findFragmentById(R.id.fragment);
-
-        userId = dailyMacroCounterFragment.getUserId();
         localDate = LocalDate.now().toString();
 
         FloatingActionButton editDaily = findViewById(R.id.edit_Daily);
 
-        dailyMacroCounterFragment.getDailyMacroNutrients();
-        dailyMacroCounterFragment.setMacroNutrientText();
+
 
         editDaily.setOnClickListener(new View.OnClickListener() {
+
+
+
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent( dailyMacroCounterFragment.getContext(), DailyConsumptionActivity.class);
-
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE");
-                String today = simpleDateFormat.format(new Date());
+                if(day==null)
+                    day = simpleDateFormat.format(new Date());
 
                 intent.putExtra("userId", userId);
 
-                intent.putExtra("today", today);
+                intent.putExtra("day", day);
                 intent.putExtra("returntype", "DailyMacroCounter");
                 intent.putExtra("date",localDate);
 
@@ -71,11 +81,16 @@ public class DailyMacroCounterActivity extends AppCompatActivity {
         });
 
     }
-
+    public void setIdAndStarterData(long userId){
+        this.userId=userId;
+        dailyMacroCounterFragment.getDailyMacroNutrients();
+        dailyMacroCounterFragment.setMacroNutrientText();
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == Activity.RESULT_OK){
+            day=data.getStringExtra("day");
             localDate = data.getStringExtra("date");
             dailyMacroCounterFragment.getDailyMacroNutrients();
             dailyMacroCounterFragment.setMacroNutrientText();
@@ -99,9 +114,7 @@ public class DailyMacroCounterActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.Logout) {
-            Activity activity =(Activity)this;
-            Intent intent = new Intent(activity, DailyConsumptionActivity.class);
-            activity.startActivityForResult(intent,1);
+            dailyMacroCounterFragment.logout();
         }
 
         return super.onOptionsItemSelected(item);
